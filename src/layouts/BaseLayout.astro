@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { Icon } from "@astrojs/starlight/components";
 
 const {
 	title = "Bella Technologies | Professional Digital Studio",
@@ -23,7 +24,9 @@ const companyName = "Bella Technologies";
 		<header class="header">
 			<div class="container nav">
 				<a class="brand" href="/">
-					<div class="brand-mark" aria-hidden="true"></div>
+					<div class="brand-mark" aria-hidden="true">
+						<Icon class="brand-icon" name="seti:default" />
+					</div>
 					<span>{companyName}</span>
 				</a>
 				<nav class="menu" aria-label="Primary navigation">
