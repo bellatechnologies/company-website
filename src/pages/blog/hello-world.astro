@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const title = "Hello World! | Bella Technologies";
+const description =
+	"A quick hello from the Notes category at Bella Technologies.";
+---
+
+<BaseLayout title={title} description={description}>
+	<main>
+		<section class="section">
+			<div class="container">
+				<div class="section-title reveal">
+					<span class="hero-badge">Notes</span>
+					<h1>Hello World!</h1>
+					<p>
+						Welcome to our Notes category, where we share quick thoughts,
+						updates, and behind-the-scenes snippets from the studio.
+					</p>
+				</div>
+				<div class="reveal">
+					<p>
+						This first post is a simple hello and a promise to keep things
+						clear, helpful, and grounded in practical digital strategy.
+					</p>
+					<p>
+						Expect short write-ups on brand clarity, design decisions, and
+						performance-minded builds that keep sites fast and focused.
+					</p>
+					<p>
+						If there is a topic you would like us to cover, let us know and we
+						will add it to the Notes queue.
+					</p>
+					<a class="secondary-button" href="/blog">Back to Blog</a>
+				</div>
+			</div>
+		</section>
+	</main>
+</BaseLayout>

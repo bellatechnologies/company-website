@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Portfolio | Bella Technologies";
+const description =
+	"Explore recent launches that balance storytelling and conversion-focused UX.";
+---
+
+<BaseLayout title={title} description={description}>
+	<main>
+		<section class="section">
+			<div class="container">
+				<div class="section-title reveal">
+					<h1>Portfolio</h1>
+					<p>
+						A selection of recent launches. Each project reflects a focused
+						balance of storytelling and conversion-driven layout.
+					</p>
+				</div>
+				<div class="portfolio-grid">
+					<article class="portfolio-card reveal">
+						<strong>Nova Health Labs</strong>
+						<p>
+							A premium healthcare brand refresh with multi-step onboarding and
+							lead capture.
+						</p>
+						<div class="portfolio-meta">
+							<span>Brand refresh</span>
+							<span>Astro SSG</span>
+							<span>UX strategy</span>
+						</div>
+					</article>
+					<article class="portfolio-card reveal">
+						<strong>Altitude Capital</strong>
+						<p>
+							A sleek fintech presence designed to convert high-value investors
+							into booked consultations.
+						</p>
+						<div class="portfolio-meta">
+							<span>Website redesign</span>
+							<span>Analytics</span>
+							<span>SEO</span>
+						</div>
+					</article>
+					<article class="portfolio-card reveal">
+						<strong>Studio Lumen</strong>
+						<p>
+							A visual-forward portfolio showcasing creative direction and
+							production workflows.
+						</p>
+						<div class="portfolio-meta">
+							<span>Visual identity</span>
+							<span>Interactive UI</span>
+							<span>Performance</span>
+						</div>
+					</article>
+				</div>
+			</div>
+		</section>
+	</main>
+</BaseLayout>

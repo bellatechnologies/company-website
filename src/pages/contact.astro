@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const title = "Contact | Bella Technologies";
+const description =
+	"Start your next project with Bella Technologies. We respond within one business day.";
+---
+
+<BaseLayout title={title} description={description}>
+	<main>
+		<section class="section">
+			<div class="container contact reveal">
+				<div>
+					<h1>Contact</h1>
+					<p>
+						Ready for a refined digital presence? Share your project details,
+						and we will respond within one business day.
+					</p>
+					<p>
+						<strong>Email:</strong> hello@bellatechnologies.co
+						<br />
+						<strong>Location:</strong> Global / Remote
+					</p>
+				</div>
+				<form>
+					<div>
+						<label for="name">Name</label>
+						<input id="name" name="name" type="text" placeholder="Jane Doe" />
+					</div>
+					<div>
+						<label for="email">Email</label>
+						<input id="email" name="email" type="email" placeholder="jane@email.com" />
+					</div>
+					<div>
+						<label for="message">Project details</label>
+						<textarea id="message" name="message" placeholder="Tell us about your goals"></textarea>
+					</div>
+					<button class="primary-button" type="submit">Send Inquiry</button>
+				</form>
+			</div>
+		</section>
+	</main>
+</BaseLayout>
