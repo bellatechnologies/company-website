@@ -9,7 +9,7 @@ Built a Professional, Clean website.
 - [x] Keep the background white
 - [x] Use Catppuccin (https://github.com/catppuccin) for backgrounds, menu hovers, etc.
 - [x] Include animation in the page when the page scrolls or when a particular element comes in to viewport
-- [ ] Suggest animations
+- [x] Suggest animations
 - [x] Use Starlight built-in icons for CTA buttons
 
 ## Styling (Astro)
@@ -30,3 +30,4 @@ Built a Professional, Clean website.
 - [x] Portfolio
 - [x] Blog
 - [x] Contact
+- [x] Highlight the active page in the nav

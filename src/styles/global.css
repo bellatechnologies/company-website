@@ -134,8 +134,17 @@ img {
 	color: #8839ef;
 }
 
+.menu a.is-active {
+	color: #8839ef;
+}
+
 .menu a:hover::after,
 .menu a:focus-visible::after {
+	opacity: 1;
+	transform: scaleX(1);
+}
+
+.menu a.is-active::after {
 	opacity: 1;
 	transform: scaleX(1);
 }

@@ -8,6 +8,17 @@ const {
 } = Astro.props;
 
 const companyName = "Bella Technologies";
+const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
+const navItems = [
+	{ label: "Home", href: "/" },
+	{ label: "About", href: "/about" },
+	{ label: "Portfolio", href: "/portfolio" },
+	{ label: "Blog", href: "/blog" },
+	{ label: "Contact", href: "/contact" },
+];
+
+const isActive = (href: string) =>
+	pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
 ---
 <!doctype html>
 <html lang="en">
@@ -30,11 +41,15 @@ const companyName = "Bella Technologies";
 					<span>{companyName}</span>
 				</a>
 				<nav class="menu" aria-label="Primary navigation">
-					<a href="/">Home</a>
-					<a href="/about">About</a>
-					<a href="/portfolio">Portfolio</a>
-					<a href="/blog">Blog</a>
-					<a href="/contact">Contact</a>
+					{navItems.map(({ label, href }) => (
+						<a
+							href={href}
+							class={isActive(href) ? "is-active" : undefined}
+							aria-current={isActive(href) ? "page" : undefined}
+						>
+							{label}
+						</a>
+					))}
 				</nav>
 				<a class="primary-button" href="/contact">Book a Call</a>
 			</div>
