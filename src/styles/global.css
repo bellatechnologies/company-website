@@ -340,6 +340,13 @@ main {
 	margin-bottom: 14px;
 }
 
+.card time {
+	display: block;
+	color: var(--muted);
+	font-size: 0.85rem;
+	margin-bottom: 12px;
+}
+
 .card h3 {
 	font-size: 1.1rem;
 	margin-bottom: 10px;

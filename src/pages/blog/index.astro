@@ -4,6 +4,32 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 const title = "Blog | Bella Technologies";
 const description =
 	"Insights on digital strategy, design systems, and high-performing websites.";
+
+type BlogPostMeta = {
+	title: string;
+	description: string;
+	category: string;
+	date: string;
+	slug: string;
+};
+
+const postModules = Object.values(
+	import.meta.glob("./*.astro", { eager: true })
+) as Array<{ meta?: BlogPostMeta }>;
+
+const posts = postModules
+	.map((postModule) => postModule.meta)
+	.filter((post): post is BlogPostMeta => Boolean(post))
+	.sort(
+		(a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+	);
+
+const formatDate = (date: string) =>
+	new Intl.DateTimeFormat("en-US", {
+		month: "short",
+		day: "numeric",
+		year: "numeric",
+	}).format(new Date(date));
 ---
 
 <BaseLayout title={title} description={description}>
@@ -18,38 +44,16 @@ const description =
 					</p>
 				</div>
 				<div class="cards blog-cards">
-					<article class="card reveal">
-						<span>Notes</span>
-						<h3><a href="/blog/hello-world">Hello World!</a></h3>
-						<p>
-							A quick kickoff note for our blog and a simple hello to new
-							visitors.
-						</p>
-					</article>
-					<article class="card reveal">
-						<span>Strategy</span>
-						<h3>Designing conversion-ready homepages</h3>
-						<p>
-							A practical framework for structuring hero sections, proof points,
-							and CTAs that feel effortless.
-						</p>
-					</article>
-					<article class="card reveal">
-						<span>Design</span>
-						<h3>Catppuccin accents that stay professional</h3>
-						<p>
-							How we layer gentle gradients, hover states, and muted shadows
-							without over-saturating the layout.
-						</p>
-					</article>
-					<article class="card reveal">
-						<span>Build</span>
-						<h3>Why Astro SSG keeps clients fast</h3>
-						<p>
-							The case for static delivery, edge caching, and content that loads
-							before the user finishes the first scroll.
-						</p>
-					</article>
+					{posts.map((post) => (
+						<article class="card reveal">
+							<span>{post.category}</span>
+							<time datetime={post.date}>{formatDate(post.date)}</time>
+							<h3>
+								<a href={`/blog/${post.slug}`}>{post.title}</a>
+							</h3>
+							<p>{post.description}</p>
+						</article>
+					))}
 				</div>
 			</div>
 		</section>

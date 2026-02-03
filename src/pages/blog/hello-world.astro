@@ -1,9 +1,16 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
-const title = "Hello World! | Bella Technologies";
-const description =
-	"A quick hello from the Notes category at Bella Technologies.";
+export const meta = {
+	title: "Hello World!",
+	description: "A quick hello from the Notes category at Bella Technologies.",
+	category: "Notes",
+	date: "2026-02-03",
+	slug: "hello-world",
+};
+
+const title = `${meta.title} | Bella Technologies`;
+const description = meta.description;
 ---
 
 <BaseLayout title={title} description={description}>
