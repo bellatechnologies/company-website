@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getEntry } from "astro:content";
 
 export const meta = {
 	title: "Hello World!",
@@ -11,6 +12,9 @@ export const meta = {
 
 const title = `${meta.title} | Bella Technologies`;
 const description = meta.description;
+const categoryEntry = await getEntry("blogCategories", "notes");
+const categoryLabel = categoryEntry?.data?.name ?? meta.category;
+const categoryDescription = categoryEntry?.data?.description ?? meta.description;
 ---
 
 <BaseLayout title={title} description={description}>
@@ -18,12 +22,9 @@ const description = meta.description;
 		<section class="section">
 			<div class="container">
 				<div class="section-title reveal">
-					<span class="hero-badge">Notes</span>
+					<span class="hero-badge">{categoryLabel}</span>
 					<h1>Hello World!</h1>
-					<p>
-						Welcome to our Notes category, where we share quick thoughts,
-						updates, and behind-the-scenes snippets from the studio.
-					</p>
+					<p>{categoryDescription}</p>
 				</div>
 				<div class="reveal">
 					<p>
