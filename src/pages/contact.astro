@@ -1,10 +1,14 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
+export const prerender = false;
+
 const title = "Contact | Bella Technologies";
 const description =
 	"Start your next project with Bella Technologies. We respond within one business day.";
-const sent = Astro.url.searchParams.get("sent") === "1";
+const requestUrl = Astro.request?.url ?? Astro.url?.toString();
+const sent = requestUrl ? new URL(requestUrl).searchParams.get("sent") === "1" : false;
+const error = requestUrl ? new URL(requestUrl).searchParams.get("error") : null;
 ---
 
 <BaseLayout title={title} description={description}>
@@ -17,19 +21,39 @@ const sent = Astro.url.searchParams.get("sent") === "1";
 						Ready for a refined digital presence? Share your project details,
 						and we will respond within one business day.
 					</p>
-					{sent && (
-						<p>
-							<strong>Thanks!</strong> Your inquiry has been sent. We will be in
-							touch within one business day.
-						</p>
-					)}
+					<p id="contact-success" class="contact-success" role="status" hidden={!sent}>
+						<strong>Thanks!</strong> Your inquiry has been sent. We will be in
+						touch within one business day.
+					</p>
+					<p
+						id="contact-error"
+						class="contact-error"
+						role="alert"
+						hidden={!error}
+					>
+						<strong>Sorry —</strong> we could not send your inquiry. Please email
+						us directly at hello@bellatechnologies.co.
+					</p>
 					<p>
 						<strong>Email:</strong> hello@bellatechnologies.co
 						<br />
 						<strong>Location:</strong> Global / Remote
 					</p>
 				</div>
-				<form action="/api/contact" method="post">
+				<form id="contact-form" action="/api/contact" method="post">
+					<div
+						style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;"
+						aria-hidden="true"
+					>
+						<label for="website">Website</label>
+						<input
+							id="website"
+							name="website"
+							type="text"
+							tabindex="-1"
+							autocomplete="off"
+						/>
+					</div>
 					<div>
 						<label for="name">Name</label>
 						<input
@@ -64,4 +88,17 @@ const sent = Astro.url.searchParams.get("sent") === "1";
 			</div>
 		</section>
 	</main>
+	<script is:inline>
+		{`
+		const successEl = document.getElementById("contact-success");
+		const errorEl = document.getElementById("contact-error");
+		const searchParams = new URLSearchParams(window.location.search);
+		if (successEl && searchParams.get("sent") === "1") {
+			successEl.hidden = false;
+		}
+		if (errorEl && searchParams.get("error")) {
+			errorEl.hidden = false;
+		}
+		`}
+	</script>
 </BaseLayout>

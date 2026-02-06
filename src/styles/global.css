@@ -453,6 +453,15 @@ main {
 	gap: 14px;
 }
 
+.contact-success {
+	padding: 12px 14px;
+	border-radius: 12px;
+	border: 1px solid rgba(136, 57, 239, 0.2);
+	background: rgba(136, 57, 239, 0.08);
+	color: #4b2a7b;
+	margin: 12px 0 16px;
+}
+
 label {
 	font-weight: 600;
 	font-size: 0.9rem;
