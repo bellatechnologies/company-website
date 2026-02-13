@@ -3,6 +3,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { Icon } from "@astrojs/starlight/components";
 
 const companyName = "Bella Technologies";
+
+// Check maintenance mode at build time
+const MAINTENANCE_MODE = import.meta.env.MAINTENANCE_MODE === 'true' || import.meta.env.MAINTENANCE_MODE === 'TRUE';
+
+// If maintenance mode is enabled, redirect to maintenance page
+if (MAINTENANCE_MODE) {
+	return Astro.redirect('/maintenance', 302);
+}
 ---
 
 <BaseLayout

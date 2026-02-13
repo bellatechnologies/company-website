@@ -1,6 +1,8 @@
 import { defineMiddleware } from 'astro:middleware';
 
-const MAINTENANCE_MODE = import.meta.env.MAINTENANCE_MODE === 'true';
+// Check maintenance mode - handle both 'true' and 'TRUE' (case-insensitive)
+const MAINTENANCE_MODE = import.meta.env.MAINTENANCE_MODE === 'true' || 
+                          import.meta.env.MAINTENANCE_MODE === 'TRUE';
 
 export const onRequest = defineMiddleware(async (context, next) => {
     if (MAINTENANCE_MODE) {
