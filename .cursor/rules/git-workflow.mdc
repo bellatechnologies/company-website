@@ -1,0 +1,176 @@
+---
+description: Git workflow standards: branching model and commit conventions
+alwaysApply: true
+---
+
+# Git Workflow Standards
+
+This rule combines git-flow branching model and conventional commits standards for a complete git workflow.
+
+## 1. Git Branching Model (Git-flow)
+
+Follow the [git-flow branching model](https://nvie.com/posts/a-successful-git-branching-model/) for organized development workflow.
+
+### Main Branches
+
+- **`master`**: Production-ready code, only updated via merges from release or hotfix branches
+- **`develop`**: Integration branch for features, latest development changes
+
+### Supporting Branches
+
+#### Feature Branches (`feature-*`)
+- Branch from: `develop`
+- Merge back to: `develop`
+- Naming: `feature/description` or `feature/issue-123-description`
+- When to create: Starting new feature development
+- When to merge: Feature is complete and tested
+
+```bash
+# Create feature branch
+git checkout -b feature/user-authentication develop
+
+# Work on feature, then merge back
+git checkout develop
+git merge --no-ff feature/user-authentication
+git branch -d feature/user-authentication
+```
+
+#### Release Branches (`release-*`)
+- Branch from: `develop`
+- Merge back to: `develop` AND `master`
+- Naming: `release/v1.2.0` or `release/1.2.0`
+- When to create: When develop has enough features for a release
+- When to merge: Release is ready for production
+
+```bash
+# Create release branch
+git checkout -b release/v1.2.0 develop
+
+# Finalize release, then merge
+git checkout master
+git merge --no-ff release/v1.2.0
+git tag -a v1.2.0 -m "Release version 1.2.0"
+
+git checkout develop
+git merge --no-ff release/v1.2.0
+git branch -d release/v1.2.0
+```
+
+#### Hotfix Branches (`hotfix-*`)
+- Branch from: `master`
+- Merge back to: `master` AND `develop`
+- Naming: `hotfix/critical-bug-fix` or `hotfix/issue-456-fix`
+- When to create: Critical bug in production
+- When to merge: Hotfix is tested and ready
+
+```bash
+# Create hotfix branch
+git checkout -b hotfix/critical-security-fix master
+
+# Fix the issue, then merge
+git checkout master
+git merge --no-ff hotfix/critical-security-fix
+git tag -a v1.1.1 -m "Hotfix for critical security issue"
+
+git checkout develop
+git merge --no-ff hotfix/critical-security-fix
+git branch -d hotfix/critical-security-fix
+```
+
+### Branch Management Rules
+
+- Never commit directly to `master` or `develop`
+- Use `--no-ff` flag for all merges to preserve branch history
+- Delete branches after successful merge
+- Tag releases on master branch
+- Keep branch names descriptive and prefixed appropriately
+
+## 2. Conventional Commits
+
+Follow the [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0/) for standardized commit messages.
+
+### Commit Message Format
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+### Commit Types
+
+- **`feat`**: New feature
+- **`fix`**: Bug fix
+- **`docs`**: Documentation changes
+- **`style`**: Code style changes (formatting, semicolons, etc.)
+- **`refactor`**: Code refactoring without feature or bug changes
+- **`test`**: Adding or updating tests
+- **`chore`**: Maintenance tasks (build, dependencies, etc.)
+- **`perf`**: Performance improvements
+- **`ci`**: CI/CD changes
+- **`build`**: Build system changes
+
+### Examples
+
+#### Basic Commits
+```bash
+git commit -m "feat: add user authentication system"
+
+git commit -m "fix: resolve memory leak in data processing"
+
+git commit -m "docs: update API documentation for v2.0"
+
+git commit -m "style: format code according to prettier rules"
+
+git commit -m "refactor: extract validation logic to separate module"
+
+git commit -m "test: add unit tests for user service"
+
+git commit -m "chore: update dependencies to latest versions"
+```
+
+#### With Scope
+```bash
+git commit -m "feat(auth): implement OAuth2 login flow"
+
+git commit -m "fix(api): handle null response from external service"
+
+git commit -m "refactor(db): optimize query performance"
+```
+
+#### Breaking Changes
+```bash
+git commit -m "feat!: remove deprecated API endpoints
+
+BREAKING CHANGE: The /v1/users endpoint has been removed.
+Use /v2/users instead."
+
+git commit -m "fix(auth): update token validation
+
+BREAKING CHANGE: Token format now requires 'type' field"
+```
+
+#### With Body and Footer
+```bash
+git commit -m "feat: implement user profile system
+
+- Add profile picture upload
+- Support for bio and social links
+- Privacy settings for profile visibility
+
+Closes #123"
+```
+
+### Guidelines
+
+- Use present tense ("add" not "added")
+- Start with lowercase letter
+- No period at end of description
+- Keep first line under 72 characters
+- Use scope for related changes (component, module, etc.)
+- Use `!` after type for breaking changes
+- Reference issues with `Closes #123`, `Fixes #456`
+- Separate body from header with blank line
+- Wrap body at 72 characters
