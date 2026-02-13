@@ -1,0 +1,83 @@
+---
+import "../styles/global.css";
+import { Icon } from "@astrojs/starlight/components";
+
+const {
+	title = "Bella Technologies | Professional Digital Studio",
+	description = "Bella Technologies delivers clean, scalable digital experiences for modern brands.",
+} = Astro.props;
+
+const companyName = "Bella Technologies";
+const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
+const navItems = [
+	{ label: "Home", href: "/" },
+	{ label: "About", href: "/about" },
+	{ label: "Portfolio", href: "/portfolio" },
+	{ label: "Blog", href: "/blog" },
+	{ label: "Contact", href: "/contact" },
+];
+
+const isActive = (href: string) =>
+	pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
+---
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<header class="header">
+			<div class="container nav">
+				<a class="brand" href="/">
+					<div class="brand-mark" aria-hidden="true">
+						<Icon class="brand-icon" name="seti:default" />
+					</div>
+					<span>{companyName}</span>
+				</a>
+				<nav class="menu" aria-label="Primary navigation">
+					{navItems.map(({ label, href }) => (
+						<a
+							href={href}
+							class={isActive(href) ? "is-active" : undefined}
+							aria-current={isActive(href) ? "page" : undefined}
+						>
+							{label}
+						</a>
+					))}
+				</nav>
+				<a class="primary-button" href="/contact">Book a Call</a>
+			</div>
+		</header>
+
+		<slot />
+
+		<footer class="footer">
+			<div class="container">
+				<p>© 2026 {companyName}. Crafted with Astro SSG.</p>
+			</div>
+		</footer>
+
+		<script is:inline>
+			const revealElements = document.querySelectorAll(".reveal");
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add("reveal-visible");
+							observer.unobserve(entry.target);
+						}
+					});
+				},
+				{ threshold: 0.2 }
+			);
+
+			revealElements.forEach((element) => observer.observe(element));
+		</script>
+	</body>
+</html>

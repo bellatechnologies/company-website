@@ -1,0 +1,104 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+export const prerender = false;
+
+const title = "Contact | Bella Technologies";
+const description =
+	"Start your next project with Bella Technologies. We respond within one business day.";
+const requestUrl = Astro.request?.url ?? Astro.url?.toString();
+const sent = requestUrl ? new URL(requestUrl).searchParams.get("sent") === "1" : false;
+const error = requestUrl ? new URL(requestUrl).searchParams.get("error") : null;
+---
+
+<BaseLayout title={title} description={description}>
+	<main>
+		<section class="section">
+			<div class="container contact reveal">
+				<div>
+					<h1>Contact</h1>
+					<p>
+						Ready for a refined digital presence? Share your project details,
+						and we will respond within one business day.
+					</p>
+					<p id="contact-success" class="contact-success" role="status" hidden={!sent}>
+						<strong>Thanks!</strong> Your inquiry has been sent. We will be in
+						touch within one business day.
+					</p>
+					<p
+						id="contact-error"
+						class="contact-error"
+						role="alert"
+						hidden={!error}
+					>
+						<strong>Sorry —</strong> we could not send your inquiry. Please email
+						us directly at hello@bellatechnologies.co.
+					</p>
+					<p>
+						<strong>Email:</strong> hello@bellatechnologies.co
+						<br />
+						<strong>Location:</strong> Global / Remote
+					</p>
+				</div>
+				<form id="contact-form" action="/api/contact" method="post">
+					<div
+						style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;"
+						aria-hidden="true"
+					>
+						<label for="website">Website</label>
+						<input
+							id="website"
+							name="website"
+							type="text"
+							tabindex="-1"
+							autocomplete="off"
+						/>
+					</div>
+					<div>
+						<label for="name">Name</label>
+						<input
+							id="name"
+							name="name"
+							type="text"
+							placeholder="Jane Doe"
+							required
+						/>
+					</div>
+					<div>
+						<label for="email">Email</label>
+						<input
+							id="email"
+							name="email"
+							type="email"
+							placeholder="jane@email.com"
+							required
+						/>
+					</div>
+					<div>
+						<label for="message">Project details</label>
+						<textarea
+							id="message"
+							name="message"
+							placeholder="Tell us about your goals"
+							required
+						></textarea>
+					</div>
+					<button class="primary-button" type="submit">Send Inquiry</button>
+				</form>
+			</div>
+		</section>
+	</main>
+	<script is:inline>
+		{`
+		const successEl = document.getElementById("contact-success");
+		const errorEl = document.getElementById("contact-error");
+		const searchParams = new URLSearchParams(window.location.search);
+		if (successEl && searchParams.get("sent") === "1") {
+			successEl.hidden = false;
+		}
+		if (errorEl && searchParams.get("error")) {
+			errorEl.hidden = false;
+		}
+		`}
+	</script>
+</BaseLayout>

@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const title = "Blog | Bella Technologies";
+const description =
+	"Insights on digital strategy, design systems, and high-performing websites.";
+
+type BlogPostMeta = {
+	title: string;
+	description: string;
+	category: string;
+	date: string;
+	slug: string;
+};
+
+const postModules = Object.values(
+	import.meta.glob("./*.astro", { eager: true })
+) as Array<{ meta?: BlogPostMeta }>;
+
+const posts = postModules
+	.map((postModule) => postModule.meta)
+	.filter((post): post is BlogPostMeta => Boolean(post))
+	.sort(
+		(a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+	);
+
+const formatDate = (date: string) =>
+	new Intl.DateTimeFormat("en-US", {
+		month: "short",
+		day: "numeric",
+		year: "numeric",
+	}).format(new Date(date));
+---
+
+<BaseLayout title={title} description={description}>
+	<main>
+		<section class="section">
+			<div class="container">
+				<div class="section-title reveal">
+					<h1>Blog</h1>
+					<p>
+						Notes from our studio on brand clarity, Catppuccin-inspired UI, and
+						performance-first builds.
+					</p>
+				</div>
+				<div class="cards blog-cards">
+					{posts.map((post) => (
+						<article class="card reveal">
+							<span>{post.category}</span>
+							<time datetime={post.date}>{formatDate(post.date)}</time>
+							<h3>
+								<a href={`/blog/${post.slug}`}>{post.title}</a>
+							</h3>
+							<p>{post.description}</p>
+						</article>
+					))}
+				</div>
+			</div>
+		</section>
+	</main>
+</BaseLayout>
