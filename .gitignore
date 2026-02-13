@@ -23,3 +23,5 @@ pnpm-debug.log*
 # IDE settings
 .idea/
 .vscode/
+
+DEPLOYMENT.md
