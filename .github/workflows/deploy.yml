@@ -1,0 +1,131 @@
+name: Deploy to Production
+
+on:
+  # Trigger on tag creation (e.g., v1.0.0)
+  push:
+    tags:
+      - 'v*'  # Matches tags like v1.0.0, v1.2.3, etc.
+  
+  # Trigger on release creation
+  release:
+    types: [published]
+  
+  # Allow manual trigger from GitHub Actions UI
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to deploy (e.g., v1.0.0)'
+        required: false
+        type: string
+
+jobs:
+  deploy:
+    name: Deploy to Linode
+    runs-on: self-hosted
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          # Fetch tags for version information
+          fetch-depth: 0
+      
+      - name: Get version from tag
+        id: get_version
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ] && [ -n "${{ github.event.inputs.tag }}" ]; then
+            echo "version=${{ github.event.inputs.tag }}" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event_name }}" == "release" ]; then
+            echo "version=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
+          else
+            echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Display deployment info
+        run: |
+          echo "🚀 Deploying version: ${{ steps.get_version.outputs.version }}"
+          echo "📦 Repository: ${{ github.repository }}"
+          echo "🔖 Ref: ${{ github.ref }}"
+          echo "👤 Actor: ${{ github.actor }}"
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build project
+        run: npm run build
+        env:
+          NODE_ENV: production
+          # GitHub Secrets (encrypted, sensitive data)
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          # GitHub Variables (non-sensitive configuration)
+          FROM_EMAIL: ${{ vars.FROM_EMAIL }}
+          MAINTENANCE_MODE: ${{ vars.MAINTENANCE_MODE }}
+      
+      - name: Verify build output
+        run: |
+          if [ ! -d "dist" ] || [ -z "$(ls -A dist)" ]; then
+            echo "❌ Build failed: dist directory is empty or missing"
+            exit 1
+          fi
+          echo "✅ Build successful: $(du -sh dist | cut -f1) of files generated"
+      
+      - name: Backup current deployment
+        run: |
+          if [ -d "/var/www/bellatechnologies.in/dist" ]; then
+            BACKUP_DIR="/var/www/bellatechnologies.in/backups/$(date +%Y%m%d-%H%M%S)"
+            sudo mkdir -p "$BACKUP_DIR"
+            sudo cp -r /var/www/bellatechnologies.in/dist "$BACKUP_DIR/"
+            echo "📦 Backup created at: $BACKUP_DIR"
+          fi
+        continue-on-error: true
+      
+      - name: Deploy to web directory
+        run: |
+          echo "📤 Deploying files to production..."
+          sudo rm -rf /var/www/bellatechnologies.in/dist
+          sudo mkdir -p /var/www/bellatechnologies.in/dist
+          sudo cp -r dist/* /var/www/bellatechnologies.in/dist/
+          sudo chown -R www-data:www-data /var/www/bellatechnologies.in/dist
+          sudo chmod -R 755 /var/www/bellatechnologies.in/dist
+          echo "✅ Files deployed successfully"
+      
+      - name: Create production environment file
+        run: |
+          echo "📝 Creating production environment file..."
+          sudo tee /var/www/bellatechnologies.in/.env.production > /dev/null <<EOF
+          RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
+          FROM_EMAIL=${{ vars.FROM_EMAIL }}
+          MAINTENANCE_MODE=${{ vars.MAINTENANCE_MODE }}
+          EOF
+          sudo chown www-data:www-data /var/www/bellatechnologies.in/.env.production
+          sudo chmod 600 /var/www/bellatechnologies.in/.env.production
+          echo "✅ Production environment file created"
+      
+      - name: Reload Nginx
+        run: |
+          echo "🔄 Reloading Nginx..."
+          sudo nginx -t && sudo systemctl reload nginx
+          echo "✅ Nginx reloaded successfully"
+      
+      - name: Verify deployment
+        run: |
+          echo "🔍 Verifying deployment..."
+          if [ ! -f "/var/www/bellatechnologies.in/dist/index.html" ]; then
+            echo "❌ Deployment verification failed: index.html not found"
+            exit 1
+          fi
+          echo "✅ Deployment verified: index.html exists"
+          echo "🌐 Website should be live at: http://bellatechnologies.in"
+      
+      - name: Cleanup old backups
+        run: |
+          # Keep only last 5 backups
+          sudo find /var/www/bellatechnologies.in/backups -maxdepth 1 -type d -name "20*" | sort -r | tail -n +6 | sudo xargs rm -rf
+          echo "🧹 Old backups cleaned up"
+        continue-on-error: true
