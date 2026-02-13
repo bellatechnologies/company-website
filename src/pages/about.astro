@@ -4,6 +4,12 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 const title = "About | Bella Technologies";
 const description =
 	"Learn about Bella Technologies and our workflow-first approach for MSMEs.";
+
+// Check maintenance mode at build time
+const MAINTENANCE_MODE = import.meta.env.MAINTENANCE_MODE === 'true' || import.meta.env.MAINTENANCE_MODE === 'TRUE';
+if (MAINTENANCE_MODE) {
+	return Astro.redirect('/maintenance', 302);
+}
 ---
 
 <BaseLayout title={title} description={description}>

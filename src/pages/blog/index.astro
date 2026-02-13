@@ -5,6 +5,12 @@ const title = "Blog | Bella Technologies";
 const description =
 	"Insights on digital strategy, design systems, and high-performing websites.";
 
+// Check maintenance mode at build time
+const MAINTENANCE_MODE = import.meta.env.MAINTENANCE_MODE === 'true' || import.meta.env.MAINTENANCE_MODE === 'TRUE';
+if (MAINTENANCE_MODE) {
+	return Astro.redirect('/maintenance', 302);
+}
+
 type BlogPostMeta = {
 	title: string;
 	description: string;
