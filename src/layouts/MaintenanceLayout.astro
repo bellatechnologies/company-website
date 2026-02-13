@@ -1,0 +1,60 @@
+---
+import "../styles/global.css";
+import { Icon } from "@astrojs/starlight/components";
+
+const {
+	title = "New Website Coming Soon | Bella Technologies",
+	description = "Bella Technologies is launching a brand new website! Our redesigned site is under construction and will launch soon with exciting new features.",
+} = Astro.props;
+
+const companyName = "Bella Technologies";
+---
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<title>{title}</title>
+	</head>
+	<body>
+		<header class="header">
+			<div class="container nav" style="justify-content: center;">
+				<a class="brand" href="/">
+					<div class="brand-mark" aria-hidden="true">
+						<Icon class="brand-icon" name="seti:default" />
+					</div>
+					<span>{companyName}</span>
+				</a>
+			</div>
+		</header>
+
+		<slot />
+
+		<footer class="footer">
+			<div class="container" style="text-align: center;">
+				<p>© 2026 {companyName}. Crafted with ❤️ and Astro SSG.</p>
+			</div>
+		</footer>
+
+		<script is:inline>
+			const revealElements = document.querySelectorAll(".reveal");
+			const observer = new IntersectionObserver(
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.isIntersecting) {
+							entry.target.classList.add("reveal-visible");
+							observer.unobserve(entry.target);
+						}
+					});
+				},
+				{ threshold: 0.2 }
+			);
+
+			revealElements.forEach((element) => observer.observe(element));
+		</script>
+	</body>
+</html>
