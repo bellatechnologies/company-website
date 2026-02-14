@@ -96,6 +96,17 @@ jobs:
           sudo chmod -R 755 /var/www/bellatechnologies.in/dist
           echo "Files deployed successfully"
       
+      - name: Deploy scripts directory
+        run: |
+          echo "Deploying scripts directory to production..."
+          sudo mkdir -p /var/www/bellatechnologies.in/scripts
+          sudo cp -r scripts/* /var/www/bellatechnologies.in/scripts/
+          sudo chown -R www-data:www-data /var/www/bellatechnologies.in/scripts
+          sudo chmod -R 755 /var/www/bellatechnologies.in/scripts
+          # Ensure Python scripts are executable
+          sudo find /var/www/bellatechnologies.in/scripts -name "*.py" -exec chmod +x {} \;
+          echo "Scripts deployed successfully"
+      
       - name: Create production environment file
         run: |
           echo "Creating production environment file..."
@@ -111,8 +122,8 @@ jobs:
       - name: Configure Nginx Maintenance Mode
         run: |
           echo "Configuring nginx based on maintenance mode..."
-          if [ -f "scripts/configure-nginx-maintenance.py" ]; then
-            sudo python3 scripts/configure-nginx-maintenance.py
+          if [ -f "/var/www/bellatechnologies.in/scripts/configure-nginx-maintenance.py" ]; then
+            sudo python3 /var/www/bellatechnologies.in/scripts/configure-nginx-maintenance.py
           else
             echo "Warning: Maintenance configuration script not found, skipping nginx maintenance mode setup"
             echo "Reloading Nginx..."
