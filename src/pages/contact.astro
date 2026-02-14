@@ -5,12 +5,6 @@ const title = "Contact | Bella Technologies";
 const description =
 	"Start your next project with Bella Technologies. We respond within one business day.";
 
-// Check maintenance mode at build time
-const MAINTENANCE_MODE = import.meta.env.MAINTENANCE_MODE === 'true' || import.meta.env.MAINTENANCE_MODE === 'TRUE';
-if (MAINTENANCE_MODE) {
-	return Astro.redirect('/maintenance', 302);
-}
-
 const requestUrl = Astro.url?.toString();
 const sent = requestUrl ? new URL(requestUrl).searchParams.get("sent") === "1" : false;
 const error = requestUrl ? new URL(requestUrl).searchParams.get("error") : null;

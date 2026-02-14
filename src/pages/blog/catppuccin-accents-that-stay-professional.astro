@@ -10,12 +10,6 @@ export const meta = {
 	slug: "catppuccin-accents-that-stay-professional",
 };
 
-// Check maintenance mode at build time
-const MAINTENANCE_MODE = import.meta.env.MAINTENANCE_MODE === 'true' || import.meta.env.MAINTENANCE_MODE === 'TRUE';
-if (MAINTENANCE_MODE) {
-	return Astro.redirect('/maintenance', 302);
-}
-
 const title = `${meta.title} | Bella Technologies`;
 const description = meta.description;
 ---
