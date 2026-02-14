@@ -132,7 +132,11 @@ jobs:
       
       - name: Cleanup old backups
         run: |
-          # Keep only last 5 backups
+          # Keep only last 5 deployment backups
           sudo find /var/www/bellatechnologies.in/backups -maxdepth 1 -type d -name "20*" | sort -r | tail -n +6 | sudo xargs rm -rf
-          echo "Old backups cleaned up"
+          echo "Old deployment backups cleaned up"
+          
+          # Keep only last 5 nginx config backups
+          sudo find /etc/nginx/sites-available -maxdepth 1 -type f -name "bellatechnologies.in.backup.*" | sort -r | tail -n +6 | sudo xargs rm -f
+          echo "Old nginx config backups cleaned up"
         continue-on-error: true
