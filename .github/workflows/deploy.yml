@@ -108,11 +108,17 @@ jobs:
           sudo chmod 600 /var/www/bellatechnologies.in/.env.production
           echo "✅ Production environment file created"
       
-      - name: Reload Nginx
+      - name: Configure Nginx Maintenance Mode
         run: |
-          echo "🔄 Reloading Nginx..."
-          sudo nginx -t && sudo systemctl reload nginx
-          echo "✅ Nginx reloaded successfully"
+          echo "🔧 Configuring nginx based on maintenance mode..."
+          if [ -f "scripts/configure-nginx-maintenance.py" ]; then
+            python3 scripts/configure-nginx-maintenance.py
+          else
+            echo "⚠️  Maintenance configuration script not found, skipping nginx maintenance mode setup"
+            echo "🔄 Reloading Nginx..."
+            sudo nginx -t && sudo systemctl reload nginx
+            echo "✅ Nginx reloaded successfully"
+          fi
       
       - name: Verify deployment
         run: |
