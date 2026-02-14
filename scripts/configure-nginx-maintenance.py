@@ -46,17 +46,27 @@ def backup_config():
 
 def get_maintenance_mode_block():
     """Get the maintenance mode location blocks."""
-    return """    # Maintenance mode redirect
+    return """    # Maintenance mode - handle trailing slash redirect first
+    location = /maintenance/ {
+        return 302 /maintenance;
+    }
+    
+    # Maintenance mode - serve maintenance page
+    location = /maintenance {
+        try_files $uri $uri.html /maintenance.html /maintenance/index.html =404;
+    }
+    
+    # Maintenance mode redirect
     location / {
-        # Allow access to maintenance page itself
-        if ($request_uri = /maintenance) {
+        # Allow access to maintenance page itself (both with and without trailing slash)
+        if ($request_uri ~ ^/maintenance/?$) {
             break;
         }
         # Allow access to static assets
         if ($request_uri ~* ^/(_astro|favicon|.*\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$)) {
             break;
         }
-        # Redirect all other requests to maintenance page
+        # Redirect all other requests to maintenance page (without trailing slash to avoid loops)
         return 302 /maintenance;
     }
 
