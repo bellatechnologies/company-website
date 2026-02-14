@@ -1,7 +1,7 @@
 ---
 description: "Create a release branch, update version, and deploy following git-flow workflow"
 ---
-Create a release branch from develop, update package.json version, clean up old branches, merge to master and develop, tag the release, and push everything.
+Create a release branch from develop, update package.json version, clean up old branches, merge to main and develop, tag the release, and push everything.
 
 **Parameter**: `version` - Version number in format `v*` (e.g., `v1.2.0`, `v2.0.0`)
 
@@ -31,10 +31,10 @@ Steps:
    - Update the "version" field in package.json with the extracted version
    - Commit the change: `git add package.json && git commit -m "chore: bump version to {version}"`
 
-6) Merge release branch to master:
-   - Switch to master: `git checkout master`
-   - Pull latest: `git pull origin master`
-   - Merge release branch: `git merge --no-ff release/{version} -m "chore: merge release/{version} into master"`
+6) Merge release branch to main:
+   - Switch to main: `git checkout main`
+   - Pull latest: `git pull origin main`
+   - Merge release branch: `git merge --no-ff release/{version} -m "chore: merge release/{version} into main"`
    - Create annotated tag: `git tag -a {version} -m "Release {version}"`
 
 7) Merge release branch back to develop:
@@ -59,7 +59,7 @@ Steps:
     i) Report summary of what was deleted.
 
 11) Push all changes:
-    - Push master branch: `git push origin master`
+    - Push main branch: `git push origin main`
     - Push develop branch: `git push origin develop`
     - Push tags: `git push origin {version}`
 
