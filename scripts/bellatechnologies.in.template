@@ -1,0 +1,111 @@
+# Redirect www to non-www
+server {
+    server_name www.bellatechnologies.in;
+    
+    # Permanent redirect from www to non-www
+    return 301 http://bellatechnologies.in$request_uri;
+
+    listen [::]:443 ssl; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/bellatechnologies.in/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/bellatechnologies.in/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+# Main server block for non-www domain
+server {
+    
+    # Only serve non-www domain
+    server_name bellatechnologies.in;
+    
+    # Root directory where your built files will be deployed
+    root /var/www/bellatechnologies.in/dist;
+    index index.html;
+    
+    # Enable gzip compression
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 1024;
+    gzip_proxied expired no-cache no-store private auth;
+    gzip_types
+        text/plain
+        text/css
+        text/xml
+        text/javascript
+        application/json
+        application/javascript
+        application/x-javascript
+        application/xml+rss
+        application/xml
+        image/svg+xml;
+    
+    # Security headers
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+    
+    # Cache static assets
+    location ~* \.(jpg|jpeg|png|gif|ico|css|js|svg|woff|woff2|ttf|eot)$ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+    
+    # Handle Astro's _astro directory
+    location /_astro/ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+    }
+    
+    # Maintenance mode or normal location block
+    {{MAINTENANCE_MODE_BLOCK}}
+
+    {{NORMAL_LOCATION_BLOCK}}
+    
+    # Custom error pages
+    error_page 404 /404.html;
+    location = /404.html {
+        root /var/www/bellatechnologies.in/dist;
+        internal;
+    }
+    
+    # Logging
+    access_log /var/log/nginx/bellatechnologies.in_access.log;
+    error_log /var/log/nginx/bellatechnologies.in_error.log;
+
+    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/bellatechnologies.in/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/bellatechnologies.in/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+server {
+    if ($host = bellatechnologies.in) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    listen 80;
+    listen [::]:80;
+    server_name bellatechnologies.in;
+    return 404; # managed by Certbot
+
+
+}
+server {
+    if ($host = www.bellatechnologies.in) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    listen 80;
+    listen [::]:80;
+    server_name www.bellatechnologies.in;
+    return 404; # managed by Certbot
+
+
+}
