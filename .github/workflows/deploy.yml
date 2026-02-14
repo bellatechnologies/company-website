@@ -112,7 +112,7 @@ jobs:
         run: |
           echo "Configuring nginx based on maintenance mode..."
           if [ -f "scripts/configure-nginx-maintenance.py" ]; then
-            python3 scripts/configure-nginx-maintenance.py
+            sudo python3 scripts/configure-nginx-maintenance.py
           else
             echo "Warning: Maintenance configuration script not found, skipping nginx maintenance mode setup"
             echo "Reloading Nginx..."
