@@ -43,10 +43,10 @@ jobs:
       
       - name: Display deployment info
         run: |
-          echo "🚀 Deploying version: ${{ steps.get_version.outputs.version }}"
-          echo "📦 Repository: ${{ github.repository }}"
-          echo "🔖 Ref: ${{ github.ref }}"
-          echo "👤 Actor: ${{ github.actor }}"
+          echo "Deploying version: ${{ steps.get_version.outputs.version }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "Ref: ${{ github.ref }}"
+          echo "Actor: ${{ github.actor }}"
       
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -71,10 +71,10 @@ jobs:
       - name: Verify build output
         run: |
           if [ ! -d "dist" ] || [ -z "$(ls -A dist)" ]; then
-            echo "❌ Build failed: dist directory is empty or missing"
+            echo "Build failed: dist directory is empty or missing"
             exit 1
           fi
-          echo "✅ Build successful: $(du -sh dist | cut -f1) of files generated"
+          echo "Build successful: $(du -sh dist | cut -f1) of files generated"
       
       - name: Backup current deployment
         run: |
@@ -82,23 +82,23 @@ jobs:
             BACKUP_DIR="/var/www/bellatechnologies.in/backups/$(date +%Y%m%d-%H%M%S)"
             sudo mkdir -p "$BACKUP_DIR"
             sudo cp -r /var/www/bellatechnologies.in/dist "$BACKUP_DIR/"
-            echo "📦 Backup created at: $BACKUP_DIR"
+            echo "Backup created at: $BACKUP_DIR"
           fi
         continue-on-error: true
       
       - name: Deploy to web directory
         run: |
-          echo "📤 Deploying files to production..."
+          echo "Deploying files to production..."
           sudo rm -rf /var/www/bellatechnologies.in/dist
           sudo mkdir -p /var/www/bellatechnologies.in/dist
           sudo cp -r dist/* /var/www/bellatechnologies.in/dist/
           sudo chown -R www-data:www-data /var/www/bellatechnologies.in/dist
           sudo chmod -R 755 /var/www/bellatechnologies.in/dist
-          echo "✅ Files deployed successfully"
+          echo "Files deployed successfully"
       
       - name: Create production environment file
         run: |
-          echo "📝 Creating production environment file..."
+          echo "Creating production environment file..."
           sudo tee /var/www/bellatechnologies.in/.env.production > /dev/null <<EOF
           RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
           FROM_EMAIL=${{ vars.FROM_EMAIL }}
@@ -106,27 +106,37 @@ jobs:
           EOF
           sudo chown www-data:www-data /var/www/bellatechnologies.in/.env.production
           sudo chmod 600 /var/www/bellatechnologies.in/.env.production
-          echo "✅ Production environment file created"
+          echo "Production environment file created"
       
-      - name: Reload Nginx
+      - name: Configure Nginx Maintenance Mode
         run: |
-          echo "🔄 Reloading Nginx..."
-          sudo nginx -t && sudo systemctl reload nginx
-          echo "✅ Nginx reloaded successfully"
+          echo "Configuring nginx based on maintenance mode..."
+          if [ -f "scripts/configure-nginx-maintenance.py" ]; then
+            python3 scripts/configure-nginx-maintenance.py
+          else
+            echo "Warning: Maintenance configuration script not found, skipping nginx maintenance mode setup"
+            echo "Reloading Nginx..."
+            sudo nginx -t && sudo systemctl reload nginx
+            echo "Nginx reloaded successfully"
+          fi
       
       - name: Verify deployment
         run: |
-          echo "🔍 Verifying deployment..."
+          echo "Verifying deployment..."
           if [ ! -f "/var/www/bellatechnologies.in/dist/index.html" ]; then
-            echo "❌ Deployment verification failed: index.html not found"
+            echo "Deployment verification failed: index.html not found"
             exit 1
           fi
-          echo "✅ Deployment verified: index.html exists"
-          echo "🌐 Website should be live at: http://bellatechnologies.in"
+          echo "Deployment verified: index.html exists"
+          echo "Website should be live at: http://bellatechnologies.in"
       
       - name: Cleanup old backups
         run: |
-          # Keep only last 5 backups
+          # Keep only last 5 deployment backups
           sudo find /var/www/bellatechnologies.in/backups -maxdepth 1 -type d -name "20*" | sort -r | tail -n +6 | sudo xargs rm -rf
-          echo "🧹 Old backups cleaned up"
+          echo "Old deployment backups cleaned up"
+          
+          # Keep only last 5 nginx config backups
+          sudo find /etc/nginx/sites-available -maxdepth 1 -type f -name "bellatechnologies.in.backup.*" | sort -r | tail -n +6 | sudo xargs rm -f
+          echo "Old nginx config backups cleaned up"
         continue-on-error: true
