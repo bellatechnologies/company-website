@@ -5,6 +5,9 @@ Create a release branch from develop, update package.json version, clean up old 
 
 **Parameter**: `version` - Version number in format `v*` (e.g., `v1.2.0`, `v2.0.0`)
 
+**Important**: 
+- **All terminal commands must be executed with `required_permissions: ["all"]`** to ensure full permissions for git operations, network access, file modifications, and branch management operations.
+
 Steps:
 1) Validate version parameter format:
    - Check if version starts with 'v' followed by semantic version format (MAJOR.MINOR.PATCH)
@@ -13,6 +16,7 @@ Steps:
    - If format is incorrect, report error: "Error: Version format must be v*.*.* (e.g., v1.2.0)" and stop.
 
 2) Check current branch - ensure you're not on a feature or release branch. If you are, report an error and stop.
+   - Run: `git branch --show-current`
 
 3) Ensure you're on `develop` branch:
    - Run `git checkout develop`
