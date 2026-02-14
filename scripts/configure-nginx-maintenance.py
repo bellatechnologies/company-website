@@ -17,7 +17,7 @@ NGINX_CONFIG = "/etc/nginx/sites-available/bellatechnologies.in"
 def read_maintenance_mode():
     """Read MAINTENANCE_MODE from environment file."""
     if not os.path.exists(ENV_FILE):
-        print(f"⚠️  Environment file not found: {ENV_FILE}")
+        print(f"WARNING: Environment file not found: {ENV_FILE}")
         print("   Assuming maintenance mode is disabled")
         return False
     
@@ -28,7 +28,7 @@ def read_maintenance_mode():
                     value = line.split('=', 1)[1].strip().lower()
                     return value in ('true', '1', 'yes')
     except Exception as e:
-        print(f"⚠️  Error reading environment file: {e}")
+        print(f"WARNING: Error reading environment file: {e}")
         return False
     
     return False
@@ -38,13 +38,13 @@ def backup_config():
     timestamp = datetime.now().strftime('%Y%m%d-%H%M%S')
     backup_file = f"{NGINX_CONFIG}.backup.{timestamp}"
     shutil.copy2(NGINX_CONFIG, backup_file)
-    print(f"📦 Backup created: {backup_file}")
+    print(f"Backup created: {backup_file}")
     return backup_file
 
 def configure_nginx(maintenance_mode):
     """Configure nginx based on maintenance mode setting."""
     if not os.path.exists(NGINX_CONFIG):
-        print(f"❌ Nginx config not found: {NGINX_CONFIG}")
+        print(f"ERROR: Nginx config not found: {NGINX_CONFIG}")
         print("   Please ensure nginx is configured first")
         sys.exit(1)
     
@@ -54,14 +54,16 @@ def configure_nginx(maintenance_mode):
     
     original_lines = lines.copy()
     
-    # Maintenance redirect block (uncommented)
+    # Maintenance mode blocks (uncommented)
+    # First, serve the maintenance page itself
     maintenance_block = [
+        '    # Maintenance mode - serve maintenance page\n',
+        '    location = /maintenance {\n',
+        '        try_files /maintenance/index.html /maintenance.html =404;\n',
+        '    }\n',
+        '\n',
         '    # Maintenance mode redirect\n',
         '    location / {\n',
-        '        # Allow access to maintenance page itself\n',
-        '        if ($request_uri = /maintenance) {\n',
-        '            break;\n',
-        '        }\n',
         '        # Allow access to static assets\n',
         '        if ($request_uri ~* ^/(_astro|favicon|.*\\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$)) {\n',
         '            break;\n',
@@ -78,12 +80,12 @@ def configure_nginx(maintenance_mode):
     maintenance_marker_end = '# MAINTENANCE_MODE_END'
     
     if maintenance_mode:
-        print("🔒 Enabling maintenance mode in nginx...")
+        print("Enabling maintenance mode in nginx...")
         
         # Check if maintenance mode is already active
         content_str = ''.join(lines)
-        if re.search(r'location / \{.*?return 302 /maintenance', content_str, re.DOTALL):
-            print("   ✅ Maintenance mode already enabled")
+        if re.search(r'location = /maintenance', content_str) and re.search(r'location / \{.*?return 302 /maintenance', content_str, re.DOTALL):
+            print("   Maintenance mode already enabled")
             return False
         
         # Find the HTTPS server block (look for listen 443 ssl)
@@ -117,7 +119,7 @@ def configure_nginx(maintenance_mode):
                     break
         
         if location_start_idx == -1:
-            print("   ⚠️  Could not find location / block in HTTPS server block")
+            print("   WARNING: Could not find location / block in HTTPS server block")
             print("   Please ensure your nginx config has a location / block")
             return False
         
@@ -142,15 +144,15 @@ def configure_nginx(maintenance_mode):
         lines = new_lines
         
     else:
-        print("🌐 Disabling maintenance mode in nginx...")
+        print("Disabling maintenance mode in nginx...")
         
         # Check if maintenance mode is already disabled
         content_str = ''.join(lines)
-        if not re.search(r'location / \{.*?return 302 /maintenance', content_str, re.DOTALL):
-            print("   ✅ Maintenance mode already disabled")
+        if not (re.search(r'location = /maintenance', content_str) and re.search(r'location / \{.*?return 302 /maintenance', content_str, re.DOTALL)):
+            print("   Maintenance mode already disabled")
             return False
         
-        # Find and remove maintenance redirect block
+        # Find and remove maintenance blocks (both location = /maintenance and location /)
         # Look for maintenance redirect pattern
         maintenance_start = -1
         maintenance_end = -1
@@ -158,16 +160,47 @@ def configure_nginx(maintenance_mode):
         
         for i, line in enumerate(lines):
             if 'return 302 /maintenance' in line:
-                # Found maintenance redirect, work backwards to find start
+                # Found maintenance redirect, work backwards to find start of location / block
+                location_slash_start = -1
                 for j in range(i, -1, -1):
                     if 'location / {' in lines[j] and 'Maintenance mode redirect' in ''.join(lines[max(0, j-2):j]):
-                        maintenance_start = j - 1  # Include comment line
+                        location_slash_start = j - 1  # Include comment line
                         break
-                # Work forwards to find end
+                
+                # Work forwards to find end of location / block
+                location_slash_end = -1
                 for j in range(i, len(lines)):
                     if re.match(r'\s+\}', lines[j]):
-                        maintenance_end = j
+                        location_slash_end = j
                         break
+                
+                # Now work backwards from location / to find location = /maintenance block
+                if location_slash_start != -1:
+                    # Look for location = /maintenance block before location /
+                    maintenance_location_start = -1
+                    for j in range(location_slash_start - 1, -1, -1):
+                        if 'location = /maintenance' in lines[j]:
+                            maintenance_location_start = j
+                            # Found it, work backwards to find its start (comment line)
+                            for k in range(j, -1, -1):
+                                if 'Maintenance mode - serve maintenance page' in lines[k]:
+                                    maintenance_start = k - 1  # Include comment line
+                                    break
+                            if maintenance_start == -1:
+                                maintenance_start = j - 1 if j > 0 and lines[j-1].strip().startswith('#') else j
+                            break
+                    
+                    # If we found location = /maintenance, we need to include it
+                    # The maintenance_end should be the end of location / block
+                    # The maintenance_start should be the start of location = /maintenance block
+                    if maintenance_location_start != -1:
+                        # maintenance_start already set above
+                        maintenance_end = location_slash_end
+                    else:
+                        # If we didn't find location = /maintenance, start from location / comment
+                        maintenance_start = location_slash_start
+                        maintenance_end = location_slash_end
+                
                 # Find commented normal location block
                 for j in range(maintenance_end + 1, len(lines)):
                     if '# Normal site configuration' in lines[j]:
@@ -180,7 +213,7 @@ def configure_nginx(maintenance_mode):
                 break
         
         if maintenance_start == -1 or maintenance_end == -1:
-            print("   ⚠️  Could not find maintenance redirect block")
+            print("   WARNING: Could not find maintenance redirect block")
             return False
         
         # Find end of commented location block
@@ -218,39 +251,39 @@ def configure_nginx(maintenance_mode):
     if lines != original_lines:
         with open(NGINX_CONFIG, 'w') as f:
             f.writelines(lines)
-        print("   ✅ Nginx configuration updated")
+        print("   Nginx configuration updated")
         return True
     else:
-        print("   ✅ Configuration already in desired state")
+        print("   Configuration already in desired state")
         return False
 
 def test_nginx():
     """Test nginx configuration."""
-    print("🧪 Testing nginx configuration...")
+    print("Testing nginx configuration...")
     result = subprocess.run(['sudo', 'nginx', '-t'], capture_output=True, text=True)
     if result.returncode == 0:
-        print("✅ Nginx configuration is valid")
+        print("Nginx configuration is valid")
         return True
     else:
-        print("❌ Nginx configuration test failed!")
+        print("ERROR: Nginx configuration test failed!")
         print(result.stderr)
         return False
 
 def reload_nginx():
     """Reload nginx."""
-    print("🔄 Reloading nginx...")
+    print("Reloading nginx...")
     result = subprocess.run(['sudo', 'systemctl', 'reload', 'nginx'], capture_output=True, text=True)
     if result.returncode == 0:
-        print("✅ Nginx reloaded successfully")
+        print("Nginx reloaded successfully")
         return True
     else:
-        print("❌ Failed to reload nginx!")
+        print("ERROR: Failed to reload nginx!")
         print(result.stderr)
         return False
 
 def main():
     """Main function."""
-    print("🔧 Configuring nginx maintenance mode...")
+    print("Configuring nginx maintenance mode...")
     
     maintenance_mode = read_maintenance_mode()
     print(f"   MAINTENANCE_MODE: {maintenance_mode}")
@@ -270,9 +303,9 @@ def main():
             # Config didn't change, but still test
             test_nginx()
         
-        print("✅ Nginx maintenance mode configuration complete")
+        print("Nginx maintenance mode configuration complete")
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f"ERROR: {e}")
         import traceback
         traceback.print_exc()
         print("   Restoring backup...")
