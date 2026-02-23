@@ -8,17 +8,17 @@ const {
 } = Astro.props;
 
 const companyName = "Bella Technologies";
-const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
+const pathname = Astro.url.pathname;
 const navItems = [
 	{ label: "Home", href: "/" },
-	{ label: "About", href: "/about" },
-	{ label: "Portfolio", href: "/portfolio" },
-	{ label: "Blog", href: "/blog" },
-	{ label: "Contact", href: "/contact" },
+	{ label: "About", href: "/about/" },
+	{ label: "Portfolio", href: "/portfolio/" },
+	{ label: "Blog", href: "/blog/" },
+	{ label: "Contact", href: "/contact/" },
 ];
 
 const isActive = (href: string) =>
-	pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
+	pathname === href || (href !== "/" && pathname.startsWith(href));
 ---
 <!doctype html>
 <html lang="en">
@@ -51,7 +51,7 @@ const isActive = (href: string) =>
 						</a>
 					))}
 				</nav>
-				<a class="primary-button" href="/contact">Book a Call</a>
+				<a class="primary-button" href="/contact/">Book a Call</a>
 			</div>
 		</header>
 

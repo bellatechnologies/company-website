@@ -5,6 +5,7 @@ import expressiveCode from 'astro-expressive-code';
 // https://astro.build/config
 export default defineConfig({
   integrations: [expressiveCode()],
+  trailingSlash: 'always',
   devToolbar: {
     enabled: false,
   },
