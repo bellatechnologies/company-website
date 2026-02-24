@@ -3,6 +3,8 @@ title: Hello World!
 description: A quick hello from the Notes category at Bella Technologies.
 date: 2026-02-03
 categoryId: notes
+heroImage: /images/2026/02/hello-world-hero-fog-forest.jpg
+heroImageAlt: Sun rising through fog in a forest, symbolizing the beginning of a new era.
 ---
 
 Every great story starts somewhere. Ours starts here.
@@ -17,3 +19,6 @@ We work with FinTech businesses across Payments, Lending, WealthTech, and InsurT
 
 We're glad you're here. There's a lot more coming.
 
+<p class="post-attribution">
+  Image credit: <a href="https://www.flickr.com/photos/79469904@N03/8106658331">“Sun rising behind a fog in a forest”</a> by Michał Bielecki, licensed under <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a>.
+</p>

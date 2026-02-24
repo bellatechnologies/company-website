@@ -6,6 +6,7 @@ import {
 	getEntry,
 	type CollectionEntry,
 } from "astro:content";
+import { Icon } from "@astrojs/starlight/components";
 import "../../styles/pages/blog.css";
 
 export async function getStaticPaths() {
@@ -84,7 +85,10 @@ const postDate = post.data.date ?? null;
 
 				<div class="reveal blog-post">
 					<Content />
-					<a class="secondary-button" href="/blog/">Back to Blog</a>
+					<a class="secondary-button" href="/blog/">
+						<Icon class="button-icon" name="left-caret" aria-hidden="true" />
+						<span>Back to Blog</span>
+					</a>
 				</div>
 			</div>
 		</section>
