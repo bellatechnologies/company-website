@@ -11,6 +11,7 @@ const {
 
 const companyName = "Bella Technologies";
 const pathname = Astro.url.pathname;
+const isContactPage = pathname === "/contact/";
 const navItems = [
 	{ label: "Home", href: "/" },
 	{ label: "About", href: "/about/" },
@@ -53,7 +54,18 @@ const isActive = (href: string) =>
 						</a>
 					))}
 				</nav>
-				<a class="primary-button" href="/contact/">Book a Call</a>
+				<a
+					href="/contact/"
+					class:list={{
+						"primary-button": true,
+						"header-cta": true,
+						"header-cta--hidden": isContactPage,
+					}}
+					aria-hidden={isContactPage ? "true" : undefined}
+					tabindex={isContactPage ? "-1" : undefined}
+				>
+					Book a Call
+				</a>
 			</div>
 		</header>
 

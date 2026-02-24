@@ -125,6 +125,11 @@
 	background: var(--cta-strong);
 }
 
+.header-cta--hidden {
+	visibility: hidden;
+	pointer-events: none;
+}
+
 .secondary-button {
 	display: inline-flex;
 	align-items: center;
