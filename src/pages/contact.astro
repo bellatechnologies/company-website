@@ -20,13 +20,13 @@ const error = requestUrl ? new URL(requestUrl).searchParams.get("error") : null;
 				<div class="contact reveal">
 					<div>
 						<h1>Contact</h1>
-						<p>
-							Ready for a refined digital presence? Share your project details,
-							and we will respond within one business day.
-						</p>
 						<p id="contact-success" class="contact-success" role="status" hidden={!sent}>
 							<strong>Thanks!</strong> Your inquiry has been sent. We will be in
 							touch within one business day.
+						</p>
+						<p>
+							Ready for a refined digital presence? Share your project details,
+							and we will respond within one business day.
 						</p>
 						<p
 							id="contact-error"
@@ -52,7 +52,7 @@ const error = requestUrl ? new URL(requestUrl).searchParams.get("error") : null;
 							</div>
 						</div>
 					</div>
-					<form id="contact-form" action="/api/contact" method="post">
+					<form id="contact-form" action="/api/contact/" method="post">
 						<div
 							class="visually-hidden"
 							aria-hidden="true"

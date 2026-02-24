@@ -9,6 +9,8 @@ import {
 import { Icon } from "@astrojs/starlight/components";
 import "../../styles/pages/blog.css";
 
+export const prerender = true;
+
 export async function getStaticPaths() {
 	const posts = await getCollection("blog", ({ data }) => !data.draft);
 
