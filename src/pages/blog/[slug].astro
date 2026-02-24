@@ -30,6 +30,14 @@ const categoryEntry = await getEntry("blogCategories", post.data.categoryId);
 const categoryLabel = categoryEntry?.data?.name ?? post.data.categoryId;
 
 const { Content } = await post.render();
+
+const formatDate = (date: Date) =>
+	new Intl.DateTimeFormat("en-US", {
+		month: "short",
+		day: "numeric",
+		year: "numeric",
+	}).format(date);
+const postDate = post.data.date ?? null;
 ---
 
 <BaseLayout title={title} description={description}>
@@ -47,8 +55,17 @@ const { Content } = await post.render();
 				</div>
 				<div class="section-title reveal">
 					<div class="section-title__left">
-						<span class="hero-badge">{categoryLabel}</span>
 						<h1>{post.data.title}</h1>
+						<div class="blog-post-meta">
+							{
+								postDate ? (
+									<time datetime={postDate.toISOString()}>
+										{formatDate(postDate)}
+									</time>
+								) : null
+							}
+							<span class="hero-badge">{categoryLabel}</span>
+						</div>
 					</div>
 					<p>{post.data.description}</p>
 				</div>

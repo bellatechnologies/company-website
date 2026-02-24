@@ -12,6 +12,10 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# Cursor / local agent logs
+.cursor/debug-*.log
+.cursor/*.log
+
 
 # environment variables
 .env
