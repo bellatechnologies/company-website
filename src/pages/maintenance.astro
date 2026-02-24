@@ -1,6 +1,8 @@
 ---
 import MaintenanceLayout from "../layouts/MaintenanceLayout.astro";
 import { Icon } from "@astrojs/starlight/components";
+import "../styles/pages/home.css";
+import "../styles/pages/maintenance.css";
 
 const companyName = "Bella Technologies";
 ---
@@ -10,33 +12,33 @@ const companyName = "Bella Technologies";
 	description="Bella Technologies is currently undergoing maintenance. Please check back soon!"
 >
 	<main>
-		<section class="container hero" style="min-height: 60vh; align-items: center;">
-			<div class="reveal" style="text-align: center; width: 100%;">
-				<div class="hero-badge" style="margin: 0 auto 24px;">
+		<section class="container hero maintenance-page">
+			<div class="reveal maintenance-inner">
+				<div class="hero-badge">
 					<Icon name="rocket" aria-hidden="true" />
 					<span>Coming Soon</span>
 				</div>
-				<h1 style="font-size: clamp(2.8rem, 5vw, 4rem); margin-bottom: 20px;">
+				<h1>
 					✨ New Website Coming Soon
 				</h1>
-				<p style="font-size: 1.2rem; color: var(--muted); margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto;">
+				<p class="maintenance-lead">
 					We're building something extraordinary! Our brand new website is under construction and will launch with flying colors. Stay tuned for an exciting transformation that will elevate your experience.
 				</p>
-				<div style="background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 32px; box-shadow: var(--shadow); max-width: 500px; margin: 0 auto;">
-					<h3 style="color: var(--ink); margin-bottom: 16px; font-size: 1.3rem;">Expected Launch</h3>
-					<p style="color: var(--muted); font-size: 1.1rem; margin: 0;">
+				<div class="maintenance-panel">
+					<h3 class="maintenance-panel-title">Expected Launch</h3>
+					<p class="maintenance-panel-value">
 						~ 2 weeks
 					</p>
-					<div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--border);">
-						<p style="color: var(--muted); font-size: 0.95rem; margin: 0;">
+					<div class="maintenance-panel-divider">
+						<p class="maintenance-panel-note">
 							<strong>What we're building:</strong> A beautiful new website featuring our Portfolio and case studies with improved user experience
 						</p>
 					</div>
 				</div>
-				<div style="margin-top: 40px; text-align: center;">
-					<p style="color: var(--muted); font-size: 1.1rem;">
+				<div class="maintenance-help">
+					<p>
 						<strong>Need help?</strong> Contact us at{" "}
-						<a href="mailto:contact@bellatechnologies.in" style="color: var(--accent); text-decoration: underline;">
+						<a href="mailto:contact@bellatechnologies.in">
 							contact@bellatechnologies.in
 						</a>
 					</p>
