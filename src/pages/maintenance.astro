@@ -4,6 +4,7 @@ import Breadcrumbs from "../components/Breadcrumbs.astro";
 import { Icon } from "@astrojs/starlight/components";
 import "../styles/pages/home.css";
 import "../styles/pages/maintenance.css";
+import { CONTACT } from "../data/contact";
 
 const companyName = "Bella Technologies";
 ---
@@ -40,9 +41,7 @@ const companyName = "Bella Technologies";
 				<div class="maintenance-help">
 					<p>
 						<strong>Need help?</strong> Contact us at{" "}
-						<a href="mailto:contact@bellatechnologies.in">
-							contact@bellatechnologies.in
-						</a>
+						<a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
 					</p>
 				</div>
 			</div>
