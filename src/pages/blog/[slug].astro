@@ -36,15 +36,17 @@ const { Content } = await post.render();
 	<main>
 		<section class="section">
 			<div class="container">
+				<div class="reveal">
+					<Breadcrumbs
+						items={[
+							{ label: "Home", href: "/" },
+							{ label: "Blog", href: "/blog/" },
+							{ label: post.data.title },
+						]}
+					/>
+				</div>
 				<div class="section-title reveal">
 					<div class="section-title__left">
-						<Breadcrumbs
-							items={[
-								{ label: "Home", href: "/" },
-								{ label: "Blog", href: "/blog/" },
-								{ label: post.data.title },
-							]}
-						/>
 						<span class="hero-badge">{categoryLabel}</span>
 						<h1>{post.data.title}</h1>
 					</div>

@@ -12,17 +12,17 @@ const description =
 	<main>
 		<section class="section">
 			<div class="container">
+				<div class="reveal">
+					<Breadcrumbs
+						items={[
+							{ label: "Home", href: "/" },
+							{ label: "Portfolio", href: "/portfolio/" },
+							{ label: "Bella Technologies" },
+						]}
+					/>
+				</div>
 				<div class="section-title reveal">
-					<div class="section-title__left">
-						<Breadcrumbs
-							items={[
-								{ label: "Home", href: "/" },
-								{ label: "Portfolio", href: "/portfolio/" },
-								{ label: "Bella Technologies" },
-							]}
-						/>
-						<h1>Bella Technologies</h1>
-					</div>
+					<h1>Bella Technologies</h1>
 					<p>
 						This is one of our works — an internal production shipping system for
 						<code>bellatechnologies.in</code>.
