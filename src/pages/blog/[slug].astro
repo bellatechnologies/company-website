@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import {
 	getCollection,
 	getEntry,
@@ -36,8 +37,17 @@ const { Content } = await post.render();
 		<section class="section">
 			<div class="container">
 				<div class="section-title reveal">
-					<span class="hero-badge">{categoryLabel}</span>
-					<h1>{post.data.title}</h1>
+					<div class="section-title__left">
+						<Breadcrumbs
+							items={[
+								{ label: "Home", href: "/" },
+								{ label: "Blog", href: "/blog/" },
+								{ label: post.data.title },
+							]}
+						/>
+						<span class="hero-badge">{categoryLabel}</span>
+						<h1>{post.data.title}</h1>
+					</div>
 					<p>{post.data.description}</p>
 				</div>
 

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import "../../styles/pages/portfolio-bella-technologies.css";
 
 const title = "Bella Technologies CI/CD case study | Portfolio";
@@ -12,12 +13,16 @@ const description =
 		<section class="section">
 			<div class="container">
 				<div class="section-title reveal">
-					<p class="case-breadcrumb">
-						<a href="/portfolio/">Portfolio</a>
-						<span aria-hidden="true">/</span>
-						<span>Bella Technologies</span>
-					</p>
-					<h1>Bella Technologies</h1>
+					<div class="section-title__left">
+						<Breadcrumbs
+							items={[
+								{ label: "Home", href: "/" },
+								{ label: "Portfolio", href: "/portfolio/" },
+								{ label: "Bella Technologies" },
+							]}
+						/>
+						<h1>Bella Technologies</h1>
+					</div>
 					<p>
 						This is one of our works — an internal production shipping system for
 						<code>bellatechnologies.in</code>.

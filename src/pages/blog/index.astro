@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import { getCollection, getEntry } from "astro:content";
 import "../../styles/pages/blog.css";
 
@@ -36,7 +37,10 @@ const formatDate = (date: Date) =>
 		<section class="section">
 			<div class="container">
 				<div class="section-title reveal">
-					<h1>Blog</h1>
+					<div class="section-title__left">
+						<Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Blog" }]} />
+						<h1>Blog</h1>
+					</div>
 					<p>
 						Notes from our studio on brand clarity, Catppuccin-inspired UI, and
 						performance-first builds.

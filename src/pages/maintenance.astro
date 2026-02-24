@@ -1,5 +1,6 @@
 ---
 import MaintenanceLayout from "../layouts/MaintenanceLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
 import { Icon } from "@astrojs/starlight/components";
 import "../styles/pages/home.css";
 import "../styles/pages/maintenance.css";
@@ -14,6 +15,7 @@ const companyName = "Bella Technologies";
 	<main>
 		<section class="container hero maintenance-page">
 			<div class="reveal maintenance-inner">
+				<Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Maintenance" }]} />
 				<div class="hero-badge">
 					<Icon name="rocket" aria-hidden="true" />
 					<span>Coming Soon</span>
