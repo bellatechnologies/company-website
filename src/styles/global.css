@@ -400,6 +400,26 @@ main {
 	transition: color 0.2s ease;
 }
 
+.blog-hero-media {
+	margin-top: 18px;
+}
+
+.blog-hero-image {
+	width: 100%;
+	border-radius: 20px;
+	border: 1px solid var(--border);
+	background: var(--surface);
+}
+
+.visually-hidden {
+	position: absolute;
+	left: -10000px;
+	top: auto;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+
 .blog-post a:not(.secondary-button):hover,
 .blog-post a:not(.secondary-button):focus-visible {
 	color: var(--cta);

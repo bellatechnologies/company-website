@@ -41,7 +41,7 @@ const error = requestUrl ? new URL(requestUrl).searchParams.get("error") : null;
 				</div>
 				<form id="contact-form" action="/api/contact" method="post">
 					<div
-						style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;"
+						class="visually-hidden"
 						aria-hidden="true"
 					>
 						<label for="website">Website</label>

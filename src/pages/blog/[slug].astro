@@ -42,17 +42,12 @@ const { Content } = await post.render();
 
 				{
 					post.data.heroImage ? (
-						<div class="reveal" style="margin-top: 18px">
+						<div class="reveal blog-hero-media">
 							<img
 								src={post.data.heroImage}
 								alt={post.data.heroImageAlt ?? post.data.title}
+								class="blog-hero-image"
 								loading="lazy"
-								style="
-									width: 100%;
-									border-radius: 20px;
-									border: 1px solid var(--border);
-									background: var(--surface);
-								"
 							/>
 						</div>
 					) : null
