@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
 import "../styles/pages/contact.css";
 
 const title = "Contact | Bella Technologies";
@@ -16,6 +17,7 @@ const error = requestUrl ? new URL(requestUrl).searchParams.get("error") : null;
 		<section class="section">
 			<div class="container contact reveal">
 				<div>
+					<Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Contact" }]} />
 					<h1>Contact</h1>
 					<p>
 						Ready for a refined digital presence? Share your project details,

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
 import "../styles/pages/portfolio.css";
 
 const title = "Portfolio | Bella Technologies";
@@ -11,6 +12,9 @@ const description =
 	<main>
 		<section class="section">
 			<div class="container">
+				<div class="reveal">
+					<Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Portfolio" }]} />
+				</div>
 				<div class="section-title reveal">
 					<h1>Portfolio</h1>
 					<p>

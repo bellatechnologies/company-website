@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import { getCollection, getEntry } from "astro:content";
 import "../../styles/pages/blog.css";
 
@@ -35,6 +36,9 @@ const formatDate = (date: Date) =>
 	<main>
 		<section class="section">
 			<div class="container">
+				<div class="reveal">
+					<Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Blog" }]} />
+				</div>
 				<div class="section-title reveal">
 					<h1>Blog</h1>
 					<p>
