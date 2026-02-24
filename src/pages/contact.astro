@@ -1,7 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { Icon } from "@astrojs/starlight/components";
 import "../styles/pages/contact.css";
+import { CONTACT } from "../data/contact";
 
 const title = "Contact | Bella Technologies";
 const description =
@@ -14,79 +15,89 @@ const error = requestUrl ? new URL(requestUrl).searchParams.get("error") : null;
 
 <BaseLayout title={title} description={description}>
 	<main>
-		<section class="section">
-			<div class="container contact reveal">
-				<div>
-					<Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Contact" }]} />
-					<h1>Contact</h1>
-					<p>
-						Ready for a refined digital presence? Share your project details,
-						and we will respond within one business day.
-					</p>
-					<p id="contact-success" class="contact-success" role="status" hidden={!sent}>
-						<strong>Thanks!</strong> Your inquiry has been sent. We will be in
-						touch within one business day.
-					</p>
-					<p
-						id="contact-error"
-						class="contact-error"
-						role="alert"
-						hidden={!error}
-					>
-						<strong>Sorry —</strong> we could not send your inquiry. Please email
-						us directly at hello@bellatechnologies.co.
-					</p>
-					<p>
-						<strong>Email:</strong> hello@bellatechnologies.co
-						<br />
-						<strong>Location:</strong> Global / Remote
-					</p>
+		<section class="section contact-page">
+			<div class="container">
+				<div class="contact reveal">
+					<div>
+						<h1>Contact</h1>
+						<p>
+							Ready for a refined digital presence? Share your project details,
+							and we will respond within one business day.
+						</p>
+						<p id="contact-success" class="contact-success" role="status" hidden={!sent}>
+							<strong>Thanks!</strong> Your inquiry has been sent. We will be in
+							touch within one business day.
+						</p>
+						<p
+							id="contact-error"
+							class="contact-error"
+							role="alert"
+							hidden={!error}
+						>
+							<strong>Sorry —</strong> we could not send your inquiry. Please email
+							us directly at <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>.
+						</p>
+						<div class="contact-details" aria-label="Contact details">
+							<div class="contact-detail">
+								<Icon class="contact-icon" name="information" aria-hidden="true" />
+								<span>{CONTACT.address}</span>
+							</div>
+							<div class="contact-detail">
+								<Icon class="contact-icon" name="email" aria-hidden="true" />
+								<a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
+							</div>
+							<div class="contact-detail">
+								<Icon class="contact-icon" name="phone" aria-hidden="true" />
+								<a href={`tel:${CONTACT.phoneE164}`}>{CONTACT.phoneDisplay}</a>
+							</div>
+						</div>
+					</div>
+					<form id="contact-form" action="/api/contact" method="post">
+						<div
+							class="visually-hidden"
+							aria-hidden="true"
+						>
+							<label for="website">Website</label>
+							<input
+								id="website"
+								name="website"
+								type="text"
+								tabindex="-1"
+								autocomplete="off"
+							/>
+						</div>
+						<div>
+							<label for="name">Name</label>
+							<input
+								id="name"
+								name="name"
+								type="text"
+								placeholder="Jane Doe"
+								required
+							/>
+						</div>
+						<div>
+							<label for="email">Email</label>
+							<input
+								id="email"
+								name="email"
+								type="email"
+								placeholder="jane@email.com"
+								required
+							/>
+						</div>
+						<div>
+							<label for="message">Project details</label>
+							<textarea
+								id="message"
+								name="message"
+								placeholder="Tell us about your goals"
+								required
+							></textarea>
+						</div>
+						<button class="primary-button" type="submit">Send Inquiry</button>
+					</form>
 				</div>
-				<form id="contact-form" action="/api/contact" method="post">
-					<div
-						class="visually-hidden"
-						aria-hidden="true"
-					>
-						<label for="website">Website</label>
-						<input
-							id="website"
-							name="website"
-							type="text"
-							tabindex="-1"
-							autocomplete="off"
-						/>
-					</div>
-					<div>
-						<label for="name">Name</label>
-						<input
-							id="name"
-							name="name"
-							type="text"
-							placeholder="Jane Doe"
-							required
-						/>
-					</div>
-					<div>
-						<label for="email">Email</label>
-						<input
-							id="email"
-							name="email"
-							type="email"
-							placeholder="jane@email.com"
-							required
-						/>
-					</div>
-					<div>
-						<label for="message">Project details</label>
-						<textarea
-							id="message"
-							name="message"
-							placeholder="Tell us about your goals"
-							required
-						></textarea>
-					</div>
-					<button class="primary-button" type="submit">Send Inquiry</button>
-				</form>
 			</div>
 		</section>
 	</main>
