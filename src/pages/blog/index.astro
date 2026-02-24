@@ -1,35 +1,33 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection, getEntry } from "astro:content";
 
 const title = "Blog | Bella Technologies";
 const description =
 	"Insights on digital strategy, design systems, and high-performing websites.";
 
-type BlogPostMeta = {
-	title: string;
-	description: string;
-	category: string;
-	date: string;
-	slug: string;
-};
+const posts = (await getCollection("blog", ({ data }) => !data.draft))
+	.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
-const postModules = Object.values(
-	import.meta.glob("./*.astro", { eager: true })
-) as Array<{ meta?: BlogPostMeta }>;
+const postsWithCategoryLabels = await Promise.all(
+	posts.map(async (post) => {
+		const categoryEntry = await getEntry(
+			"blogCategories",
+			post.data.categoryId
+		);
+		return {
+			post,
+			categoryLabel: categoryEntry?.data?.name ?? post.data.categoryId,
+		};
+	})
+);
 
-const posts = postModules
-	.map((postModule) => postModule.meta)
-	.filter((post): post is BlogPostMeta => Boolean(post))
-	.sort(
-		(a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-	);
-
-const formatDate = (date: string) =>
+const formatDate = (date: Date) =>
 	new Intl.DateTimeFormat("en-US", {
 		month: "short",
 		day: "numeric",
 		year: "numeric",
-	}).format(new Date(date));
+	}).format(date);
 ---
 
 <BaseLayout title={title} description={description}>
@@ -44,14 +42,16 @@ const formatDate = (date: string) =>
 					</p>
 				</div>
 				<div class="cards blog-cards">
-					{posts.map((post) => (
+					{postsWithCategoryLabels.map(({ post, categoryLabel }) => (
 						<article class="card reveal">
-							<span>{post.category}</span>
-							<time datetime={post.date}>{formatDate(post.date)}</time>
+							<span>{categoryLabel}</span>
+							<time datetime={post.data.date.toISOString()}>
+								{formatDate(post.data.date)}
+							</time>
 							<h3>
-								<a href={`/blog/${post.slug}/`}>{post.title}</a>
+								<a href={`/blog/${post.slug}/`}>{post.data.title}</a>
 							</h3>
-							<p>{post.description}</p>
+							<p>{post.data.description}</p>
 						</article>
 					))}
 				</div>
