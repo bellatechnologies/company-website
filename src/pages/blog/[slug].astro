@@ -1,0 +1,69 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import {
+	getCollection,
+	getEntry,
+	type CollectionEntry,
+} from "astro:content";
+
+export async function getStaticPaths() {
+	const posts = await getCollection("blog", ({ data }) => !data.draft);
+
+	return posts.map((post) => ({
+		params: { slug: post.slug },
+		props: { post },
+	}));
+}
+
+type Props = {
+	post: CollectionEntry<"blog">;
+};
+
+const { post } = Astro.props as Props;
+
+const title = `${post.data.title} | Bella Technologies`;
+const description = post.data.description;
+
+const categoryEntry = await getEntry("blogCategories", post.data.categoryId);
+const categoryLabel = categoryEntry?.data?.name ?? post.data.categoryId;
+
+const { Content } = await post.render();
+---
+
+<BaseLayout title={title} description={description}>
+	<main>
+		<section class="section">
+			<div class="container">
+				<div class="section-title reveal">
+					<span class="hero-badge">{categoryLabel}</span>
+					<h1>{post.data.title}</h1>
+					<p>{post.data.description}</p>
+				</div>
+
+				{
+					post.data.heroImage ? (
+						<div class="reveal" style="margin-top: 18px">
+							<img
+								src={post.data.heroImage}
+								alt={post.data.heroImageAlt ?? post.data.title}
+								loading="lazy"
+								style="
+									width: 100%;
+									border-radius: 20px;
+									border: 1px solid var(--border);
+									background: var(--surface);
+								"
+							/>
+						</div>
+					) : null
+				}
+
+				<div class="reveal blog-post">
+					<Content />
+					<a class="secondary-button" href="/blog/">Back to Blog</a>
+				</div>
+			</div>
+		</section>
+	</main>
+</BaseLayout>
+
