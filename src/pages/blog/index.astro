@@ -44,16 +44,18 @@ const formatDate = (date: Date) =>
 				</div>
 				<div class="cards blog-cards">
 					{postsWithCategoryLabels.map(({ post, categoryLabel }) => (
-						<article class="card reveal">
+						<a
+							class="card reveal blog-card-link"
+							href={`/blog/${post.slug}/`}
+							aria-label={`Read: ${post.data.title}`}
+						>
 							<span>{categoryLabel}</span>
 							<time datetime={post.data.date.toISOString()}>
 								{formatDate(post.data.date)}
 							</time>
-							<h3>
-								<a href={`/blog/${post.slug}/`}>{post.data.title}</a>
-							</h3>
+							<h3>{post.data.title}</h3>
 							<p>{post.data.description}</p>
-						</article>
+						</a>
 					))}
 				</div>
 			</div>
