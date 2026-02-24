@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { Icon } from "@astrojs/starlight/components";
+import SiteFooter from "../components/SiteFooter.astro";
 
 const {
 	title = "New Website Coming Soon | Bella Technologies",
@@ -34,11 +35,7 @@ const companyName = "Bella Technologies";
 
 		<slot />
 
-		<footer class="footer">
-			<div class="container" style="text-align: center;">
-				<p>© 2026 {companyName}. Crafted with ❤️ and Astro SSG.</p>
-			</div>
-		</footer>
+		<SiteFooter companyName={companyName} />
 
 		<script is:inline>
 			const revealElements = document.querySelectorAll(".reveal");

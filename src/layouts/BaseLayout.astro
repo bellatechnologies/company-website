@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { Icon } from "@astrojs/starlight/components";
+import SiteFooter from "../components/SiteFooter.astro";
 
 const {
 	title = "Bella Technologies | Professional Digital Studio",
@@ -57,11 +58,7 @@ const isActive = (href: string) =>
 
 		<slot />
 
-		<footer class="footer">
-			<div class="container">
-				<p>© 2026 {companyName}. Crafted with Astro SSG.</p>
-			</div>
-		</footer>
+		<SiteFooter companyName={companyName} />
 
 		<script is:inline>
 			const revealElements = document.querySelectorAll(".reveal");
