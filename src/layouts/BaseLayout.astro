@@ -22,6 +22,15 @@ const navItems = [
 
 const isActive = (href: string) =>
 	pathname === href || (href !== "/" && pathname.startsWith(href));
+
+const isTruthyFlag = (value: unknown) => {
+	if (value == null) return false;
+	return ["true", "1", "yes", "on"].includes(String(value).toLowerCase());
+};
+
+const googleAnalyticsEnabled = isTruthyFlag(
+	import.meta.env.GOOGLE_ANALYTICS_ENABLED ?? process.env.GOOGLE_ANALYTICS_ENABLED
+);
 ---
 <!doctype html>
 <html lang="en">
@@ -33,6 +42,23 @@ const isActive = (href: string) =>
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
 		<title>{title}</title>
+		{
+			googleAnalyticsEnabled ? (
+				<>
+					<!-- Google tag (gtag.js) -->
+					<script
+						async
+						src="https://www.googletagmanager.com/gtag/js?id=G-5DQXQ5WGZY"
+					></script>
+					<script is:inline>
+						window.dataLayer = window.dataLayer || [];
+						function gtag() {dataLayer.push(arguments);}
+						gtag("js", new Date());
+						gtag("config", "G-5DQXQ5WGZY");
+					</script>
+				</>
+			) : null
+		}
 	</head>
 	<body>
 		<header class="header">
