@@ -21,8 +21,8 @@ server {
     server_name bellatechnologies.in;
     
     # Root directory where your built files will be deployed
-    root /var/www/bellatechnologies.in/dist;
-    index index.html;
+    # For SSR builds, static assets live under dist/client
+    root /var/www/bellatechnologies.in/dist/client;
     
     # Enable gzip compression
     gzip on;
@@ -56,6 +56,7 @@ server {
     location /_astro/ {
         expires 1y;
         add_header Cache-Control "public, immutable";
+        try_files $uri =404;
     }
     
     # Maintenance mode or normal location block
@@ -63,10 +64,11 @@ server {
 
     {{NORMAL_LOCATION_BLOCK}}
     
-    # Custom error pages
+    # Custom error pages (optional). If /404.html is not present, nginx will
+    # fall back to its default 404 response.
     error_page 404 /404.html;
     location = /404.html {
-        root /var/www/bellatechnologies.in/dist;
+        root /var/www/bellatechnologies.in/dist/client;
         internal;
     }
     

@@ -74,6 +74,14 @@ jobs:
             echo "Build failed: dist directory is empty or missing"
             exit 1
           fi
+          if [ ! -f "dist/server/entry.mjs" ]; then
+            echo "Build failed: dist/server/entry.mjs not found (SSR output expected)"
+            exit 1
+          fi
+          if [ ! -d "dist/client" ]; then
+            echo "Build failed: dist/client directory not found (SSR output expected)"
+            exit 1
+          fi
           echo "Build successful: $(du -sh dist | cut -f1) of files generated"
       
       - name: Backup current deployment
@@ -114,10 +122,26 @@ jobs:
           RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
           FROM_EMAIL=${{ vars.FROM_EMAIL }}
           MAINTENANCE_MODE=${{ vars.MAINTENANCE_MODE }}
+          HOST=127.0.0.1
+          PORT=4321
           EOF
           sudo chown www-data:www-data /var/www/bellatechnologies.in/.env.production
           sudo chmod 600 /var/www/bellatechnologies.in/.env.production
           echo "Production environment file created"
+
+      - name: Install or update systemd service
+        run: |
+          echo "Installing/updating systemd service..."
+          if [ ! -f "/var/www/bellatechnologies.in/scripts/bellatechnologies.service" ]; then
+            echo "Service unit not found in deployed scripts directory"
+            exit 1
+          fi
+          sudo cp /var/www/bellatechnologies.in/scripts/bellatechnologies.service /etc/systemd/system/bellatechnologies.service
+          sudo systemctl daemon-reload
+          sudo systemctl enable bellatechnologies.service
+          sudo systemctl restart bellatechnologies.service
+          sudo systemctl is-active --quiet bellatechnologies.service
+          echo "Systemd service is running"
       
       - name: Configure Nginx Maintenance Mode
         run: |
@@ -134,12 +158,17 @@ jobs:
       - name: Verify deployment
         run: |
           echo "Verifying deployment..."
-          if [ ! -f "/var/www/bellatechnologies.in/dist/index.html" ]; then
-            echo "Deployment verification failed: index.html not found"
+          if [ ! -f "/var/www/bellatechnologies.in/dist/server/entry.mjs" ]; then
+            echo "Deployment verification failed: server entry not found"
             exit 1
           fi
-          echo "Deployment verified: index.html exists"
-          echo "Website should be live at: http://bellatechnologies.in"
+          if [ ! -d "/var/www/bellatechnologies.in/dist/client" ]; then
+            echo "Deployment verification failed: client directory not found"
+            exit 1
+          fi
+          sudo systemctl is-active --quiet bellatechnologies.service
+          echo "Deployment verified: server + client present, service active"
+          echo "Website should be live at: https://bellatechnologies.in"
       
       - name: Cleanup old backups
         run: |
