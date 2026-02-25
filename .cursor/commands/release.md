@@ -9,35 +9,40 @@ Create a release branch from develop, update package.json version, clean up old 
 - **All terminal commands must be executed with `required_permissions: ["all"]`** to ensure full permissions for git operations, network access, file modifications, and branch management operations.
 
 Steps:
-1) Validate version parameter format:
+1) Switch to Node v20 (required before running anything):
+   - Run: `nvm use 20`
+   - (Optional) Verify: `node -v`
+
+2) Validate version parameter format:
    - Check if version starts with 'v' followed by semantic version format (MAJOR.MINOR.PATCH)
    - Valid examples: `v1.0.0`, `v2.1.3`, `v10.5.0`
    - Invalid examples: `1.0.0` (missing v), `v1.0` (incomplete), `v1.0.0.0` (too many parts)
    - If format is incorrect, report error: "Error: Version format must be v*.*.* (e.g., v1.2.0)" and stop.
 
-2) Check current branch - ensure you're not on a feature or release branch. If you are, report an error and stop.
+3) Check current branch - ensure you're not on a feature or release branch. If you are, report an error and stop.
    - Run: `git branch --show-current`
 
-3) Ensure you're on `develop` branch:
+4) Ensure you're on `develop` branch:
    - Run `git checkout develop`
    - Pull latest changes: `git pull origin develop`
 
-4) Create release branch:
+5) Create release branch:
    - Branch name format: `release/{version}` (e.g., `release/v1.2.0`)
    - Run: `git checkout -b release/{version}`
 
-5) Update version in package.json:
+6) Update version in package.json (and keep lockfile in sync for CI):
    - Extract version number from parameter (remove 'v' prefix, e.g., `v1.2.0` -> `1.2.0`)
    - Update the "version" field in package.json with the extracted version
-   - Commit the change: `git add package.json && git commit -m "chore: bump version to {version}"`
+   - Run `npm install` to update `package-lock.json` (prevents `npm ci` failures)
+   - Commit the change: `git add package.json package-lock.json && git commit -m "chore: bump version to {version}"`
 
-6) Merge release branch to main:
+7) Merge release branch to main:
    - Switch to main: `git checkout main`
    - Pull latest: `git pull origin main`
    - Merge release branch: `git merge --no-ff release/{version} -m "chore: merge release/{version} into main"`
    - Create annotated tag: `git tag -a {version} -m "Release {version}"`
 
-7) Merge release branch back to develop:
+8) Merge release branch back to develop:
    - Switch to develop: `git checkout develop`
    - Merge release branch: `git merge --no-ff release/{version} -m "chore: merge release/{version} into develop"`
 
