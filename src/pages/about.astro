@@ -1,21 +1,26 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import "../styles/pages/about.css";
 
 const title = "About | Bella Technologies";
 const description =
-	"Learn about Bella Technologies and our workflow-first approach for MSMEs.";
+	"Learn about Bella Technologies, a founder-led FinTech SaaS studio in India.";
 ---
 
 <BaseLayout title={title} description={description}>
 	<main>
 		<section class="section">
 			<div class="container">
+				<div class="reveal">
+					<Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "About" }]} />
+				</div>
 				<div class="section-title reveal">
 					<h1>About</h1>
 				</div>
 				<div class="about-hero-media reveal" aria-hidden="true">
 					<img
-						src="/images/about-hero.svg"
+						src="/images/2026/02/about-hero.svg"
 						alt=""
 						loading="lazy"
 						decoding="async"
@@ -23,69 +28,84 @@ const description =
 				</div>
 				<div class="about-content reveal">
 					<p>
-						Bella Technologies is a founder-led custom software partner for
-						Micro, Small, and Medium Enterprises (MSMEs), helping growth-stage
-						businesses replace manual, spreadsheet-driven workflows with
-						simple, reliable digital systems that actually fit how teams work
-						day to day. We focus on workflow-first applications, dashboards,
-						and API integrations that improve coordination, reduce errors, and
-						give owners clearer visibility into their operations and cash flow.
+						We help FinTech businesses build software that keeps them
+						competitive. Not websites. Not decks. Actual SaaS products — built
+						for India's fast-moving FinTech reality.
 					</p>
 					<div class="about-section">
 						<h2>Who we are</h2>
 						<p>
-							Bella Technologies is a sole proprietorship based in Tamil Nadu,
-							India, run by software consultant and engineer Maria Daniel
-							Deepak. After more than 15 years working on B2B software and
-							workflow-centric systems for small and medium businesses, he
-							started Bella to give MSME founders access to practical,
-							high-quality software without the overhead of a large agency. Our
-							structure is intentionally lean, so clients work directly with an
-							experienced engineer who understands both code and day-to-day MSME
-							operations.
+							Bella Technologies is a founder-led software partner based in Tamil
+							Nadu, India. We work as a trusted extension of your team — close
+							enough to understand your workflows, experienced enough to know
+							what good software looks like in practice.
+						</p>
+						<p>
+							We're intentionally lean. That means no unnecessary overhead, no
+							hand-offs, and a partnership that's built on honest communication
+							and long-term thinking.
 						</p>
 					</div>
 					<div class="about-section">
 						<h2>What we do</h2>
 						<p>
-							We design and build custom, workflow-driven applications that
-							replace error-prone spreadsheets and manual processes for MSMEs.
-							Typical engagements include building internal tools, dashboards,
-							and reconciliation workflows, integrating APIs between existing
-							systems, and creating simple portals or apps that make it easier
-							for teams to capture, track, and act on business data. We
-							primarily serve tech-enabled NBFCs and small digital-lending
-							MSMEs, but the same approach applies to any growth-stage business
-							that needs its workflows to be more reliable, auditable, and
-							easier to manage.
+							We build SaaS tools for FinTech businesses across Payments,
+							Lending, WealthTech, and InsurTech — with a focus on the SMBs that
+							power India's ecosystem: IFAs, small NBFCs, lending platforms, and
+							insurance agents.
+						</p>
+						<p>
+							If critical workflows are still running on spreadsheets and
+							WhatsApp, we can fix that. We build focused, affordable software
+							that fits how your business actually operates — and keeps you
+							audit-ready as you grow.
 						</p>
 					</div>
 					<div class="about-section">
-						<h2>How we work with clients</h2>
+						<h2>How we work</h2>
 						<p>
-							Our work starts with understanding your current process: how
-							information flows, where delays and errors occur, and what "good"
-							looks like for your team. From there, we design small, focused
-							solutions that can be rolled out in stages, so your team can adopt
-							them with minimal disruption while still seeing clear, measurable
-							improvements. We prefer long-term partnerships on a retainer or
-							ongoing engagement model, so we can keep refining the system,
-							respond to changes in your business, and share what we have learned
-							from similar MSME workflows.
+							Every engagement starts with understanding your process — where
+							things slow down, where errors creep in, and what "working well"
+							looks like for your team. We build in stages, so adoption is smooth
+							and improvements show up early.
+						</p>
+						<p>
+							We prefer long-term partnerships. Your business will keep evolving,
+							and your software should keep up.
 						</p>
 					</div>
 					<div class="about-section">
 						<h2>What we believe</h2>
 						<p>
-							We believe MSMEs do not need flashy technology; they need software
-							that is trustworthy, maintainable, and aligned with how their
-							business actually runs. That is why we prioritise clarity over
-							jargon, honest communication over sales talk, and solutions that
-							can be supported for years rather than quick, one-off builds. Our
-							goal is to be a long-term, owner-driven partner for MSMEs, someone
-							you can call when a process is breaking down, a workflow needs to
-							scale, or a new opportunity requires your systems to catch up.
+							FinTech businesses don't need overengineered platforms or
+							enterprise pricing. They need a trusted partner who understands
+							their reality and builds software that's reliable, maintainable,
+							and built to last. That's what we're here for.
 						</p>
+					</div>
+					<div class="about-section">
+						<h2>Meet the founder</h2>
+						<div class="founder-card card">
+							<div class="founder-photo">
+								<img
+									src="/images/2026/02/maria-daniel-deepak.jpg"
+									alt="Maria Daniel Deepak"
+									loading="lazy"
+									decoding="async"
+								/>
+							</div>
+							<div class="founder-details">
+								<div class="founder-name">Maria Daniel Deepak</div>
+								<div class="founder-title">Founder &amp; Software Consultant</div>
+								<p>
+									With 15+ years building B2B and workflow-driven systems for small
+									and medium businesses, Daniel started Bella Technologies with one
+									goal: give FinTech SMBs access to practical, high-quality software
+									— without the overhead of a large agency. When you work with
+									Bella Technologies, you work with him directly.
+								</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

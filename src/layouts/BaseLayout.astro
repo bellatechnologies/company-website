@@ -1,6 +1,8 @@
 ---
-import "../styles/global.css";
+import "../styles/base.css";
+import "../styles/site.css";
 import { Icon } from "@astrojs/starlight/components";
+import SiteFooter from "../components/SiteFooter.astro";
 
 const {
 	title = "Bella Technologies | Professional Digital Studio",
@@ -8,17 +10,27 @@ const {
 } = Astro.props;
 
 const companyName = "Bella Technologies";
-const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
+const pathname = Astro.url.pathname;
+const isContactPage = pathname === "/contact/";
 const navItems = [
 	{ label: "Home", href: "/" },
-	{ label: "About", href: "/about" },
-	{ label: "Portfolio", href: "/portfolio" },
-	{ label: "Blog", href: "/blog" },
-	{ label: "Contact", href: "/contact" },
+	{ label: "About", href: "/about/" },
+	{ label: "Portfolio", href: "/portfolio/" },
+	{ label: "Blog", href: "/blog/" },
+	{ label: "Contact", href: "/contact/" },
 ];
 
 const isActive = (href: string) =>
-	pathname === href || (href !== "/" && pathname.startsWith(`${href}/`));
+	pathname === href || (href !== "/" && pathname.startsWith(href));
+
+const isTruthyFlag = (value: unknown) => {
+	if (value == null) return false;
+	return ["true", "1", "yes", "on"].includes(String(value).toLowerCase());
+};
+
+const googleAnalyticsEnabled = isTruthyFlag(
+	import.meta.env.GOOGLE_ANALYTICS_ENABLED ?? process.env.GOOGLE_ANALYTICS_ENABLED
+);
 ---
 <!doctype html>
 <html lang="en">
@@ -30,6 +42,23 @@ const isActive = (href: string) =>
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
 		<title>{title}</title>
+		{
+			googleAnalyticsEnabled ? (
+				<>
+					<!-- Google tag (gtag.js) -->
+					<script
+						async
+						src="https://www.googletagmanager.com/gtag/js?id=G-5DQXQ5WGZY"
+					></script>
+					<script is:inline>
+						window.dataLayer = window.dataLayer || [];
+						function gtag() {dataLayer.push(arguments);}
+						gtag("js", new Date());
+						gtag("config", "G-5DQXQ5WGZY");
+					</script>
+				</>
+			) : null
+		}
 	</head>
 	<body>
 		<header class="header">
@@ -51,17 +80,24 @@ const isActive = (href: string) =>
 						</a>
 					))}
 				</nav>
-				<a class="primary-button" href="/contact">Book a Call</a>
+				<a
+					href="/contact/"
+					class:list={{
+						"primary-button": true,
+						"header-cta": true,
+						"header-cta--hidden": isContactPage,
+					}}
+					aria-hidden={isContactPage ? "true" : undefined}
+					tabindex={isContactPage ? "-1" : undefined}
+				>
+					Book a Call
+				</a>
 			</div>
 		</header>
 
 		<slot />
 
-		<footer class="footer">
-			<div class="container">
-				<p>© 2026 {companyName}. Crafted with Astro SSG.</p>
-			</div>
-		</footer>
+		<SiteFooter companyName={companyName} />
 
 		<script is:inline>
 			const revealElements = document.querySelectorAll(".reveal");

@@ -1,0 +1,76 @@
+.maintenance-page.hero {
+	min-height: 60vh;
+	align-items: center;
+}
+
+.maintenance-inner {
+	text-align: center;
+	width: 100%;
+}
+
+.maintenance-page .hero-badge {
+	margin: 0 auto 24px;
+}
+
+.maintenance-page.hero h1 {
+	font-size: clamp(2.8rem, 5vw, 4rem);
+	margin: 18px 0 20px;
+}
+
+.maintenance-lead {
+	font-size: 1.2rem;
+	color: var(--muted);
+	margin-bottom: 32px;
+	max-width: 600px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.maintenance-panel {
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: 20px;
+	padding: 32px;
+	box-shadow: var(--shadow);
+	max-width: 500px;
+	margin: 0 auto;
+}
+
+.maintenance-panel-title {
+	color: var(--ink);
+	margin-bottom: 16px;
+	font-size: 1.3rem;
+}
+
+.maintenance-panel-value {
+	color: var(--muted);
+	font-size: 1.1rem;
+	margin: 0;
+}
+
+.maintenance-panel-divider {
+	margin-top: 20px;
+	padding-top: 20px;
+	border-top: 1px solid var(--border);
+}
+
+.maintenance-panel-note {
+	color: var(--muted);
+	font-size: 0.95rem;
+	margin: 0;
+}
+
+.maintenance-help {
+	margin-top: 40px;
+	text-align: center;
+}
+
+.maintenance-help p {
+	color: var(--muted);
+	font-size: 1.1rem;
+}
+
+.maintenance-help a {
+	color: var(--accent);
+	text-decoration: underline;
+}

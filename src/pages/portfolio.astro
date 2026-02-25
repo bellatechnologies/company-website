@@ -1,22 +1,66 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import "../styles/pages/portfolio.css";
 
 const title = "Portfolio | Bella Technologies";
 const description =
-	"Explore recent launches that balance storytelling and conversion-focused UX.";
+	"Selected launches and production engineering work, including CI/CD automation.";
 ---
 
 <BaseLayout title={title} description={description}>
 	<main>
 		<section class="section">
 			<div class="container">
+				<div class="reveal">
+					<Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Portfolio" }]} />
+				</div>
 				<div class="section-title reveal">
 					<h1>Portfolio</h1>
 					<p>
-						A selection of recent launches. Each project reflects a focused
-						balance of storytelling and conversion-driven layout.
+						A selection of recent launches, plus behind-the-scenes production
+						engineering work we use to ship reliably.
 					</p>
 				</div>
+
+				<section class="portfolio-feature reveal" aria-labelledby="featured-case-study">
+					<h2 id="featured-case-study">Featured case study</h2>
+					<a
+						class="portfolio-card portfolio-card-link"
+						href="/portfolio/bella-technologies/"
+						aria-label="Read the Bella Technologies CI/CD automation case study"
+					>
+						<div class="portfolio-card-top">
+							<span class="portfolio-badge">Internal</span>
+							<span class="portfolio-badge subtle">CI/CD automation</span>
+						</div>
+						<strong>Bella Technologies</strong>
+						<p>
+							We automated how <code>bellatechnologies.in</code> ships to production—so releases
+							are repeatable, safer, and less manual.
+						</p>
+						<ul class="portfolio-bullets" aria-label="Why we built it">
+							<li><strong>Practice what we preach</strong>: production-grade shipping for our own product.</li>
+							<li><strong>Automation-first</strong>: fewer steps, fewer mistakes, clearer rollback.</li>
+							<li><strong>Cost-aware</strong>: self-hosted runners + predictable infra.</li>
+						</ul>
+						<div class="portfolio-meta" aria-label="Highlights">
+							<span>GitHub Actions</span>
+							<span>Self-hosted runner</span>
+							<span>nginx</span>
+							<span>Versioned releases</span>
+						</div>
+						<span class="portfolio-cta">Read the case study →</span>
+					</a>
+				</section>
+
+				<div class="section-title reveal portfolio-subtitle">
+					<h2>Other works</h2>
+					<p>
+						Additional launches and builds (sample entries for now).
+					</p>
+				</div>
+
 				<div class="portfolio-grid">
 					<article class="portfolio-card reveal">
 						<strong>Nova Health Labs</strong>

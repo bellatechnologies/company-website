@@ -1,0 +1,23 @@
+[Unit]
+Description=Bella Technologies Astro server
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/bellatechnologies.in
+
+Environment=NODE_ENV=production
+EnvironmentFile=/var/www/bellatechnologies.in/.env.production
+
+ExecStart=/usr/bin/node /var/www/bellatechnologies.in/dist/server/entry.mjs
+
+Restart=always
+RestartSec=5
+KillSignal=SIGINT
+TimeoutStopSec=30
+
+[Install]
+WantedBy=multi-user.target
+

@@ -1,6 +1,8 @@
 ---
-import "../styles/global.css";
+import "../styles/base.css";
+import "../styles/site.css";
 import { Icon } from "@astrojs/starlight/components";
+import SiteFooter from "../components/SiteFooter.astro";
 
 const {
 	title = "New Website Coming Soon | Bella Technologies",
@@ -8,6 +10,15 @@ const {
 } = Astro.props;
 
 const companyName = "Bella Technologies";
+
+const isTruthyFlag = (value: unknown) => {
+	if (value == null) return false;
+	return ["true", "1", "yes", "on"].includes(String(value).toLowerCase());
+};
+
+const googleAnalyticsEnabled = isTruthyFlag(
+	import.meta.env.GOOGLE_ANALYTICS_ENABLED ?? process.env.GOOGLE_ANALYTICS_ENABLED
+);
 ---
 <!doctype html>
 <html lang="en">
@@ -19,6 +30,23 @@ const companyName = "Bella Technologies";
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
 		<title>{title}</title>
+		{
+			googleAnalyticsEnabled ? (
+				<>
+					<!-- Google tag (gtag.js) -->
+					<script
+						async
+						src="https://www.googletagmanager.com/gtag/js?id=G-5DQXQ5WGZY"
+					></script>
+					<script is:inline>
+						window.dataLayer = window.dataLayer || [];
+						function gtag() {dataLayer.push(arguments);}
+						gtag("js", new Date());
+						gtag("config", "G-5DQXQ5WGZY");
+					</script>
+				</>
+			) : null
+		}
 	</head>
 	<body>
 		<header class="header">
@@ -34,11 +62,7 @@ const companyName = "Bella Technologies";
 
 		<slot />
 
-		<footer class="footer">
-			<div class="container" style="text-align: center;">
-				<p>© 2026 {companyName}. Crafted with ❤️ and Astro SSG.</p>
-			</div>
-		</footer>
+		<SiteFooter companyName={companyName} />
 
 		<script is:inline>
 			const revealElements = document.querySelectorAll(".reveal");

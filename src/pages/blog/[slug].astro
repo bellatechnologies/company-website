@@ -1,0 +1,99 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import {
+	getCollection,
+	getEntry,
+	type CollectionEntry,
+} from "astro:content";
+import { Icon } from "@astrojs/starlight/components";
+import "../../styles/pages/blog.css";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+	const posts = await getCollection("blog", ({ data }) => !data.draft);
+
+	return posts.map((post) => ({
+		params: { slug: post.slug },
+		props: { post },
+	}));
+}
+
+type Props = {
+	post: CollectionEntry<"blog">;
+};
+
+const { post } = Astro.props as Props;
+
+const title = `${post.data.title} | Bella Technologies`;
+const description = post.data.description;
+
+const categoryEntry = await getEntry("blogCategories", post.data.categoryId);
+const categoryLabel = categoryEntry?.data?.name ?? post.data.categoryId;
+
+const { Content } = await post.render();
+
+const formatDate = (date: Date) =>
+	new Intl.DateTimeFormat("en-US", {
+		month: "short",
+		day: "numeric",
+		year: "numeric",
+	}).format(date);
+const postDate = post.data.date ?? null;
+---
+
+<BaseLayout title={title} description={description}>
+	<main>
+		<section class="section">
+			<div class="container">
+				<div class="reveal">
+					<Breadcrumbs
+						items={[
+							{ label: "Home", href: "/" },
+							{ label: "Blog", href: "/blog/" },
+							{ label: post.data.title },
+						]}
+					/>
+				</div>
+				<div class="section-title reveal">
+					<div class="section-title__left">
+						<h1>{post.data.title}</h1>
+						<div class="blog-post-meta">
+							{
+								postDate ? (
+									<time datetime={postDate.toISOString()}>
+										{formatDate(postDate)}
+									</time>
+								) : null
+							}
+							<span class="hero-badge">{categoryLabel}</span>
+						</div>
+					</div>
+				</div>
+
+				{
+					post.data.heroImage ? (
+						<div class="reveal blog-hero-media">
+							<img
+								src={post.data.heroImage}
+								alt={post.data.heroImageAlt ?? post.data.title}
+								class="blog-hero-image"
+								loading="lazy"
+							/>
+						</div>
+					) : null
+				}
+
+				<div class="reveal blog-post">
+					<Content />
+					<a class="secondary-button" href="/blog/">
+						<Icon class="button-icon" name="left-caret" aria-hidden="true" />
+						<span>Back to Blog</span>
+					</a>
+				</div>
+			</div>
+		</section>
+	</main>
+</BaseLayout>
+
