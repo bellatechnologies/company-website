@@ -8,8 +8,7 @@ export default defineConfig({
   site: 'https://bellatechnologies.in',
   output: 'server',
   security: {
-    // Keep CSRF/origin checks enabled, but trust our real public domains
-    // when behind nginx (TLS terminates at the proxy).
+    // Nginx sets Origin to $scheme://$host so CSRF check passes behind proxy
     allowedDomains: [
       { hostname: 'bellatechnologies.in', protocol: 'https' },
       { hostname: 'www.bellatechnologies.in', protocol: 'https' },
