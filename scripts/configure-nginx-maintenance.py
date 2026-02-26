@@ -82,6 +82,7 @@ def get_normal_location_block():
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Origin $http_origin;
 
         # Optional websocket upgrade support
         proxy_set_header Upgrade $http_upgrade;
