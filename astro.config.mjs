@@ -8,6 +8,7 @@ export default defineConfig({
   site: 'https://bellatechnologies.in',
   output: 'server',
   security: {
+    checkOrigin: false,
     // Nginx sets Origin to $scheme://$host so CSRF check passes behind proxy
     allowedDomains: [
       { hostname: 'bellatechnologies.in', protocol: 'https' },
