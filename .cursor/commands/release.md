@@ -8,6 +8,16 @@ Create a release branch from develop, update package.json version, clean up old 
 **Important**: 
 - **All terminal commands must be executed with `required_permissions: ["all"]`** to ensure full permissions for git operations, network access, file modifications, and branch management operations.
 
+## File Edit Constraint
+
+**Only `package.json` may be directly edited** during this command. No other files must be manually modified.
+
+- **Allowed**: Edit the `version` field in `package.json` only
+- **Not allowed**: Direct edits to `package-lock.json`, config files, source code, or any other file
+- **Indirect changes**: `package-lock.json` and build artifacts may change via commands (e.g., `npm install`); these are acceptable but must not be hand-edited
+
+This keeps the workflow safe: version bumps are the only intentional code change; lockfile and build updates come from tooling only.
+
 Steps:
 1) Switch to Node v20 (required before running anything):
    - Run: `nvm use 20`
