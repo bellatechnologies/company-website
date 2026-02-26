@@ -3,7 +3,7 @@ server {
     server_name www.bellatechnologies.in;
     
     # Permanent redirect from www to non-www
-    return 301 http://bellatechnologies.in$request_uri;
+    return 301 https://bellatechnologies.in$request_uri;
 
     listen [::]:443 ssl; # managed by Certbot
     listen 443 ssl; # managed by Certbot
