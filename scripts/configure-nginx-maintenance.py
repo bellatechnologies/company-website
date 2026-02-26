@@ -82,8 +82,7 @@ def get_normal_location_block():
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-        # Set Origin for Astro CSRF check; use canonical URL so check passes behind proxy
-        proxy_set_header Origin $scheme://$host;
+        # Do not override Origin - let the browser's Origin pass through for Astro CSRF check
 
         # Optional websocket upgrade support
         proxy_set_header Upgrade $http_upgrade;
