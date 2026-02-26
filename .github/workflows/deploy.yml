@@ -129,9 +129,22 @@ jobs:
           sudo chmod 600 /var/www/bellatechnologies.in/.env.production
           echo "Production environment file created"
 
+      - name: Install production Node dependencies (SSR runtime)
+        run: |
+          echo "Installing production dependencies on server..."
+          sudo cp package.json package-lock.json /var/www/bellatechnologies.in/
+          sudo chown -R www-data:www-data /var/www/bellatechnologies.in
+          sudo -u www-data mkdir -p /var/www/bellatechnologies.in/.npm-cache
+          sudo -u www-data bash -lc 'cd /var/www/bellatechnologies.in && npm ci --omit=dev --cache /var/www/bellatechnologies.in/.npm-cache --no-audit --no-fund'
+          echo "Production dependencies installed"
+
       - name: Install or update systemd service
         run: |
           echo "Installing/updating systemd service..."
+          dump_service_diagnostics() {
+            sudo systemctl status bellatechnologies.service --no-pager -l || true
+            sudo journalctl -u bellatechnologies.service -n 200 --no-pager -o cat || true
+          }
           if [ ! -f "/var/www/bellatechnologies.in/scripts/bellatechnologies.service" ]; then
             echo "Service unit not found in deployed scripts directory"
             exit 1
@@ -139,8 +152,8 @@ jobs:
           sudo cp /var/www/bellatechnologies.in/scripts/bellatechnologies.service /etc/systemd/system/bellatechnologies.service
           sudo systemctl daemon-reload
           sudo systemctl enable bellatechnologies.service
-          sudo systemctl restart bellatechnologies.service
-          sudo systemctl is-active --quiet bellatechnologies.service
+          sudo systemctl restart bellatechnologies.service || { echo "Service restart failed"; dump_service_diagnostics; exit 1; }
+          sudo systemctl is-active --quiet bellatechnologies.service || { echo "Service is not active after restart"; dump_service_diagnostics; exit 1; }
           echo "Systemd service is running"
       
       - name: Configure Nginx Maintenance Mode
