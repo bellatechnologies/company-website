@@ -2,9 +2,14 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { Icon } from "@astrojs/starlight/components";
 import "../styles/pages/home.css";
+import "../styles/pages/contact.css";
 import { CONTACT } from "../data/contact";
 
 const companyName = "Bella Technologies";
+
+const requestUrl = Astro.url?.toString();
+const sent = requestUrl ? new URL(requestUrl).searchParams.get("sent") === "1" : false;
+const error = requestUrl ? new URL(requestUrl).searchParams.get("error") : null;
 ---
 
 <BaseLayout
@@ -121,12 +126,25 @@ const companyName = "Bella Technologies";
 			</div>
 		</section>
 
-		<section class="section">
+		<section class="section" id="contact">
 			<div class="container contact reveal">
 				<div>
 					<h2>Contact</h2>
+					<p id="contact-success" class="contact-success" role="status" hidden={!sent}>
+						<strong>Thanks!</strong> Your inquiry has been sent. We will be in
+						touch within one business day.
+					</p>
 					<p>
 						Still running core workflows on spreadsheets or WhatsApp? Let’s fix it. Tell us your process—we’ll reply in 1 business day.
+					</p>
+					<p
+						id="contact-error"
+						class="contact-error"
+						role="alert"
+						hidden={!error}
+					>
+						<strong>Sorry —</strong> we could not send your inquiry. Please email
+						us directly at <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>.
 					</p>
 					<div class="contact-details">
 						<div class="contact-detail">
@@ -143,14 +161,25 @@ const companyName = "Bella Technologies";
 						</div>
 					</div>
 				</div>
-				<form>
+				<form action="/api/contact/" method="post">
+					<input type="hidden" name="returnTo" value="/" />
+					<div class="visually-hidden" aria-hidden="true">
+						<label for="website">Website</label>
+						<input
+							id="website"
+							name="website"
+							type="text"
+							tabindex="-1"
+							autocomplete="off"
+						/>
+					</div>
 					<div>
 						<label for="name">Name</label>
-						<input id="name" name="name" type="text" placeholder="Jane Doe" />
+						<input id="name" name="name" type="text" placeholder="Jane Doe" required />
 					</div>
 					<div>
 						<label for="email">Email</label>
-						<input id="email" name="email" type="email" placeholder="jane@email.com" />
+						<input id="email" name="email" type="email" placeholder="jane@email.com" required />
 					</div>
 					<div>
 						<label for="message">Project details</label>
@@ -158,6 +187,7 @@ const companyName = "Bella Technologies";
 							id="message"
 							name="message"
 							placeholder="What’s manual today? What should the system do? Who uses it?"
+							required
 						></textarea>
 					</div>
 					<button class="primary-button" type="submit">Send Inquiry</button>
@@ -165,4 +195,5 @@ const companyName = "Bella Technologies";
 			</div>
 		</section>
 	</main>
+	<script src="../scripts/contact-form-feedback.ts" />
 </BaseLayout>
