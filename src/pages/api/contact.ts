@@ -15,6 +15,12 @@ function isValidEmail(email: string) {
 	return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+function getReturnTo(form: FormData): string {
+	const raw = String(form.get('returnTo') ?? '').trim();
+	if (raw === '/' || raw === '/contact/') return raw;
+	return '/contact/';
+}
+
 export const POST: APIRoute = async ({ request, clientAddress }) => {
 	let form: FormData;
 	try {
@@ -23,10 +29,12 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 		return redirect('/contact/?error=bad_request');
 	}
 
+	const returnTo = getReturnTo(form);
+
 	const website = String(form.get('website') ?? '');
 	if (website.trim()) {
 		// Honeypot field: silently succeed to avoid tipping off bots.
-		return redirect('/contact/?sent=1');
+		return redirect(`${returnTo}?sent=1`);
 	}
 
 	const name = String(form.get('name') ?? '').trim();
@@ -34,14 +42,14 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 	const message = String(form.get('message') ?? '').trim();
 
 	if (!name || !email || !message || !isValidEmail(email)) {
-		return redirect('/contact/?error=validation');
+		return redirect(`${returnTo}?error=validation`);
 	}
 
 	const resendApiKey = import.meta.env.RESEND_API_KEY ?? process.env.RESEND_API_KEY;
 	const fromEmail = import.meta.env.FROM_EMAIL ?? process.env.FROM_EMAIL;
 
 	if (!resendApiKey || !fromEmail) {
-		return redirect('/contact/?error=config');
+		return redirect(`${returnTo}?error=config`);
 	}
 
 	const safeMessage = message.length > 5000 ? message.slice(0, 5000) : message;
@@ -63,10 +71,10 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 			].join('\n'),
 		});
 	} catch {
-		return redirect('/contact/?error=send_failed');
+		return redirect(`${returnTo}?error=send_failed`);
 	}
 
-	return redirect('/contact/?sent=1');
+	return redirect(`${returnTo}?sent=1`);
 };
 
 export const GET: APIRoute = async () => {

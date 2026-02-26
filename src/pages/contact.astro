@@ -15,7 +15,7 @@ const error = requestUrl ? new URL(requestUrl).searchParams.get("error") : null;
 
 <BaseLayout title={title} description={description}>
 	<main>
-		<section class="section contact-page">
+		<section class="section contact-page" id="contact">
 			<div class="container">
 				<div class="contact reveal">
 					<div>
@@ -53,6 +53,7 @@ const error = requestUrl ? new URL(requestUrl).searchParams.get("error") : null;
 						</div>
 					</div>
 					<form id="contact-form" action="/api/contact/" method="post">
+						<input type="hidden" name="returnTo" value="/contact/" />
 						<div
 							class="visually-hidden"
 							aria-hidden="true"
@@ -101,17 +102,5 @@ const error = requestUrl ? new URL(requestUrl).searchParams.get("error") : null;
 			</div>
 		</section>
 	</main>
-	<script is:inline>
-		{`
-		const successEl = document.getElementById("contact-success");
-		const errorEl = document.getElementById("contact-error");
-		const searchParams = new URLSearchParams(window.location.search);
-		if (successEl && searchParams.get("sent") === "1") {
-			successEl.hidden = false;
-		}
-		if (errorEl && searchParams.get("error")) {
-			errorEl.hidden = false;
-		}
-		`}
-	</script>
+	<script src="../scripts/contact-form-feedback.ts" />
 </BaseLayout>
