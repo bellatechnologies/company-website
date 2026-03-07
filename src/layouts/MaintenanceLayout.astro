@@ -1,7 +1,6 @@
 ---
 import "../styles/base.css";
 import "../styles/site.css";
-import { Icon } from "@astrojs/starlight/components";
 import SiteFooter from "../components/SiteFooter.astro";
 
 const {
@@ -60,10 +59,6 @@ const googleAnalyticsEnabled = isTruthyFlag(
 						height="72"
 						decoding="async"
 					/>
-					<div class="brand-mark" aria-hidden="true">
-						<Icon class="brand-icon" name="seti:default" />
-					</div>
-					<span class="brand-name">{companyName}</span>
 				</a>
 			</div>
 		</header>

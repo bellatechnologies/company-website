@@ -28,41 +28,11 @@
 }
 
 .brand-wordmark {
-	display: none;
+	display: block;
 	height: 36px;
 	width: auto;
-}
-
-.brand-mark {
-	width: 36px;
-	height: 36px;
-	border-radius: 12px;
-	background: linear-gradient(135deg, #8839ef, #1e66f5);
-	box-shadow: 0 10px 24px rgba(136, 57, 239, 0.25);
-	display: grid;
-	place-items: center;
-	position: relative;
-	overflow: hidden;
-}
-
-.brand-mark::after {
-	content: "";
-	position: absolute;
-	inset: 4px;
-	border-radius: 10px;
-	border: 1px solid rgba(255, 255, 255, 0.3);
-	pointer-events: none;
-}
-
-.brand-icon {
-	width: 20px;
-	height: 20px;
-	color: #fff;
-	filter: drop-shadow(0 4px 10px rgba(30, 102, 245, 0.45));
-}
-
-.brand-name {
-	display: inline;
+	max-width: min(320px, 52vw);
+	object-fit: contain;
 }
 
 .menu {
@@ -501,6 +471,11 @@ textarea {
 		position: relative;
 	}
 
+	.brand-wordmark {
+		height: 32px;
+		max-width: min(260px, 58vw);
+	}
+
 	.menu {
 		display: none;
 	}
@@ -516,16 +491,5 @@ textarea {
 	.section-title {
 		flex-direction: column;
 		align-items: flex-start;
-	}
-}
-
-@media (min-width: 781px) {
-	.brand-wordmark {
-		display: block;
-	}
-
-	.brand-mark,
-	.brand-name {
-		display: none;
 	}
 }
