@@ -64,10 +64,18 @@ const googleAnalyticsEnabled = isTruthyFlag(
 		<header class="header">
 			<div class="container nav">
 				<a class="brand" href="/">
+					<img
+						class="brand-wordmark"
+						src="/brand/professional-logo-horizontal.png"
+						alt={companyName}
+						width="440"
+						height="72"
+						decoding="async"
+					/>
 					<div class="brand-mark" aria-hidden="true">
 						<Icon class="brand-icon" name="seti:default" />
 					</div>
-					<span>{companyName}</span>
+					<span class="brand-name">{companyName}</span>
 				</a>
 				<nav class="menu" aria-label="Primary navigation">
 					{navItems.map(({ label, href }) => (
