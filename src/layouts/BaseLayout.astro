@@ -92,6 +92,41 @@ const googleAnalyticsEnabled = isTruthyFlag(
 				>
 					Book a Call
 				</a>
+				<details class="mobile-menu">
+					<summary class="mobile-menu__toggle" aria-label="Open menu">
+						<span class="mobile-menu__icon" aria-hidden="true">
+							<span class="mobile-menu__bar"></span>
+							<span class="mobile-menu__bar"></span>
+							<span class="mobile-menu__bar"></span>
+						</span>
+						<span class="visually-hidden">Menu</span>
+					</summary>
+					<div class="mobile-menu__panel" aria-label="Mobile navigation">
+						<nav class="mobile-menu__links" aria-label="Primary navigation (mobile)">
+							{navItems.map(({ label, href }) => (
+								<a
+									href={href}
+									class={isActive(href) ? "is-active" : undefined}
+									aria-current={isActive(href) ? "page" : undefined}
+								>
+									{label}
+								</a>
+							))}
+						</nav>
+						<a
+							href="/contact/"
+							class:list={{
+								"primary-button": true,
+								"mobile-menu__cta": true,
+								"header-cta--hidden": isContactPage,
+							}}
+							aria-hidden={isContactPage ? "true" : undefined}
+							tabindex={isContactPage ? "-1" : undefined}
+						>
+							Book a Call
+						</a>
+					</div>
+				</details>
 			</div>
 		</header>
 
@@ -114,6 +149,31 @@ const googleAnalyticsEnabled = isTruthyFlag(
 			);
 
 			revealElements.forEach((element) => observer.observe(element));
+		</script>
+		<script is:inline>
+			const mobileMenu = document.querySelector("details.mobile-menu");
+			if (mobileMenu) {
+				mobileMenu.addEventListener("click", (event) => {
+					const target = event.target;
+					if (!(target instanceof Element)) return;
+					const isNavLink = target.closest("a");
+					if (isNavLink) mobileMenu.removeAttribute("open");
+				});
+
+				document.addEventListener("click", (event) => {
+					if (!mobileMenu.hasAttribute("open")) return;
+					const target = event.target;
+					if (!(target instanceof Element)) return;
+					if (mobileMenu.contains(target)) return;
+					mobileMenu.removeAttribute("open");
+				});
+
+				document.addEventListener("keydown", (event) => {
+					if (event.key !== "Escape") return;
+					if (!mobileMenu.hasAttribute("open")) return;
+					mobileMenu.removeAttribute("open");
+				});
+			}
 		</script>
 	</body>
 </html>
