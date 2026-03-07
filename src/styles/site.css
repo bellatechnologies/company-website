@@ -63,6 +63,109 @@
 	color: var(--muted);
 }
 
+.mobile-menu {
+	display: none;
+	position: relative;
+}
+
+.mobile-menu summary {
+	list-style: none;
+}
+
+.mobile-menu summary::-webkit-details-marker {
+	display: none;
+}
+
+.mobile-menu__toggle {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 44px;
+	height: 44px;
+	border-radius: 14px;
+	border: 1px solid var(--border);
+	background: rgba(255, 255, 255, 0.7);
+	cursor: pointer;
+	transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+
+.mobile-menu__toggle:hover {
+	border-color: rgba(136, 57, 239, 0.45);
+	background: rgba(255, 255, 255, 0.9);
+}
+
+.mobile-menu__toggle:focus-visible {
+	outline: 3px solid rgba(136, 57, 239, 0.35);
+	outline-offset: 2px;
+}
+
+.mobile-menu__icon {
+	display: grid;
+	gap: 5px;
+}
+
+.mobile-menu__bar {
+	width: 18px;
+	height: 2px;
+	border-radius: 999px;
+	background: var(--ink);
+	transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.mobile-menu[open] .mobile-menu__bar:nth-child(1) {
+	transform: translateY(7px) rotate(45deg);
+}
+
+.mobile-menu[open] .mobile-menu__bar:nth-child(2) {
+	opacity: 0;
+}
+
+.mobile-menu[open] .mobile-menu__bar:nth-child(3) {
+	transform: translateY(-7px) rotate(-45deg);
+}
+
+.mobile-menu__panel {
+	position: absolute;
+	top: calc(100% + 12px);
+	right: 0;
+	width: min(92vw, 320px);
+	border-radius: 18px;
+	border: 1px solid var(--border);
+	background: rgba(255, 255, 255, 0.98);
+	box-shadow: 0 18px 60px rgba(17, 17, 26, 0.12);
+	padding: 12px;
+	display: grid;
+	gap: 12px;
+}
+
+.mobile-menu__links {
+	display: grid;
+	gap: 6px;
+}
+
+.mobile-menu__links a {
+	display: block;
+	padding: 10px 12px;
+	border-radius: 14px;
+	color: var(--muted);
+	transition: background 0.2s ease, color 0.2s ease;
+}
+
+.mobile-menu__links a:hover,
+.mobile-menu__links a:focus-visible {
+	background: rgba(136, 57, 239, 0.08);
+	color: var(--ink);
+}
+
+.mobile-menu__links a.is-active {
+	color: #8839ef;
+	background: rgba(136, 57, 239, 0.1);
+}
+
+.mobile-menu__cta {
+	width: 100%;
+}
+
 .menu a {
 	position: relative;
 	padding: 6px 0;
@@ -384,9 +487,20 @@ textarea {
 }
 
 @media (max-width: 780px) {
+	.nav {
+		position: relative;
+	}
+
 	.menu {
-		gap: 18px;
-		font-size: 0.9rem;
+		display: none;
+	}
+
+	.header-cta {
+		display: none;
+	}
+
+	.mobile-menu {
+		display: block;
 	}
 
 	.section-title {
