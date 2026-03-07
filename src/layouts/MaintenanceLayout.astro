@@ -1,7 +1,6 @@
 ---
 import "../styles/base.css";
 import "../styles/site.css";
-import { Icon } from "@astrojs/starlight/components";
 import SiteFooter from "../components/SiteFooter.astro";
 
 const {
@@ -52,10 +51,14 @@ const googleAnalyticsEnabled = isTruthyFlag(
 		<header class="header">
 			<div class="container nav" style="justify-content: center;">
 				<a class="brand" href="/">
-					<div class="brand-mark" aria-hidden="true">
-						<Icon class="brand-icon" name="seti:default" />
-					</div>
-					<span>{companyName}</span>
+					<img
+						class="brand-wordmark"
+						src="/brand/professional-logo-horizontal.png"
+						alt={companyName}
+						width="440"
+						height="72"
+						decoding="async"
+					/>
 				</a>
 			</div>
 		</header>
