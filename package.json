@@ -5,12 +5,15 @@
   "scripts": {
     "build:css": "tailwindcss -i input.css -o dist/tailwind.css --minify",
     "build:icons": "cp node_modules/lucide/dist/umd/lucide.min.js dist/lucide.min.js",
-    "build": "npm run build:css && npm run build:icons",
+    "build:fonts": "node scripts/build-fonts.js",
+    "build": "npm run build:css && npm run build:icons && npm run build:fonts",
     "watch:css": "tailwindcss -i input.css -o dist/tailwind.css --watch",
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/plus-jakarta-sans": "^5.2.8",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-rate-limit": "^7.3.1",
