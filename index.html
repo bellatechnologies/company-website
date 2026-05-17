@@ -7,39 +7,21 @@
   <meta name="description" content="Bella Technologies helps manufacturers and suppliers free up working capital locked in inventory and automate manual workflows that slow down operations." />
 
   <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/dist/fonts.css" />
 
-  <!-- Tailwind CSS (Play CDN) -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            ivory: '#FAFAF8',
-          },
-          fontFamily: {
-            sans:    ['Inter', 'ui-sans-serif', 'sans-serif'],
-            display: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'sans-serif'],
-          },
-          boxShadow: {
-            card:       '0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04)',
-            'card-hover': '0 8px 32px rgba(0,0,0,0.10)',
-          },
-        },
-      },
-    }
-  </script>
+  <!-- Tailwind CSS -->
+  <link rel="stylesheet" href="/dist/tailwind.css" />
 
   <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="/dist/lucide.min.js"></script>
 
   <style>
     /* Filled stars for testimonials */
     .star svg { fill: #fb923c; stroke: #fb923c; }
   </style>
+
+  <!-- Google Analytics (enabled via ENABLE_ANALYTICS=true in .env) -->
+  <script src="/analytics.js"></script>
 </head>
 <body class="bg-white text-gray-900 font-sans antialiased">
 
@@ -53,17 +35,13 @@
 
       <!-- Desktop nav -->
       <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-500">
-        <a href="#how-it-works"  class="hover:text-gray-900 transition-colors">How It Works</a>
-        <a href="#case-studies"  class="hover:text-gray-900 transition-colors">Case Studies</a>
-        <a href="#testimonials"  class="hover:text-gray-900 transition-colors">Testimonials</a>
-        <a href="#contact"       class="hover:text-gray-900 transition-colors">Contact</a>
+        <a href="#how-we-work" class="hover:text-gray-900 transition-colors">How We Work</a>
+        <a href="#case-studies" class="hover:text-gray-900 transition-colors">Case Studies</a>
+        <a href="#testimonials" class="hover:text-gray-900 transition-colors">Testimonials</a>
+        <a href="#contact" class="hover:text-gray-900 transition-colors">Contact</a>
       </nav>
 
       <div class="flex items-center gap-3">
-        <a href="#contact"
-           class="hidden md:inline-flex items-center gap-2 px-5 py-2.5 bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold rounded-lg transition-colors">
-          Book a Demo
-        </a>
         <button id="menu-toggle" class="md:hidden p-2 text-gray-500" aria-label="Toggle menu">
           <i data-lucide="menu" class="w-5 h-5"></i>
         </button>
@@ -73,14 +51,10 @@
     <!-- Mobile nav -->
     <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 bg-white">
       <nav class="flex flex-col px-6 py-4 gap-4 text-sm font-medium text-gray-600">
-        <a href="#how-it-works" class="hover:text-gray-900">How It Works</a>
+        <a href="#how-we-work" class="hover:text-gray-900">How We Work</a>
         <a href="#case-studies" class="hover:text-gray-900">Case Studies</a>
-        <a href="#testimonials"  class="hover:text-gray-900">Testimonials</a>
-        <a href="#contact"       class="hover:text-gray-900">Contact</a>
-        <a href="#contact"
-           class="inline-flex items-center justify-center px-5 py-2.5 bg-orange-500 text-white text-sm font-semibold rounded-lg">
-          Book a Demo
-        </a>
+        <a href="#testimonials" class="hover:text-gray-900">Testimonials</a>
+        <a href="#contact" class="hover:text-gray-900">Contact</a>
       </nav>
     </div>
   </header>
@@ -94,12 +68,12 @@
       <div>
         <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-orange-50 text-orange-600 text-xs font-semibold rounded-full mb-6">
           <i data-lucide="zap" class="w-3.5 h-3.5"></i>
-          Built for Indian manufacturers &amp; suppliers
+          For Indian manufacturers &amp; suppliers
         </div>
 
         <h1 class="font-display text-4xl md:text-[52px] font-bold text-gray-900 leading-[1.15] mb-6">
-          Your Capital Is Trapped.<br />
-          <span class="text-orange-500">Your Workflows Are Broken.</span><br />
+          Your <span class="text-orange-500">Capital</span> Is <span class="text-orange-500">Trapped.</span><br />
+          Your <span class="text-orange-500">Workflows</span> Are <span class="text-orange-500">Manual.</span><br />
           We Fix Both.
         </h1>
 
@@ -112,16 +86,12 @@
         <div class="flex flex-col sm:flex-row gap-3">
           <a href="#contact"
              class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-colors text-sm">
-            Book a Free Demo
+            Book a Free 30 Min Consultation
             <i data-lucide="arrow-right" class="w-4 h-4"></i>
-          </a>
-          <a href="#how-it-works"
-             class="inline-flex items-center justify-center gap-2 px-6 py-3.5 border border-gray-200 hover:border-gray-300 text-gray-700 font-semibold rounded-lg transition-colors text-sm">
-            See How It Works
           </a>
         </div>
 
-        <p class="mt-5 text-xs text-gray-400">No commitment · 30-minute call · Results visible in the first session.</p>
+        <p class="mt-5 text-xs text-gray-400">No commitment · 30-minute call · Results visible in under six weeks.</p>
       </div>
 
       <!-- Right: abstract dashboard illustration -->
@@ -196,21 +166,16 @@
         Bella Technologies gives you the visibility and automation to fix this —
         without replacing your existing systems or retraining your entire team.
       </p>
-      <a href="#contact"
-         class="inline-flex items-center justify-center gap-2 px-7 py-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-colors">
-        See It In Action
-        <i data-lucide="arrow-right" class="w-4 h-4"></i>
-      </a>
     </div>
   </section>
 
 
-  <!-- ===================== HOW IT WORKS ===================== -->
-  <section id="how-it-works" class="bg-white py-24 px-6">
+  <!-- ===================== HOW WE WORK ===================== -->
+  <section id="how-we-work" class="bg-white py-24 px-6">
     <div class="max-w-6xl mx-auto">
 
       <div class="text-center mb-16">
-        <p class="text-sm font-semibold text-teal-600 uppercase tracking-widest mb-4">How It Works</p>
+        <p class="text-sm font-semibold text-teal-600 uppercase tracking-widest mb-4">How We Work</p>
         <h2 class="font-display text-3xl md:text-4xl font-bold text-gray-900">
           Three steps from chaos to clarity
         </h2>
@@ -279,26 +244,26 @@
         <div class="bg-white rounded-2xl p-8 shadow-card hover:shadow-card-hover transition-shadow">
           <div class="flex items-center gap-3 mb-6">
             <div class="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
-              <i data-lucide="factory" class="w-5 h-5 text-gray-400"></i>
+              <i data-lucide="chart-candlestick" class="w-5 h-5 text-gray-400"></i>
             </div>
             <div>
-              <p class="font-semibold text-gray-900 text-sm">Auto Components Mfg.</p>
-              <p class="text-xs text-gray-400">Pune · ₹35 Cr turnover</p>
+              <p class="font-semibold text-gray-900 text-sm">MacroIntel.app</p>
+              <p class="text-xs text-gray-400">Salem · ₹32 Cr turnover</p>
             </div>
           </div>
           <div class="flex flex-col gap-4 mb-6">
             <div>
-              <p class="font-display text-3xl font-bold text-orange-500">₹42L</p>
-              <p class="text-sm text-gray-500 mt-1">freed from slow-moving inventory in 60 days</p>
+              <p class="font-display text-3xl font-bold text-orange-500">20s → <1s</p>
+              <p class="text-sm text-gray-500 mt-1">reduced signal latency significantly</p>
             </div>
             <div class="h-px bg-gray-100"></div>
             <div>
-              <p class="font-display text-3xl font-bold text-teal-500">68%</p>
-              <p class="text-sm text-gray-500 mt-1">reduction in manual purchase order effort</p>
+              <p class="font-display text-3xl font-bold text-teal-500">95%</p>
+              <p class="text-sm text-gray-500 mt-1">latency reduction to seize XAU trading opportunity</p>
             </div>
           </div>
           <p class="text-xs text-gray-400 italic leading-relaxed">
-            "We didn't realise how much cash was sitting idle until Bella showed us the numbers."
+            "We were losing out on XAU trading opportunities. Bella Technologies helped us reduce latency by 95% and seize the trading opportunity."
           </p>
         </div>
 
@@ -306,22 +271,22 @@
         <div class="bg-white rounded-2xl p-8 shadow-card hover:shadow-card-hover transition-shadow">
           <div class="flex items-center gap-3 mb-6">
             <div class="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
-              <i data-lucide="package" class="w-5 h-5 text-gray-400"></i>
+              <i data-lucide="truck" class="w-5 h-5 text-gray-400"></i>
             </div>
             <div>
-              <p class="font-semibold text-gray-900 text-sm">Industrial Supplier</p>
-              <p class="text-xs text-gray-400">Surat · ₹22 Cr turnover</p>
+              <p class="font-semibold text-gray-900 text-sm">Eskegie Reclaims Private Limited</p>
+              <p class="text-xs text-gray-400">Salem · ₹28 Cr turnover</p>
             </div>
           </div>
           <div class="flex flex-col gap-4 mb-6">
             <div>
-              <p class="font-display text-3xl font-bold text-orange-500">18 → 2</p>
-              <p class="text-sm text-gray-500 mt-1">days to complete a full purchase cycle</p>
+              <p class="font-display text-3xl font-bold text-orange-500">6</p>
+              <p class="text-sm text-gray-500 mt-1">days to gain visibility on factory floor status</p>
             </div>
             <div class="h-px bg-gray-100"></div>
             <div>
               <p class="font-display text-3xl font-bold text-teal-500">3 hrs/day</p>
-              <p class="text-sm text-gray-500 mt-1">saved on reconciliation and supplier follow-ups</p>
+              <p class="text-sm text-gray-500 mt-1">saved on reconciliation and manually updating the machine running status</p>
             </div>
           </div>
           <p class="text-xs text-gray-400 italic leading-relaxed">
@@ -333,11 +298,11 @@
         <div class="bg-white rounded-2xl p-8 shadow-card hover:shadow-card-hover transition-shadow">
           <div class="flex items-center gap-3 mb-6">
             <div class="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center">
-              <i data-lucide="truck" class="w-5 h-5 text-gray-400"></i>
+              <i data-lucide="tractor" class="w-5 h-5 text-gray-400"></i>
             </div>
             <div>
-              <p class="font-semibold text-gray-900 text-sm">FMCG Distributor</p>
-              <p class="text-xs text-gray-400">Ahmedabad · ₹48 Cr turnover</p>
+              <p class="font-semibold text-gray-900 text-sm">Global Engineering</p>
+              <p class="text-xs text-gray-400">Salem · ₹24 Cr turnover</p>
             </div>
           </div>
           <div class="flex flex-col gap-4 mb-6">
@@ -347,7 +312,7 @@
             </div>
             <div class="h-px bg-gray-100"></div>
             <div>
-              <p class="font-display text-3xl font-bold text-teal-500">40%</p>
+              <p class="font-display text-3xl font-bold text-teal-500">33%</p>
               <p class="text-sm text-gray-500 mt-1">improvement in working capital turnover ratio</p>
             </div>
           </div>
@@ -368,12 +333,11 @@
         Ready to unlock your working capital?
       </h2>
       <p class="text-gray-400 text-lg mb-8 leading-relaxed">
-        Book a free 30-minute demo. We'll show you exactly where your cash is stuck
-        — before you sign anything.
+        Book a free 30-minute demo. We'll help you identify the exact manual workflows that are slowing down your business and show you how we can help you automate them before you sign anything.
       </p>
       <a href="#contact"
          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-colors">
-        Book Your Free Demo
+        Book a Free 30 Min Consultation
         <i data-lucide="arrow-right" class="w-4 h-4"></i>
       </a>
     </div>
@@ -404,17 +368,22 @@
             <svg class="w-4 h-4 text-orange-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           </div>
           <p class="text-gray-600 text-sm leading-relaxed mb-6">
-            "I always knew we had too much stock but never had the data to act on it.
-            Bella gave us the clarity we needed. In two months, we freed up more working capital
-            than our entire last bank loan."
+            "We partnered with Bella Technologies to address generating Gold buy/sell signals based on U.S. macroeconomic releases. Their team quickly understood our requirements and implemented a solution that significantly reduced signal latency, enabling faster execution in international markets.
+          </p>
+          <p class="text-gray-600 text-sm leading-relaxed mb-6">
+
+            Since working with them, we have seen clear improvements in reporting accuracy and decision-making speed. What stood out the most was their responsiveness, technical expertise and business understanding.
+          </p>
+          <p class="text-gray-600 text-sm leading-relaxed mb-6">
+            Bella Technologies has been reliable and easy to work with throughout the engagement and we would highly recommend them to any organization looking to reduce latency, improve data-driven trading decisions and macro-based signal accuracy."
           </p>
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-sm font-display shrink-0">
-              RK
+              GA
             </div>
             <div>
-              <p class="font-semibold text-gray-900 text-sm">Rajesh Kulkarni</p>
-              <p class="text-xs text-gray-400">MD, Precision Parts Pvt. Ltd. · Pune</p>
+              <p class="font-semibold text-gray-900 text-sm">G. Arjhun</p>
+              <p class="text-xs text-gray-400">Founder, MacroIntel.app · Salem</p>
             </div>
           </div>
         </div>
@@ -429,17 +398,21 @@
             <svg class="w-4 h-4 text-orange-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           </div>
           <p class="text-gray-600 text-sm leading-relaxed mb-6">
-            "Our purchase team was drowning in spreadsheets and calls. Bella automated the
-            repetitive parts and now they actually have time to negotiate better with suppliers.
-            ROI was immediate."
+            "Every day, our factory floor team was buried in manual work — updating machine statuses, chasing updates over WhatsApp, and spending hours reconciling data that should have been at their fingertips. It was exhausting and unsustainable.
+          </p>
+          <p class="text-gray-600 text-sm leading-relaxed mb-6">
+            Bella Technologies changed that. They automated the workflows that were eating up our time, and suddenly our team could focus on real work again.
+          </p>
+          <p class="text-gray-600 text-sm leading-relaxed mb-6">
+            We'd been down this road before with an ERP vendor — a solution that looked good on paper but was too complex for everyday use. This time, Bella Technologies listened. They recommended something simpler, something our team could actually embrace, and it integrated seamlessly with the systems we already had in place."
           </p>
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-full bg-teal-100 flex items-center justify-center text-teal-600 font-bold text-sm font-display shrink-0">
-              SP
+              SKG
             </div>
             <div>
-              <p class="font-semibold text-gray-900 text-sm">Sonal Patel</p>
-              <p class="text-xs text-gray-400">Director, Swastik Supplies · Surat</p>
+              <p class="font-semibold text-gray-900 text-sm">S.K.G Ramji</p>
+              <p class="text-xs text-gray-400">Director, Eskegie Reclaims Private Limited · Salem</p>
             </div>
           </div>
         </div>
@@ -454,17 +427,21 @@
             <svg class="w-4 h-4 text-orange-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           </div>
           <p class="text-gray-600 text-sm leading-relaxed mb-6">
-            "Finally a software that actually understands how a trading business works.
-            Not some foreign SaaS designed for companies 10x our size. Onboarding was smooth
-            and the team was very responsive."
+            "We had over ₹9 crore locked in inventory, putting serious strain on our working capital. That's when we turned to Bella Technologies — and it made all the difference.
+          </p>
+          <p class="text-gray-600 text-sm leading-relaxed mb-6">
+            The team took the time to truly understand our problem. They accepted a knowledge transfer from our in-house industry expert and executed flawlessly on every requirement we laid out.
+          </p>
+          <p class="text-gray-600 text-sm leading-relaxed mb-6">
+            Our sales data lives in a proprietary system, but Bella Technologies seamlessly synced it and built a custom reporting tool to streamline our purchase orders. The process is now effortless — and over ₹1 crore in capital has been freed up for other business operations."
           </p>
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-sm font-display shrink-0">
-              AM
+              RK
             </div>
             <div>
-              <p class="font-semibold text-gray-900 text-sm">Arvind Mehta</p>
-              <p class="text-xs text-gray-400">Owner, Mehta Distributors · Ahmedabad</p>
+              <p class="font-semibold text-gray-900 text-sm">R.Kanagaraj</p>
+              <p class="text-xs text-gray-400">Properiotor, Global Engineering · Salem</p>
             </div>
           </div>
         </div>
@@ -527,52 +504,52 @@
           <div class="grid grid-cols-2 gap-4">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1.5">Full Name</label>
-              <input type="text" placeholder="Rajesh Sharma" required
+              <input type="text" name="fullName" placeholder="Arjhun" required
                 class="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition" />
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1.5">Phone Number</label>
-              <input type="tel" placeholder="+91 98765 43210" required
+              <input type="tel" name="phone" placeholder="+91 63857 38399" required
                 class="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition" />
             </div>
           </div>
 
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1.5">Email Address</label>
-            <input type="email" placeholder="you@company.com" required
+            <input type="email" name="email" placeholder="you@company.com" required
               class="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition" />
           </div>
 
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1.5">Company Name</label>
-            <input type="text" placeholder="Your Company Pvt. Ltd." required
+            <input type="text" name="company" placeholder="Your Company Pvt. Ltd." required
               class="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition" />
           </div>
 
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1.5">Annual Turnover</label>
-            <select class="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm text-gray-600 focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition bg-white">
+            <select name="turnover" class="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm text-gray-600 focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition bg-white">
               <option value="">Select range…</option>
-              <option>Under ₹5 Cr</option>
-              <option>₹5 – 15 Cr</option>
-              <option>₹15 – 30 Cr</option>
-              <option>₹30 – 50 Cr</option>
+              <option>Under ₹10 Cr</option>
+              <option>₹10 – ₹25 Cr</option>
+              <option>₹26 – ₹50 Cr</option>
               <option>Above ₹50 Cr</option>
             </select>
           </div>
 
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1.5">What's your biggest challenge?</label>
-            <textarea rows="3" placeholder="Too much capital stuck in inventory, manual PO process taking too long…"
+            <textarea name="challenge" rows="3" placeholder="Too much capital stuck in inventory, manual PO process taking too long…"
               class="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition resize-none"></textarea>
           </div>
 
           <button type="submit" id="submit-btn"
             class="w-full py-3.5 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-colors text-sm flex items-center justify-center gap-2">
-            Book My Free Demo
+            Book a Free 30 Min Consultation
             <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </button>
 
+          <p id="form-message" class="text-center text-sm hidden"></p>
           <p class="text-center text-xs text-gray-400">We respond within 4 business hours.</p>
         </div>
       </form>
@@ -590,7 +567,7 @@
           <p class="text-gray-500 text-sm">Unlock your working capital. Automate your operations.</p>
         </div>
         <nav class="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
-          <a href="#how-it-works" class="hover:text-white transition-colors">How It Works</a>
+          <a href="#how-we-work" class="hover:text-white transition-colors">How We Work</a>
           <a href="#case-studies" class="hover:text-white transition-colors">Case Studies</a>
           <a href="#testimonials" class="hover:text-white transition-colors">Testimonials</a>
           <a href="#contact"      class="hover:text-white transition-colors">Contact</a>
@@ -605,28 +582,7 @@
 
 
   <!-- ===================== JS ===================== -->
-  <script>
-    // Mobile menu
-    const toggle = document.getElementById('menu-toggle');
-    const menu   = document.getElementById('mobile-menu');
-    toggle.addEventListener('click', () => menu.classList.toggle('hidden'));
-    menu.querySelectorAll('a').forEach(link =>
-      link.addEventListener('click', () => menu.classList.add('hidden'))
-    );
-
-    // Form submit feedback
-    document.getElementById('contact-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const btn = document.getElementById('submit-btn');
-      btn.innerHTML = '✓ Submitted — we\'ll be in touch shortly!';
-      btn.disabled  = true;
-      btn.classList.remove('bg-orange-500', 'hover:bg-orange-600');
-      btn.classList.add('bg-teal-500', 'cursor-default');
-    });
-
-    // Init Lucide icons
-    lucide.createIcons();
-  </script>
+  <script src="/static/main.js" defer></script>
 
 </body>
 </html>

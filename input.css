@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ivory: #FAFAF8;
+  --font-sans: Inter, ui-sans-serif, sans-serif;
+  --font-display: "Plus Jakarta Sans", ui-sans-serif, sans-serif;
+  --shadow-card: 0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+  --shadow-card-hover: 0 8px 32px rgba(0,0,0,0.10);
+}

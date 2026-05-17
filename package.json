@@ -1,19 +1,31 @@
 {
-  "name": "bellatechnologies",
-  "type": "module",
+  "name": "bellatechnologies-in",
   "version": "0.1.26",
+  "main": "server.js",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "build:css": "tailwindcss -i input.css -o dist/tailwind.css --minify",
+    "build:icons": "cp node_modules/lucide/dist/umd/lucide.min.js dist/lucide.min.js",
+    "build:fonts": "node scripts/build-fonts.js",
+    "build": "npm run build:css && npm run build:icons && npm run build:fonts",
+    "watch:css": "tailwindcss -i input.css -o dist/tailwind.css --watch",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "dependencies": {
-    "@astrojs/node": "^9.5.4",
-    "@astrojs/starlight": "^0.37.4",
-    "@fontsource/figtree": "^5.2.10",
-    "astro": "^5.17.0",
-    "astro-expressive-code": "^0.41.6",
-    "resend": "^6.9.1"
+    "@fontsource/inter": "^5.2.8",
+    "@fontsource/plus-jakarta-sans": "^5.2.8",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.3.1",
+    "nodemailer": "^8.0.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.0",
+    "lucide": "^1.16.0",
+    "nodemon": "^3.1.3",
+    "tailwindcss": "^4.3.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
