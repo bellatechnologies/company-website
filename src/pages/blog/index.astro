@@ -1,0 +1,68 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import { getCollection, getEntry } from "astro:content";
+import "../../styles/pages/blog.css";
+
+const title = "Blog | Bella Technologies";
+const description =
+	"Insights on digital strategy, design systems, and high-performing websites.";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft))
+	.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const postsWithCategoryLabels = await Promise.all(
+	posts.map(async (post) => {
+		const categoryEntry = await getEntry(
+			"blogCategories",
+			post.data.categoryId
+		);
+		return {
+			post,
+			categoryLabel: categoryEntry?.data?.name ?? post.data.categoryId,
+		};
+	})
+);
+
+const formatDate = (date: Date) =>
+	new Intl.DateTimeFormat("en-US", {
+		month: "short",
+		day: "numeric",
+		year: "numeric",
+	}).format(date);
+---
+
+<BaseLayout title={title} description={description}>
+	<main>
+		<section class="section">
+			<div class="container">
+				<div class="reveal">
+					<Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Blog" }]} />
+				</div>
+				<div class="section-title reveal">
+					<h1>Blog</h1>
+					<p>
+						Notes from our studio on brand clarity, Catppuccin-inspired UI, and
+						performance-first builds.
+					</p>
+				</div>
+				<div class="cards blog-cards">
+					{postsWithCategoryLabels.map(({ post, categoryLabel }) => (
+						<a
+							class="card reveal blog-card-link"
+							href={`/blog/${post.slug}/`}
+							aria-label={`Read: ${post.data.title}`}
+						>
+							<span>{categoryLabel}</span>
+							<time datetime={post.data.date.toISOString()}>
+								{formatDate(post.data.date)}
+							</time>
+							<h3>{post.data.title}</h3>
+							<p>{post.data.description}</p>
+						</a>
+					))}
+				</div>
+			</div>
+		</section>
+	</main>
+</BaseLayout>

@@ -1,0 +1,5 @@
+{
+	"name": "Build",
+	"description": "Build and performance notes: static delivery, caching, and engineering decisions that keep client sites fast and maintainable."
+}
+

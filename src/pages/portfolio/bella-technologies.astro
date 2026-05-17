@@ -1,0 +1,376 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import "../../styles/pages/portfolio-bella-technologies.css";
+
+const title = "Bella Technologies CI/CD case study | Portfolio";
+const description =
+	"How we automated release-driven deployments for bellatechnologies.in using GitHub Actions, self-hosted runners, and safer nginx switching.";
+---
+
+<BaseLayout title={title} description={description}>
+	<main>
+		<section class="section">
+			<div class="container">
+				<div class="reveal">
+					<Breadcrumbs
+						items={[
+							{ label: "Home", href: "/" },
+							{ label: "Portfolio", href: "/portfolio/" },
+							{ label: "Bella Technologies" },
+						]}
+					/>
+				</div>
+				<div class="section-title reveal">
+					<h1>Bella Technologies</h1>
+					<p>
+						This is one of our works — an internal production shipping system for
+						<code>bellatechnologies.in</code>.
+					</p>
+				</div>
+
+				<section class="card reveal case-intro" aria-label="Case study overview">
+					<div class="case-intro-grid">
+						<div>
+							<span>Internal case study</span>
+							<h2>From rsync deploys to release-driven production shipping</h2>
+							<p class="cicd-lede">
+								We turned a “copy files to a server” deployment into a repeatable release process.
+								The goal: ship updates with fewer manual steps, fewer mistakes, and a clear safety net.
+							</p>
+
+							<div class="case-sections">
+								<section class="case-section">
+									<h3>Why we did it</h3>
+									<ul class="case-bullets">
+										<li>
+											<strong>We practice what we preach</strong>: we run the same production-grade
+											process we ship for clients.
+										</li>
+										<li>
+											<strong>Automation is a core value</strong>: repeatable releases beat “hero deploys.”
+										</li>
+										<li>
+											<strong>We’re cost-aware by design</strong>: we keep costs predictable and avoid
+											per-minute surprises when usage grows.
+										</li>
+									</ul>
+								</section>
+
+								<section class="case-section">
+									<h3>What we gained</h3>
+									<ul class="case-bullets">
+										<li><strong>Time saved</strong> via fewer manual steps and fewer re-deploys.</li>
+										<li><strong>Safer releases</strong> with pre-checks, backups, and validation gates.</li>
+										<li>
+											<strong>Cost predictability</strong>: GitHub-hosted runners include a monthly free
+											minutes quota (2,000 on the Free plan), then bill per-minute—self-hosted runners
+											avoid those runner-minute charges (you pay your infra instead).
+										</li>
+									</ul>
+									<p class="case-note">
+										References: <a href="https://github.com/pricing">GitHub plan minutes</a>,
+										<a href="https://docs.github.com/billing/managing-billing-for-github-actions/about-billing-for-github-actions"
+											>Actions billing</a
+										>,
+										<a href="https://docs.github.com/billing/reference/actions-runner-pricing"
+											>runner per-minute rates</a
+										>.
+									</p>
+								</section>
+
+								<section class="case-section">
+									<h3>Why self-hosted runners</h3>
+									<ul class="case-bullets">
+										<li>
+											<strong>We have the skills</strong>: infrastructure and release engineering is part
+											of our trade.
+										</li>
+										<li>
+											<strong>More control</strong>: dependencies, caching, and environments are tuned to
+											our pipeline.
+										</li>
+										<li>
+											<strong>Better economics at scale</strong>: your cost is tied to infra, not minutes.
+										</li>
+									</ul>
+								</section>
+							</div>
+						</div>
+
+						<aside class="case-facts" aria-label="Key facts">
+							<div class="case-facts-grid">
+								<div class="fact">
+									<div class="fact-label">Deploy trigger</div>
+									<div class="fact-value">Git tag / Release / Manual</div>
+								</div>
+								<div class="fact">
+									<div class="fact-label">Where it runs</div>
+									<div class="fact-value">GitHub Actions (self-hosted runner)</div>
+								</div>
+								<div class="fact">
+									<div class="fact-label">What gets deployed</div>
+									<div class="fact-value">Static build output (<code>dist/</code>)</div>
+								</div>
+								<div class="fact">
+									<div class="fact-label">Maintenance</div>
+									<div class="fact-value">nginx switch (script + template)</div>
+								</div>
+							</div>
+						</aside>
+					</div>
+				</section>
+
+				<section class="card reveal cicd-case-study" aria-labelledby="implementation">
+					<span>Implementation</span>
+					<h2 id="implementation">How the workflow actually works</h2>
+
+					<div class="cicd-layout" aria-label="CI/CD case study and impact">
+						<div class="cicd-body">
+							<div class="cicd-sections">
+								<section class="cicd-section">
+									<h3>Problem (in plain terms)</h3>
+									<p>
+										A deployment is the moment new changes go live. When deployments are manual (like
+										<strong>rsync/scp</strong>), they tend to be inconsistent: someone can forget a step,
+										copy the wrong folder, or deploy at the wrong time. The site still needs to update
+										safely—especially when changing web server behavior.
+									</p>
+								</section>
+
+								<section class="cicd-section">
+									<h3>Constraints</h3>
+									<ul class="cicd-bullets">
+										<li><strong>Static build</strong>: Astro outputs files into <code>dist/</code>.</li>
+										<li><strong>Production nginx</strong>: needs safe config updates and reloads.</li>
+										<li><strong>Low risk</strong>: validate before switching traffic.</li>
+										<li>
+											<strong>Simple ops</strong>: one “release” action should deploy a known version.
+										</li>
+									</ul>
+								</section>
+
+								<section class="cicd-section">
+									<h3>Design</h3>
+									<p>
+										The workflow is triggered by a versioned tag (like <code>v0.1.12</code>), a published
+										GitHub Release, or a manual run where we choose the tag to deploy. That gives us a
+										clean link between “a version” and “what is live.”
+									</p>
+								</section>
+
+								<section class="cicd-section">
+									<h3>Implementation (step-by-step)</h3>
+									<div class="cicd-flow" aria-label="Deployment flow">
+										<ol class="flow-list">
+											<li>
+												<strong>Select the version</strong> from the tag/release/manual input and show it in
+												logs.
+											</li>
+											<li>
+												<strong>Build</strong> with Node 20 using <code>npm ci</code> for consistent
+												dependencies.
+											</li>
+											<li>
+												<strong>Verify</strong> that <code>dist/</code> exists and isn’t empty (so we don’t
+												deploy “nothing”).
+											</li>
+											<li>
+												<strong>Backup</strong> the currently deployed <code>dist/</code> folder to enable a
+												fast restore.
+											</li>
+											<li>
+												<strong>Deploy</strong> the new <code>dist/</code> into
+												<code>/var/www/bellatechnologies.in/dist</code>.
+											</li>
+											<li>
+												<strong>Write a runtime env file</strong> (<code>.env.production</code>) from GitHub
+												Secrets/Variables.
+											</li>
+											<li>
+												<strong>Switch maintenance mode</strong> in nginx based on
+												<code>MAINTENANCE_MODE</code>.
+											</li>
+											<li>
+												<strong>Verify</strong> the deployment produced a live <code>index.html</code>, then
+												prune old backups.
+											</li>
+										</ol>
+									</div>
+								</section>
+							</div>
+
+							<div class="cicd-details">
+								<details>
+									<summary>How version selection works (tag vs release vs manual)</summary>
+									<p class="cicd-note">
+										This avoids “what did we deploy?” ambiguity. The workflow always derives a version
+										string and prints it, so you can trace the deploy back to a Git tag or release.
+									</p>
+									<pre class="code-block"><code>if event == workflow_dispatch and input.tag is set:
+  version = input.tag
+elif event == release:
+  version = release.tag_name
+else:
+  version = GITHUB_REF without \"refs/tags/\"</code></pre>
+								</details>
+
+								<details>
+									<summary>Maintenance mode (nginx) — safe, reversible config changes</summary>
+									<p class="cicd-note">
+										Maintenance mode is controlled at deploy time using a GitHub Variable
+										(<code>MAINTENANCE_MODE</code>). The workflow writes it to
+										<code>/var/www/bellatechnologies.in/.env.production</code>, then runs a script that:
+										backs up nginx config, updates it from a template, validates, reloads, and restores
+										on failure.
+									</p>
+									<pre class="code-block"><code>read MAINTENANCE_MODE from .env.production
+backup /etc/nginx/sites-available/bellatechnologies.in
+render template (normal routes OR maintenance routes)
+sudo nginx -t
+sudo systemctl reload nginx
+if test fails: restore backup</code></pre>
+								</details>
+
+								<details>
+									<summary>Workflow excerpt (sanitized, but structurally accurate)</summary>
+									<pre class="code-block"><code>on:
+  push:
+    tags:
+      - \"v*\"
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: \"Tag to deploy (e.g., v1.0.0)\"
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: \"20\"
+          cache: \"npm\"
+      - run: npm ci
+      - run: npm run build
+        env:
+          NODE_ENV: production
+          RESEND_API_KEY: $&#123;&#123; secrets.RESEND_API_KEY &#125;&#125;
+          FROM_EMAIL: $&#123;&#123; vars.FROM_EMAIL &#125;&#125;
+          MAINTENANCE_MODE: $&#123;&#123; vars.MAINTENANCE_MODE &#125;&#125;
+      - run: verify_dist_nonempty
+      - run: backup_previous_dist
+      - run: deploy_dist_to_/var/www/bellatechnologies.in/dist
+      - run: write_/var/www/bellatechnologies.in/.env.production
+      - run: configure_nginx_maintenance
+      - run: verify_index_html_exists</code></pre>
+								</details>
+
+								<details>
+									<summary>Why this is safer than a “copy files” deploy</summary>
+									<ul class="cicd-bullets">
+										<li>
+											<strong>Repeatable</strong>: the same steps run every time from GitHub Actions.
+										</li>
+										<li>
+											<strong>Verified</strong>: the workflow stops if the build output is missing/empty.
+										</li>
+										<li>
+											<strong>Recoverable</strong>: backups allow fast restore of the previous state.
+										</li>
+										<li>
+											<strong>Auditable</strong>: logs show who deployed and what version was deployed.
+										</li>
+									</ul>
+								</details>
+							</div>
+						</div>
+
+						<aside class="impact-panel" aria-label="Before and after impact">
+							<div class="impact-block">
+								<div class="impact-heading">Industry</div>
+								<ul>
+									<li>Studio website / marketing site</li>
+									<li>Static site + production nginx</li>
+								</ul>
+							</div>
+
+							<div class="impact-block">
+								<div class="impact-heading">Before</div>
+								<ul>
+									<li>Deployments via <strong>rsync/scp</strong> file transfer</li>
+									<li>Steps varied by person and situation</li>
+									<li>Harder to answer “what version is live?”</li>
+								</ul>
+							</div>
+
+							<div class="impact-block">
+								<div class="impact-heading">After</div>
+								<ul>
+									<li>Deployments triggered by <strong>Git tags / Releases</strong></li>
+									<li>Version printed in logs (traceable)</li>
+									<li>Built-in safety: verify output + backups + nginx validation</li>
+								</ul>
+							</div>
+
+							<div class="impact-block">
+								<div class="impact-heading">Tech stack</div>
+								<ul>
+									<li>GitHub Actions (self-hosted)</li>
+									<li>Linode VM + nginx</li>
+									<li>Astro + Node 20</li>
+									<li>Python maintenance script</li>
+								</ul>
+							</div>
+						</aside>
+					</div>
+				</section>
+
+				<section class="card reveal cicd-screens" aria-labelledby="cicd-screens">
+					<span>Proof</span>
+					<h2 id="cicd-screens">What the deploy run looks like</h2>
+					<p class="cicd-lede">
+						Screenshots from a real production deploy job run. Click any window to open the
+						GitHub Actions job.
+					</p>
+
+					<div class="cicd-screens-grid" aria-label="GitHub Actions job screenshots">
+						<figure class="cicd-screenshot">
+							<a
+								class="cicd-screenshot__link"
+								href="https://github.com/bellatechnologies/company-website/actions/runs/22017996477/job/63622538207"
+								target="_blank"
+								rel="noreferrer"
+							>
+								<img
+									src="/images/2026/02/github-actions-job-top.png"
+									alt="GitHub Actions job page showing the workflow run header and status."
+									loading="lazy"
+									decoding="async"
+								/>
+							</a>
+							<figcaption class="cicd-screenshot__caption">
+								Top of the run: job name, status, and navigation.
+							</figcaption>
+						</figure>
+					</div>
+				</section>
+
+				<section class="card reveal case-cta" aria-label="Call to action">
+					<h2>Want this kind of shipping for your product?</h2>
+					<p>
+						If deployments feel risky or inconsistent, we can turn your release process into a
+						repeatable pipeline with clear rollbacks.
+					</p>
+					<a class="primary-button" href="/contact/">Book a Call</a>
+				</section>
+			</div>
+		</section>
+	</main>
+</BaseLayout>
+

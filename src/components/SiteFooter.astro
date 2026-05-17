@@ -1,0 +1,11 @@
+---
+const { companyName = "Bella Technologies" } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+	<div class="container">
+		<p>© {year} {companyName}. Crafted with ❤️ and Astro SSG.</p>
+	</div>
+</footer>
+
