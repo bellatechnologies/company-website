@@ -99,7 +99,7 @@ app.post('/contact', requireOrigin, contactLimiter, async (req, res) => {
   }
 
   const mailOptions = {
-    from:    `"${process.env.FROM_NAME || 'Bella Technologies Website'}" <${process.env.SMTP_USER}>`,
+    from:    `"${process.env.FROM_NAME || 'Bella Technologies Website Lead Form'}" <${process.env.FROM_EMAIL || process.env.SMTP_USER}>`,
     to:      process.env.RECIPIENT_EMAIL,
     replyTo: email,
     subject: `New Lead: ${fullName} — ${company}`,
