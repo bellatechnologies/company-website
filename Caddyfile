@@ -1,0 +1,3 @@
+bellatechnologies.in {
+    reverse_proxy localhost:3000
+}
