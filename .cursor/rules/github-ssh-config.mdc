@@ -1,0 +1,53 @@
+---
+description: Configure git to use 'github-bellatech' SSH config for all GitHub operations
+alwaysApply: true
+---
+
+# GitHub SSH Configuration
+
+All GitHub-related git operations must use the 'github-bellatech' SSH configuration from `~/.ssh/config`.
+
+## SSH Configuration Setup
+
+Ensure your `~/.ssh/config` file contains the 'github-bellatech' host configuration:
+
+```
+Host github-bellatech
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/github_bellatech_key
+    IdentitiesOnly yes
+```
+
+## Git Operations
+
+When performing any GitHub-related git operations, always use the SSH URL format with the configured host:
+
+### Clone repositories:
+```bash
+git clone git@github-bellatech:organization/repo.git
+```
+
+### Set remote URLs:
+```bash
+git remote set-url origin git@github-bellatech:organization/repo.git
+```
+
+### Push/Pull operations:
+Use standard git commands - the SSH config will automatically route through the 'github-bellatech' host.
+
+## Verification
+
+Test the SSH connection:
+```bash
+ssh -T github-bellatech
+```
+
+Expected output: `Hi username! You've successfully authenticated, but GitHub does not provide shell access.`
+
+## AI Agent Instructions
+
+- Always use `git@github-bellatech:` prefix for GitHub repository URLs
+- Never use `git@github.com:` or `https://github.com/` URLs for GitHub operations
+- When setting up new repositories or remotes, ensure they use the SSH config
+- If SSH authentication fails, verify the SSH key is properly configured and added to the GitHub account
