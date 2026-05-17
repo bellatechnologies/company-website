@@ -1,0 +1,15 @@
+[Unit]
+Description=Bella Technologies website (Node/Express)
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/var/www/bellatechnologies.in
+EnvironmentFile=/var/www/bellatechnologies.in/.env.production
+ExecStart=/usr/bin/node server.js
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
