@@ -62,25 +62,17 @@ jobs:
         run: npm run build
         env:
           NODE_ENV: production
-          # GitHub Secrets (encrypted, sensitive data)
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           # GitHub Variables (non-sensitive configuration)
-          FROM_EMAIL: ${{ vars.FROM_EMAIL }}
-          MAINTENANCE_MODE: ${{ vars.MAINTENANCE_MODE }}
-          GOOGLE_ANALYTICS_ENABLED: ${{ vars.GOOGLE_ANALYTICS_ENABLED }}
+          ENABLE_ANALYTICS: ${{ vars.ENABLE_ANALYTICS }}
       
       - name: Verify build output
         run: |
-          if [ ! -d "dist" ] || [ -z "$(ls -A dist)" ]; then
-            echo "Build failed: dist directory is empty or missing"
+          if [ ! -f "dist/tailwind.css" ]; then
+            echo "Build failed: dist/tailwind.css not found"
             exit 1
           fi
-          if [ ! -f "dist/server/entry.mjs" ]; then
-            echo "Build failed: dist/server/entry.mjs not found (SSR output expected)"
-            exit 1
-          fi
-          if [ ! -d "dist/client" ]; then
-            echo "Build failed: dist/client directory not found (SSR output expected)"
+          if [ ! -f "dist/lucide.min.js" ]; then
+            echo "Build failed: dist/lucide.min.js not found"
             exit 1
           fi
           echo "Build successful: $(du -sh dist | cut -f1) of files generated"
@@ -98,11 +90,14 @@ jobs:
       - name: Deploy to web directory
         run: |
           echo "Deploying files to production..."
-          sudo rm -rf /var/www/bellatechnologies.in/dist
-          sudo mkdir -p /var/www/bellatechnologies.in/dist
-          sudo cp -r dist/* /var/www/bellatechnologies.in/dist/
-          sudo chown -R www-data:www-data /var/www/bellatechnologies.in/dist
-          sudo chmod -R 755 /var/www/bellatechnologies.in/dist
+          DEPLOY_DIR=/var/www/bellatechnologies.in
+          sudo mkdir -p "$DEPLOY_DIR"
+          sudo cp server.js index.html "$DEPLOY_DIR/"
+          sudo rm -rf "$DEPLOY_DIR/dist" "$DEPLOY_DIR/static"
+          sudo cp -r dist "$DEPLOY_DIR/dist"
+          sudo cp -r static "$DEPLOY_DIR/static"
+          sudo chown -R www-data:www-data "$DEPLOY_DIR/server.js" "$DEPLOY_DIR/index.html" "$DEPLOY_DIR/dist" "$DEPLOY_DIR/static"
+          sudo chmod -R 755 "$DEPLOY_DIR/dist" "$DEPLOY_DIR/static"
           echo "Files deployed successfully"
       
       - name: Deploy scripts directory
@@ -120,18 +115,23 @@ jobs:
         run: |
           echo "Creating production environment file..."
           sudo tee /var/www/bellatechnologies.in/.env.production > /dev/null <<EOF
-          RESEND_API_KEY=${{ secrets.RESEND_API_KEY }}
+          SMTP_HOST=${{ vars.SMTP_HOST }}
+          SMTP_PORT=${{ vars.SMTP_PORT }}
+          SMTP_SECURE=${{ vars.SMTP_SECURE }}
+          SMTP_USER=${{ secrets.SMTP_USER }}
+          SMTP_PASS=${{ secrets.SMTP_PASS }}
+          RECIPIENT_EMAIL=${{ vars.RECIPIENT_EMAIL }}
+          FROM_NAME=${{ vars.FROM_NAME }}
           FROM_EMAIL=${{ vars.FROM_EMAIL }}
-          MAINTENANCE_MODE=${{ vars.MAINTENANCE_MODE }}
-          GOOGLE_ANALYTICS_ENABLED=${{ vars.GOOGLE_ANALYTICS_ENABLED }}
-          HOST=127.0.0.1
-          PORT=4321
+          ALLOWED_ORIGINS=${{ vars.ALLOWED_ORIGINS }}
+          ENABLE_ANALYTICS=${{ vars.ENABLE_ANALYTICS }}
+          PORT=${{ vars.PORT }}
           EOF
           sudo chown www-data:www-data /var/www/bellatechnologies.in/.env.production
           sudo chmod 600 /var/www/bellatechnologies.in/.env.production
           echo "Production environment file created"
 
-      - name: Install production Node dependencies (SSR runtime)
+      - name: Install production Node dependencies
         run: |
           echo "Installing production dependencies on server..."
           sudo cp package.json package-lock.json /var/www/bellatechnologies.in/
@@ -142,15 +142,10 @@ jobs:
 
       - name: Install or update systemd service
         run: |
-          echo "Installing/updating systemd service..."
           dump_service_diagnostics() {
             sudo systemctl status bellatechnologies.service --no-pager -l || true
             sudo journalctl -u bellatechnologies.service -n 200 --no-pager -o cat || true
           }
-          if [ ! -f "/var/www/bellatechnologies.in/scripts/bellatechnologies.service" ]; then
-            echo "Service unit not found in deployed scripts directory"
-            exit 1
-          fi
           sudo cp /var/www/bellatechnologies.in/scripts/bellatechnologies.service /etc/systemd/system/bellatechnologies.service
           sudo systemctl daemon-reload
           sudo systemctl enable bellatechnologies.service
@@ -158,31 +153,22 @@ jobs:
           sudo systemctl is-active --quiet bellatechnologies.service || { echo "Service is not active after restart"; dump_service_diagnostics; exit 1; }
           echo "Systemd service is running"
       
-      - name: Configure Nginx Maintenance Mode
-        run: |
-          echo "Configuring nginx based on maintenance mode..."
-          if [ -f "/var/www/bellatechnologies.in/scripts/configure-nginx-maintenance.py" ]; then
-            sudo python3 /var/www/bellatechnologies.in/scripts/configure-nginx-maintenance.py
-          else
-            echo "Warning: Maintenance configuration script not found, skipping nginx maintenance mode setup"
-            echo "Reloading Nginx..."
-            sudo nginx -t && sudo systemctl reload nginx
-            echo "Nginx reloaded successfully"
-          fi
+      - name: Reload Nginx
+        run: sudo nginx -t && sudo systemctl reload nginx
       
       - name: Verify deployment
         run: |
           echo "Verifying deployment..."
-          if [ ! -f "/var/www/bellatechnologies.in/dist/server/entry.mjs" ]; then
-            echo "Deployment verification failed: server entry not found"
+          if [ ! -f "/var/www/bellatechnologies.in/server.js" ]; then
+            echo "Deployment verification failed: server.js not found"
             exit 1
           fi
-          if [ ! -d "/var/www/bellatechnologies.in/dist/client" ]; then
-            echo "Deployment verification failed: client directory not found"
+          if [ ! -f "/var/www/bellatechnologies.in/dist/tailwind.css" ]; then
+            echo "Deployment verification failed: dist/tailwind.css not found"
             exit 1
           fi
           sudo systemctl is-active --quiet bellatechnologies.service
-          echo "Deployment verified: server + client present, service active"
+          echo "Deployment verified: server.js present, assets deployed, service active"
           echo "Website should be live at: https://bellatechnologies.in"
       
       - name: Cleanup old backups
