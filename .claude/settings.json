@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:laserandme.com)"
+      "WebFetch(domain:laserandme.com)",
+      "Bash(git fetch *)"
     ]
   }
 }
