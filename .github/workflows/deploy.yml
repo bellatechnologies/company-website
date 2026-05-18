@@ -64,6 +64,7 @@ jobs:
           NODE_ENV: production
           # GitHub Variables (non-sensitive configuration)
           ENABLE_ANALYTICS: ${{ vars.ENABLE_ANALYTICS }}
+          ENABLE_GTM: ${{ vars.ENABLE_GTM }}
       
       - name: Verify build output
         run: |
@@ -125,6 +126,7 @@ jobs:
           FROM_EMAIL=${{ vars.FROM_EMAIL }}
           ALLOWED_ORIGINS=${{ vars.ALLOWED_ORIGINS }}
           ENABLE_ANALYTICS=${{ vars.ENABLE_ANALYTICS }}
+          ENABLE_GTM=${{ vars.ENABLE_GTM }}
           PORT=${{ vars.PORT }}
           EOF
           sudo chown www-data:www-data /var/www/bellatechnologies.in/.env.production
