@@ -1,6 +1,6 @@
 {
   "name": "bellatechnologies-in",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "main": "server.js",
   "scripts": {
     "build:css": "tailwindcss -i input.css -o dist/tailwind.css --minify",
