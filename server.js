@@ -18,7 +18,7 @@ const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || '')
 // ── Middleware ────────────────────────────────────────────────────────────────
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname), { index: false }));
 
 // ── Origin check ──────────────────────────────────────────────────────────────
 
@@ -139,8 +139,8 @@ const indexTemplate = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8'
 app.get('*', (_req, res) => {
   const gtmEnabled = process.env.ENABLE_GTM === 'true';
   const html = indexTemplate
-    .replace('<!-- GTM_HEAD -->', gtmEnabled ? GTM_HEAD : '')
-    .replace('<!-- GTM_BODY -->', gtmEnabled ? GTM_BODY : '');
+    .replace('  <!-- GTM_HEAD -->', gtmEnabled ? GTM_HEAD : '')
+    .replace('  <!-- GTM_BODY -->', gtmEnabled ? GTM_BODY : '');
   res.setHeader('Content-Type', 'text/html');
   res.send(html);
 });
