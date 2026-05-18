@@ -52,30 +52,6 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// ── GET /analytics.js ────────────────────────────────────────────────────────
-
-const GA_ID = 'G-5DQXQ5WGZY';
-
-app.get('/analytics.js', (_req, res) => {
-  res.setHeader('Content-Type', 'application/javascript');
-  if (process.env.ENABLE_ANALYTICS !== 'true') {
-    return res.send('');
-  }
-  res.send(`
-(function(){
-  var s = document.createElement('script');
-  s.async = true;
-  s.src = 'https://www.googletagmanager.com/gtag/js?id=${GA_ID}';
-  document.head.appendChild(s);
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  window.gtag = gtag;
-  gtag('js', new Date());
-  gtag('config', '${GA_ID}');
-})();
-`.trim());
-});
-
 // ── POST /contact ─────────────────────────────────────────────────────────────
 
 app.post('/contact', requireOrigin, contactLimiter, async (req, res) => {
@@ -143,8 +119,30 @@ app.post('/contact', requireOrigin, contactLimiter, async (req, res) => {
 
 // ── Catch-all ─────────────────────────────────────────────────────────────────
 
+const fs = require('fs');
+
+const GTM_ID = 'GTM-5ZN587DK';
+const GTM_HEAD = `<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${GTM_ID}');</script>
+<!-- End Google Tag Manager -->`;
+const GTM_BODY = `<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${GTM_ID}"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->`;
+
+const indexTemplate = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
+
 app.get('*', (_req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  const gtmEnabled = process.env.ENABLE_GTM === 'true';
+  const html = indexTemplate
+    .replace('<!-- GTM_HEAD -->', gtmEnabled ? GTM_HEAD : '')
+    .replace('<!-- GTM_BODY -->', gtmEnabled ? GTM_BODY : '');
+  res.setHeader('Content-Type', 'text/html');
+  res.send(html);
 });
 
 // ── Start ─────────────────────────────────────────────────────────────────────
