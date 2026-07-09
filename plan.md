@@ -54,36 +54,37 @@ Modeled on [smshorizon.in](https://www.smshorizon.in/)'s floating nav pattern.
 Headline framed as a question (same device as the hero).
 
 - **H2:** "Is Every Missed Booking Costing You More Than You Think?"
-- **Intro:** "A single lost lead can cost your spa $1,000+ in revenue over the next
-  six months. Multiply that across every enquiry that slips through, and it adds up
-  fast."
+- **Intro:** "A single lost lead can cost your spa or wellness business $1,000+ in
+  revenue over the next six months. Multiply that across every enquiry that slips
+  through, and it adds up fast."
 - **3 pain points:**
   1. **Booking Friction** — "Most booking systems make clients log in, create an
-     account, or fill out long forms before they can book — and many just give up."
+     account, or fill out long forms before they can book, and many just give up."
   2. **The 5-Minute Window** — "Leads contacted within 5 minutes are 21x more likely
-     to convert than those contacted after 30 minutes — but most spas can't staff a
-     human to respond that fast, every time." Cite: Harvard Business Review / MIT
-     study, Dr. James Oldroyd, analysis of 15,000+ sales leads ("The Short Life of
-     Online Sales Leads," HBR). Link this citation on the live page.
+     to convert than those contacted after 30 minutes, but most spas and wellness
+     businesses can't staff a human to respond that fast, every time." Cite: Harvard
+     Business Review / MIT study, Dr. James Oldroyd, analysis of 15,000+ sales leads
+     ("The Short Life of Online Sales Leads," HBR). Link this citation on the live
+     page.
   3. **No Re-booking System** — "A haircut client needs a trim every three weeks.
-     Without a simple reminder at the right time, that appointment — and the revenue
-     — never gets rebooked."
+     Without a simple reminder at the right time, that appointment (and the revenue)
+     never gets rebooked."
 - **Closing line:** "Here's how Bella Technologies closes each gap."
 
 ### Solution / Services (finalized copy)
 
 - **H2:** "Here's How Bella Technologies Closes Each Gap"
-- **Intro:** "Simple systems, working together, so no enquiry — and no returning
-  client — falls through the cracks."
+- **Intro:** "Simple systems, working together, so no enquiry and no returning
+  client falls through the cracks."
 - **4 cards:**
   1. **Frictionless Booking** — "No logins, no long forms. Clients book in a couple
-     of taps right from WhatsApp — so they don't give up halfway through."
-  2. **Instant Lead Response** — "Every enquiry gets an immediate response — day or
-     night — without you needing a human glued to the phone."
+     of taps right from WhatsApp, so they don't give up halfway through."
+  2. **Instant Lead Response** — "Every enquiry gets an immediate response, day or
+     night, without you needing a human glued to the phone."
   3. **Automatic Re-booking** — "We track when clients are due back and reach out at
-     the right time — so appointments (and revenue) don't get forgotten."
+     the right time, so appointments (and revenue) don't get forgotten."
   4. **Works With What You Already Use** — "Keep your existing CRM or booking
-     software. Bella Technologies plugs into your current systems — no migration, no
+     software. Bella Technologies plugs into your current systems. No migration, no
      disruption."
 - **Closing line:** "Here's how it works, step by step."
 
@@ -91,10 +92,10 @@ Headline framed as a question (same device as the hero).
 
 - **H2:** "Why Spa & Wellness Owners Choose Bella Technologies"
 - **Stacked checklist (5 items):**
-  1. **Built for Spas, Not Generic CRMs** — "Made specifically for how spa and
-     wellness businesses actually book and retain clients — not a one-size-fits-all
-     sales tool."
-  2. **Works 24/7 — Even When You're on Holiday** — "Enquiries get answered and
+  1. **Built for Spas & Wellness Businesses, Not Generic CRMs** — "Made specifically
+     for how spa and wellness businesses actually book and retain clients, not a
+     one-size-fits-all sales tool."
+  2. **Works 24/7, Even When You're on Holiday** — "Enquiries get answered and
      bookings get made around the clock, whether you're on the floor with a client
      or on vacation."
   3. **Live in Days, Not Months** — "No developers, no IT team, no lengthy rollout.
@@ -102,7 +103,7 @@ Headline framed as a question (same device as the hero).
   4. **No Long-Term Lock-In** — "Cancel anytime. We earn your business every month,
      not through a contract."
   5. **Backed by 15+ Years of Technical Expertise** — "Built by a team with over 15
-     years of experience building reliable, secure software — so your booking system
+     years of experience building reliable, secure software, so your booking system
      just works, every time."
 
 ### How It Works (finalized copy)
@@ -110,21 +111,21 @@ Headline framed as a question (same device as the hero).
 - **H2:** "Three Steps to More Bookings"
 - **3 numbered steps:**
   1. **We Connect Your Channels** — "There's no app to install. Our developers set
-     up WhatsApp, Telegram, and your existing booking system for you — done for you,
+     up WhatsApp, Telegram, and your existing booking system for you. Done for you,
      not DIY."
   2. **The System Handles Every Enquiry** — "Once your WhatsApp/Telegram system is
      live, it responds to every enquiry instantly, 24/7, and guides leads straight to
-     a booked appointment — no one on your end has to lift a finger."
+     a booked appointment. No one on your end has to lift a finger."
   3. **Automatic Re-booking, Powered by Your Calendar** — "Based on your booking
      software or calendar, the system reaches out automatically when a client's due
-     back — so re-booking happens on its own."
+     back, so re-booking happens on its own."
 - **CTA below steps:** "Book a Demo" (olive button)
 
 ### Book a Demo (finalized copy)
 
 - **H2:** "See It In Action"
-- **Subhead:** "Book a free 15-minute demo. We'll show you exactly where your spa is
-  losing bookings — and how the system fixes it."
+- **Subhead:** "Book a free 15-minute demo. We'll show you exactly where your spa or
+  wellness business is losing bookings, and how the system fixes it."
 - **Embedded scheduler:** Google Calendar Appointment Schedule (Google Workspace
   account), inline iframe embed — generated via Calendar → Booking pages → Options →
   Sharing options → Website embed → "Inline booking page."
@@ -142,21 +143,21 @@ Headline framed as a question (same device as the hero).
 - **H2:** "Common Questions"
 - **Stacked accordion (7 items):**
   1. **Do I need to switch my current booking software or CRM?** — "No. Bella
-     Technologies plugs into what you already use — no migration, no disruption."
+     Technologies plugs into what you already use. No migration, no disruption."
   2. **How long does setup take?** — "A few days, not months. Our developers handle
-     connecting WhatsApp, Telegram, and your booking system — there's nothing for you
+     connecting WhatsApp, Telegram, and your booking system. There's nothing for you
      to install."
-  3. **Does this replace my staff?** — "No — it handles the enquiries and follow-ups
+  3. **Does this replace my staff?** — "No. It handles the enquiries and follow-ups
      you don't have time for, especially outside business hours, so your staff can
      focus on clients in front of them."
-  4. **Is there a long-term contract?** — "No. You can cancel anytime — we don't lock
+  4. **Is there a long-term contract?** — "No. You can cancel anytime. We don't lock
      you in."
   5. **What if my clients don't use WhatsApp?** — "The system also works over
      Telegram and your website, so clients can reach you however they prefer."
   6. **Is my clients' data secure?** — "Yes. It's built by a team with 15+ years of
      experience building secure, reliable software."
   7. **Does Bella Technologies store data?** — "No, we don't. Your data never leaves
-     your existing systems — it's only stored there, not with us."
+     your existing systems. It's only stored there, not with us."
 
 ### CTA Banner (finalized copy)
 
@@ -191,11 +192,11 @@ Modeled on [anviksika.in](https://anviksika.in/)'s hero pattern: pain-first head
 audience callout, first-step CTA — but leading with the positive value prop rather
 than a blunt negative framing.
 
-- **Headline:** "Turn More Enquiries Into Bookings — And Keep Clients Coming Back."
+- **Headline:** "Turn More Enquiries Into Bookings and Keep Clients Coming Back."
 - **Subhead:** "Built for spa and wellness owners who are missing bookings to slow
   replies and no re-booking system. Book a free demo and see exactly where enquiries
-  are falling through — and how to fix it." (Note: "Florida" intentionally left out of
-  this copy, even though it remains the ICP for targeting/ads — see ICP note above.)
+  are falling through, and how to fix it." (Note: "Florida" intentionally left out of
+  this copy, even though it remains the ICP for targeting/ads. See ICP note above.)
 - **Primary CTA:** "Book a Demo"
 - **Secondary CTA:** "How it works ↓" (anchor to How It Works section)
 - No supporting stat line (cut — no credible numbers to cite yet)
