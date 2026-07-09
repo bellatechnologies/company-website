@@ -155,6 +155,21 @@ Headline framed as a question (same device as the hero).
   (Google Calendar widget).
 - No secondary link — single, unambiguous action.
 
+### Footer (finalized copy)
+
+Modeled on [anviksika.in](https://anviksika.in/)'s footer pattern (stacked,
+center-aligned, no social icons) but trimmed — no closing CTA heading/buttons, since
+the CTA Banner section immediately above it already closes the sale.
+
+- Background: cream, minimal. Text alignment: center throughout.
+- **Stacked sections, top to bottom:**
+  1. Company info: "Bella Technologies" wordmark + tagline "Turn Enquiries Into
+     Bookings"
+  2. Geographic identifier: "Florida · USA"
+  3. Inline nav links: Home · How It Works · FAQ · Blog · Book a Demo
+  4. Copyright: "© 2026 Bella Technologies. All rights reserved."
+- No social icons.
+
 ### Hero (finalized copy)
 
 Modeled on [anviksika.in](https://anviksika.in/)'s hero pattern: pain-first headline,
