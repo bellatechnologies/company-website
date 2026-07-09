@@ -105,6 +105,23 @@ Headline framed as a question (same device as the hero).
      back — so re-booking happens on its own."
 - **CTA below steps:** "Book a Demo" (olive button)
 
+### Book a Demo (finalized copy)
+
+- **H2:** "See It In Action"
+- **Subhead:** "Book a free 15-minute demo. We'll show you exactly where your spa is
+  losing bookings — and how the system fixes it."
+- **Embedded scheduler:** Google Calendar Appointment Schedule (Google Workspace
+  account), inline iframe embed — generated via Calendar → Booking pages → Options →
+  Sharing options → Website embed → "Inline booking page."
+  - Technical note: Google's generated iframe code has fixed pixel width/height by
+    default. On mobile this needs a responsive wrapper (`width: 100%`, height set via
+    media query or `aspect-ratio`) rather than pasting Google's raw embed code as-is,
+    so the widget doesn't overflow or get clipped on small screens.
+- **Reassurance line below widget:** "No commitment. No credit card. Just a
+  walkthrough."
+- Background: cream, olive-outline container around the iframe to visually separate
+  it from surrounding content.
+
 ### Hero (finalized copy)
 
 Modeled on [anviksika.in](https://anviksika.in/)'s hero pattern: pain-first headline,
