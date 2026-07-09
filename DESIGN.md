@@ -45,6 +45,29 @@ comparison/testimonials → FAQ → footer). Patterns to borrow:
 Figtree is used for both headings and body — no separate display serif. Do not
 reintroduce Fraunces or any serif display font without explicit approval.
 
+## Icons
+
+[Lucide](https://lucide.dev/) — same library the legacy site used (self-hosted, not
+CDN, matching the Fonts approach below). Clean, minimal stroke-based icon set that
+fits the Figtree/mobile-first aesthetic better than filled/emoji icons.
+
+Icon mapping for the homepage sections in `plan.md`:
+
+| Section | Item | Lucide icon |
+|---|---|---|
+| Problem | Booking Friction | `lock` |
+| Problem | The 5-Minute Window | `clock` |
+| Problem | No Re-booking System | `calendar` |
+| Solution / Services | Frictionless Booking | `unlock` |
+| Solution / Services | Instant Lead Response | `zap` |
+| Solution / Services | Automatic Re-booking | `calendar-clock` |
+| Solution / Services | Works With What You Already Use | `plug` |
+| Differentiators | checklist marker (all 5 items) | `check-circle` |
+| How It Works | step badges | numbered, no icon |
+| Book a Demo | section container | `calendar-check` (optional header icon) |
+| FAQ | accordion toggle | `plus` (collapsed) / `x` (expanded) |
+| Nav | mobile menu toggle | `menu` |
+
 ## Fonts: self-hosted
 
 Fonts should be self-hosted (as the legacy site did via `scripts/build-fonts.js`),
