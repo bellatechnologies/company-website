@@ -49,6 +49,28 @@ Modeled on [smshorizon.in](https://www.smshorizon.in/)'s floating nav pattern.
 - Content: logo (left) — hamburger menu (mobile) / nav links (desktop) — "Book a
   Demo" CTA button (right, olive, rounded to match the floating bar's shape).
 
+#### Nav Active State (pending decision — discuss tomorrow)
+
+Hybrid approach implemented: URL match for real pages (e.g. `/contact`), scroll-spy
+(`IntersectionObserver`) for in-page anchors (How It Works / FAQ) on the homepage.
+Modeled on [smshorizon.in](https://www.smshorizon.in/)'s `.nav-link.active` pattern.
+
+Current state: pill background, olive text (`#4B5A3F`) on a soft olive tint
+(`rgba(75,90,63,0.12)`), rounded full, not bold. Flagged as low-contrast — options to
+increase it:
+
+1. **Deeper pill (recommended)** — same pill shape, darker/opaquer background so it
+   reads at a glance: `background: rgba(75,90,63,0.18)` or a flat sage tint
+   `#E8ECE4`, text stays `#4B5A3F`.
+2. **Solid fill, inverted text** — active link gets a solid olive pill with cream
+   text (`background: #4B5A3F; color: #FAF9F5;`), matching the "Book a Demo" button
+   treatment. Highest contrast, but visually competes with the CTA button next to it.
+3. **Underline indicator** — no background; a 2px olive bar under the active link
+   (`border-bottom: 2px solid #4B5A3F` or a pseudo-element), text color unchanged.
+   Common nav pattern, legible, no added visual weight.
+4. **Pill + colored dot** — keep the current subtle pill, add a small olive dot
+   before the label. Adds contrast without darkening the background much.
+
 ### Problem (finalized copy)
 
 Headline framed as a question (same device as the hero).
