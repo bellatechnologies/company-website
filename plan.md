@@ -143,6 +143,18 @@ Headline framed as a question (same device as the hero).
   7. **Does Bella Technologies store data?** — "No, we don't. Your data never leaves
      your existing systems — it's only stored there, not with us."
 
+### CTA Banner (finalized copy)
+
+- Background: full-bleed olive `#4B5A3F`, cream text.
+- **H2:** "Every Enquiry You Miss Costs You $1,000+ Over 6 Months." (echoes the
+  Problem section's revenue framing at the closing point of the page)
+- **Subhead:** "Ready to stop losing it? Book a free 15-minute demo and see exactly
+  where enquiries are falling through."
+- **CTA button:** "Book a Demo" (gold bg, charcoal text — highest-contrast pairing on
+  the page, reserved for this final push). Links back to the Book a Demo section
+  (Google Calendar widget).
+- No secondary link — single, unambiguous action.
+
 ### Hero (finalized copy)
 
 Modeled on [anviksika.in](https://anviksika.in/)'s hero pattern: pain-first headline,
