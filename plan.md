@@ -111,7 +111,7 @@ Headline framed as a question (same device as the hero).
 - **H2:** "Three Steps to More Bookings"
 - **3 numbered steps:**
   1. **We Connect Your Channels** — "There's no app to install. Our developers set
-     up WhatsApp, Telegram, and your existing booking system for you. Done for you,
+     up WhatsApp/Telegram and your existing booking system for you. Done for you,
      not DIY."
   2. **The System Handles Every Enquiry** — "Once your WhatsApp/Telegram system is
      live, it responds to every enquiry instantly, 24/7, and guides leads straight to
@@ -140,24 +140,31 @@ Headline framed as a question (same device as the hero).
 
 ### FAQ (finalized copy)
 
+Styled on [smshorizon.in](https://www.smshorizon.in/)'s FAQ pattern: eyebrow pill
+badge, H2, then a flat accordion list with no numbering, a `+` icon on the right of
+each question (rotates/becomes `×` when expanded), and a thin divider line between
+rows instead of card borders.
+
+- **Eyebrow pill badge:** "FAQS"
 - **H2:** "Common Questions"
-- **Stacked accordion (7 items):**
-  1. **Do I need to switch my current booking software or CRM?** — "No. Bella
-     Technologies plugs into what you already use. No migration, no disruption."
-  2. **How long does setup take?** — "A few days, not months. Our developers handle
-     connecting WhatsApp, Telegram, and your booking system. There's nothing for you
-     to install."
-  3. **Does this replace my staff?** — "No. It handles the enquiries and follow-ups
-     you don't have time for, especially outside business hours, so your staff can
-     focus on clients in front of them."
-  4. **Is there a long-term contract?** — "No. You can cancel anytime. We don't lock
-     you in."
-  5. **What if my clients don't use WhatsApp?** — "The system also works over
-     Telegram and your website, so clients can reach you however they prefer."
-  6. **Is my clients' data secure?** — "Yes. It's built by a team with 15+ years of
-     experience building secure, reliable software."
-  7. **Does Bella Technologies store data?** — "No, we don't. Your data never leaves
-     your existing systems. It's only stored there, not with us."
+- **Flat accordion (7 items, no numbering, `+` icon right-aligned, divider lines
+  between rows):**
+  - **Do I need to switch my current booking software or CRM?** — "No. Bella
+    Technologies plugs into what you already use. No migration, no disruption."
+  - **How long does setup take?** — "A few days, not months. Our developers handle
+    connecting WhatsApp, Telegram, and your booking system. There's nothing for you
+    to install."
+  - **Does this replace my staff?** — "No. It handles the enquiries and follow-ups
+    you don't have time for, especially outside business hours, so your staff can
+    focus on clients in front of them."
+  - **Is there a long-term contract?** — "No. You can cancel anytime. We don't lock
+    you in."
+  - **What if my clients don't use WhatsApp?** — "The system also works over
+    Telegram and your website, so clients can reach you however they prefer."
+  - **Is my clients' data secure?** — "Yes. It's built by a team with 15+ years of
+    experience building secure, reliable software."
+  - **Does Bella Technologies store data?** — "No, we don't. Your data never leaves
+    your existing systems. It's only stored there, not with us."
 
 ### CTA Banner (finalized copy)
 
