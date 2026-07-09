@@ -51,6 +51,13 @@
   html { scroll-behavior: smooth; }
   body { font-family: 'Figtree', sans-serif; }
   [x-cloak] { display: none !important; }
+  .nav-link.active {
+    color: #4B5A3F;
+    background: rgba(75, 90, 63, 0.12);
+    padding: 0.35rem 0.75rem;
+    border-radius: 9999px;
+    margin: -0.35rem -0.75rem;
+  }
 </style>
 </head>
 
@@ -63,9 +70,9 @@
       <a href="#" class="font-jakarta text-lg sm:text-xl font-bold" style="letter-spacing: -0.1px;">Bella Technologies</a>
 
       <div class="hidden md:flex items-center gap-8 text-lg font-medium">
-        <a href="#how-it-works" class="hover:text-olive transition-colors">How It Works</a>
-        <a href="#faq" class="hover:text-olive transition-colors">FAQ</a>
-        <a href="/contact" class="hover:text-olive transition-colors">Contact</a>
+        <a href="#how-it-works" class="nav-link hover:text-olive transition-colors">How It Works</a>
+        <a href="#faq" class="nav-link hover:text-olive transition-colors">FAQ</a>
+        <a href="/contact" class="nav-link hover:text-olive transition-colors">Contact</a>
         <a href="#book-a-demo" class="flex items-center gap-2.5 bg-olive text-cream pl-5 pr-1.5 py-1.5 rounded-full font-semibold hover:bg-charcoal transition-colors">
           Book a Demo
           <span class="w-7 h-7 rounded-full bg-cream flex items-center justify-center shrink-0">
@@ -80,9 +87,9 @@
     </div>
 
     <div id="mobile-menu" class="hidden md:hidden flex-col gap-1 px-5 pb-4 pt-1">
-      <a href="#how-it-works" class="block py-2.5 text-lg font-medium hover:text-olive transition-colors">How It Works</a>
-      <a href="#faq" class="block py-2.5 text-lg font-medium hover:text-olive transition-colors">FAQ</a>
-      <a href="/contact" class="block py-2.5 text-lg font-medium hover:text-olive transition-colors">Contact</a>
+      <a href="#how-it-works" class="nav-link block py-2.5 text-lg font-medium hover:text-olive transition-colors">How It Works</a>
+      <a href="#faq" class="nav-link block py-2.5 text-lg font-medium hover:text-olive transition-colors">FAQ</a>
+      <a href="/contact" class="nav-link block py-2.5 text-lg font-medium hover:text-olive transition-colors">Contact</a>
       <a href="#book-a-demo" class="mt-2 w-full flex items-center justify-between gap-2.5 bg-olive text-cream pl-5 pr-1.5 py-1.5 rounded-full font-semibold hover:bg-charcoal transition-colors">
         Book a Demo
         <span class="w-7 h-7 rounded-full bg-cream flex items-center justify-center shrink-0">
@@ -461,6 +468,37 @@
     mobileMenu.classList.toggle('flex');
     menuToggle.setAttribute('aria-expanded', String(!isOpen));
   });
+
+  // Active nav state: URL-based for real pages (e.g. /contact), scroll-spy
+  // for in-page anchor sections (How It Works / FAQ) on the homepage.
+  const navLinks = document.querySelectorAll('.nav-link');
+  const path = window.location.pathname.replace(/\/$/, '') || '/';
+
+  const setActive = (predicate) => {
+    navLinks.forEach((link) => {
+      const href = link.getAttribute('href');
+      link.classList.toggle('active', predicate(href));
+    });
+  };
+
+  if (path !== '/' && path !== '') {
+    setActive((href) => href === path);
+  } else {
+    const sections = ['how-it-works', 'faq']
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    if (sections.length) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries.find((entry) => entry.isIntersecting);
+          if (visible) setActive((href) => href === `#${visible.target.id}`);
+        },
+        { rootMargin: '-40% 0px -55% 0px' }
+      );
+      sections.forEach((section) => observer.observe(section));
+    }
+  }
 </script>
 
 </body>
