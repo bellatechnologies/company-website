@@ -90,6 +90,21 @@ Headline framed as a question (same device as the hero).
      years of experience building reliable, secure software — so your booking system
      just works, every time."
 
+### How It Works (finalized copy)
+
+- **H2:** "Three Steps to More Bookings"
+- **3 numbered steps:**
+  1. **We Connect Your Channels** — "There's no app to install. Our developers set
+     up WhatsApp, Telegram, and your existing booking system for you — done for you,
+     not DIY."
+  2. **The System Handles Every Enquiry** — "Once your WhatsApp/Telegram system is
+     live, it responds to every enquiry instantly, 24/7, and guides leads straight to
+     a booked appointment — no one on your end has to lift a finger."
+  3. **Automatic Re-booking, Powered by Your Calendar** — "Based on your booking
+     software or calendar, the system reaches out automatically when a client's due
+     back — so re-booking happens on its own."
+- **CTA below steps:** "Book a Demo" (olive button)
+
 ### Hero (finalized copy)
 
 Modeled on [anviksika.in](https://anviksika.in/)'s hero pattern: pain-first headline,
