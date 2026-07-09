@@ -26,6 +26,23 @@ comparison/testimonials → FAQ → footer). Patterns to borrow:
 - Note: Figtree (see Typography below) was sourced from this site's actual `h1–h6`
   CSS, confirmed by checking selector context, not just font-face declarations.
 
+## Layout: content width vs. full-bleed sections
+
+- **Content max-width: `1340px`**, centered, with side padding/gutters on smaller
+  viewports. All body copy, cards, and standard sections sit inside this container.
+- **Full-bleed background sections:** the section's background color spans the full
+  browser width, but the actual content inside it is still constrained to the
+  `1340px` container (same as everywhere else) — the background is full width, the
+  content is not.
+  - **Hero:** full-bleed background color, content in `1340px` container.
+  - **CTA Banner:** full-bleed olive background, content in `1340px` container
+    (already specified in the CTA Banner section of `plan.md`).
+  - **Footer:** full-bleed background color, content in `1340px` container.
+- Standard content sections (Problem, Solution/Services, Differentiators, How It
+  Works, Book a Demo, FAQ) use the cream page background, so they don't need an
+  explicit full-bleed treatment, but their content still respects the same `1340px`
+  max-width for consistency.
+
 ## Colors
 
 | Role              | Name    | Hex       |
@@ -77,6 +94,5 @@ build pipeline.
 ## Open Items
 
 - [ ] Confirm final page structure for the marketing site (see options in `plan.md`)
-- [ ] Spacing scale / container widths
 - [ ] Component-level tokens (buttons, cards, shadows) — old site had `card` /
       `card-hover` Tailwind shadow utilities; re-evaluate for the new build
