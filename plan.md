@@ -72,6 +72,24 @@ Headline framed as a question (same device as the hero).
      disruption."
 - **Closing line:** "Here's how it works, step by step."
 
+### Differentiators (finalized copy)
+
+- **H2:** "Why Spa & Wellness Owners Choose Bella Technologies"
+- **Stacked checklist (5 items):**
+  1. **Built for Spas, Not Generic CRMs** — "Made specifically for how spa and
+     wellness businesses actually book and retain clients — not a one-size-fits-all
+     sales tool."
+  2. **Works 24/7 — Even When You're on Holiday** — "Enquiries get answered and
+     bookings get made around the clock, whether you're on the floor with a client
+     or on vacation."
+  3. **Live in Days, Not Months** — "No developers, no IT team, no lengthy rollout.
+     We get you set up fast."
+  4. **No Long-Term Lock-In** — "Cancel anytime. We earn your business every month,
+     not through a contract."
+  5. **Backed by 15+ Years of Technical Expertise** — "Built by a team with over 15
+     years of experience building reliable, secure software — so your booking system
+     just works, every time."
+
 ### Hero (finalized copy)
 
 Modeled on [anviksika.in](https://anviksika.in/)'s hero pattern: pain-first headline,
