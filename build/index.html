@@ -9,7 +9,7 @@
 <!-- Fonts (CDN for this HTML-first pass; self-hosted in the Astro port) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
 
 <!-- Tailwind (CDN for this HTML-first pass; local build via Astro integration later) -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -26,6 +26,7 @@
         },
         fontFamily: {
           sans: ['Figtree', 'sans-serif'],
+          jakarta: ['Plus Jakarta Sans', 'sans-serif'],
         },
         maxWidth: {
           content: '1340px',
@@ -59,7 +60,7 @@
 <header class="fixed top-3 left-0 right-0 z-50 px-3 sm:px-4">
   <nav class="max-w-content mx-auto bg-cream/90 backdrop-blur-sm rounded-2xl shadow-floating border border-charcoal/5">
     <div class="flex items-center justify-between px-5 sm:px-7 py-3">
-      <a href="#" class="text-lg sm:text-xl font-bold uppercase" style="letter-spacing: -0.1px;">Bella Technologies</a>
+      <a href="#" class="font-jakarta text-lg sm:text-xl font-bold" style="letter-spacing: -0.1px;">Bella Technologies</a>
 
       <div class="hidden md:flex items-center gap-8 text-lg font-medium">
         <a href="#how-it-works" class="hover:text-olive transition-colors">How It Works</a>
@@ -418,13 +419,13 @@
 <footer class="bg-cream border-t border-charcoal/10 pt-14 pb-28 sm:pb-14">
   <div class="max-w-content mx-auto px-4 sm:px-6 text-center">
     <div>
-      <p class="text-lg font-bold">Bella Technologies</p>
-      <p class="mt-1 text-charcoal/60 text-sm">Turn Enquiries Into Bookings</p>
+      <p class="font-jakarta text-2xl font-bold">Bella Technologies</p>
+      <p class="mt-1 text-charcoal/60 text-lg">Turn Enquiries Into Bookings</p>
     </div>
 
-    <p class="mt-5 text-charcoal/60 text-sm">Florida · USA</p>
+    <p class="mt-5 text-charcoal/60 text-base">Florida · USA</p>
 
-    <nav class="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-medium">
+    <nav class="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[18px] font-medium">
       <a href="#" class="hover:text-olive transition-colors">Home</a>
       <a href="#how-it-works" class="hover:text-olive transition-colors">How It Works</a>
       <a href="#faq" class="hover:text-olive transition-colors">FAQ</a>
@@ -432,7 +433,10 @@
       <a href="#book-a-demo" class="hover:text-olive transition-colors">Book a Demo</a>
     </nav>
 
-    <p class="mt-8 text-charcoal/50 text-xs">© 2026 Bella Technologies. All rights reserved.</p>
+    <p class="mt-8 text-charcoal/50 text-base">
+      © 2026 Bella Technologies. All rights reserved.<br>
+      வாழ்க தமிழ்! வளர்க தமிழ்! 🙏
+    </p>
   </div>
 </footer>
 
