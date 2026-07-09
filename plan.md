@@ -24,8 +24,8 @@ and pricing were dropped from the original draft — reconsider later if needed.
 1. Nav (sticky, hamburger on mobile, "Book a Demo" CTA)
 2. **Hero** (copy finalized — see below)
 3. Problem
-4. Solution / Services (3 cards: Lead Capture & Response, Booking Conversion,
-   Retention & Re-booking)
+4. Solution / Services (4 cards: Frictionless Booking, Instant Lead Response,
+   Automatic Re-booking, Works With What You Already Use)
 5. Differentiators
 6. How It Works (3 numbered steps)
 7. Book a Demo (dedicated section — embedded scheduler, see Open Decisions)
@@ -54,6 +54,23 @@ Headline framed as a question (same device as the hero).
      Without a simple reminder at the right time, that appointment — and the revenue
      — never gets rebooked."
 - **Closing line:** "Here's how Bella Technologies closes each gap."
+
+### Solution / Services (finalized copy)
+
+- **H2:** "Here's How Bella Technologies Closes Each Gap"
+- **Intro:** "Simple systems, working together, so no enquiry — and no returning
+  client — falls through the cracks."
+- **4 cards:**
+  1. **Frictionless Booking** — "No logins, no long forms. Clients book in a couple
+     of taps right from WhatsApp — so they don't give up halfway through."
+  2. **Instant Lead Response** — "Every enquiry gets an immediate response — day or
+     night — without you needing a human glued to the phone."
+  3. **Automatic Re-booking** — "We track when clients are due back and reach out at
+     the right time — so appointments (and revenue) don't get forgotten."
+  4. **Works With What You Already Use** — "Keep your existing CRM or booking
+     software. Bella Technologies plugs into your current systems — no migration, no
+     disruption."
+- **Closing line:** "Here's how it works, step by step."
 
 ### Hero (finalized copy)
 
