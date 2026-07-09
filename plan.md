@@ -16,6 +16,39 @@ default, which keeps the conversion-focused marketing pages fast.
 - Do not reintroduce the old manufacturing/supply-chain copy — that was for the wrong
   audience and has been fully removed in this rebuild.
 
+## Homepage Structure (in progress, approved so far)
+
+Sections, mobile-first, top to bottom. Stats bar, results/case studies, testimonials,
+and pricing were dropped from the original draft — reconsider later if needed.
+
+1. Nav (sticky, hamburger on mobile, "Book a Demo" CTA)
+2. **Hero** (copy finalized — see below)
+3. Problem
+4. Solution / Services (3 cards: Lead Capture & Response, Booking Conversion,
+   Retention & Re-booking)
+5. Differentiators
+6. How It Works (3 numbered steps)
+7. Book a Demo (dedicated section — embedded scheduler, see Open Decisions)
+8. FAQ (accordion)
+9. CTA banner (closing, links back to Book a Demo)
+10. Footer
+11. Sticky mobile "Book a Demo" bar (persistent bottom bar, mobile only)
+
+### Hero (finalized copy)
+
+Modeled on [anviksika.in](https://anviksika.in/)'s hero pattern: pain-first headline,
+audience callout, first-step CTA — but leading with the positive value prop rather
+than a blunt negative framing.
+
+- **Headline:** "Turn More Enquiries Into Bookings — And Keep Clients Coming Back."
+- **Subhead:** "Built for spa and wellness owners who are missing bookings to slow
+  replies and no re-booking system. Book a free demo and see exactly where enquiries
+  are falling through — and how to fix it." (Note: "Florida" intentionally left out of
+  this copy, even though it remains the ICP for targeting/ads — see ICP note above.)
+- **Primary CTA:** "Book a Demo"
+- **Secondary CTA:** "How it works ↓" (anchor to How It Works section)
+- No supporting stat line (cut — no credible numbers to cite yet)
+
 ## Scope of this Rebuild
 
 1. **Marketing site** — nav, hero, solution/CTA, how-it-works, case studies, CTA
