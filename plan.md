@@ -21,7 +21,7 @@ default, which keeps the conversion-focused marketing pages fast.
 Sections, mobile-first, top to bottom. Stats bar, results/case studies, testimonials,
 and pricing were dropped from the original draft — reconsider later if needed.
 
-1. Nav (sticky, hamburger on mobile, "Book a Demo" CTA)
+1. Nav (floating style, see Nav section below)
 2. **Hero** (copy finalized — see below)
 3. Problem
 4. Solution / Services (4 cards: Frictionless Booking, Instant Lead Response,
@@ -33,6 +33,21 @@ and pricing were dropped from the original draft — reconsider later if needed.
 9. CTA banner (closing, links back to Book a Demo)
 10. Footer
 11. Sticky mobile "Book a Demo" bar (persistent bottom bar, mobile only)
+
+### Nav (finalized style)
+
+Modeled on [smshorizon.in](https://www.smshorizon.in/)'s floating nav pattern.
+
+- Not edge-to-edge — inset with margin on left/right and a small gap from the top of
+  the viewport.
+- Rounded corners (pill or rounded-rectangle), subtle shadow (`card` shadow token) to
+  lift it visually off the page.
+- Background: cream or white, slightly opaque/blurred if scrolled over content.
+- Sticky/fixed — stays floating in place as the user scrolls.
+- Mobile: same floating treatment, full inset width minus margin, hamburger icon
+  right, logo left.
+- Content: logo (left) — hamburger menu (mobile) / nav links (desktop) — "Book a
+  Demo" CTA button (right, olive, rounded to match the floating bar's shape).
 
 ### Problem (finalized copy)
 
