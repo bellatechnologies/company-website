@@ -222,11 +222,18 @@ than a blunt negative framing.
    (`scripts/bellatechnologies.service`) were removed with the rest of the legacy
    files; CI/CD will be rebuilt for the Astro build output.
 
+## Build Approach
+
+Build the homepage as plain HTML/Tailwind first (matching the finalized copy and
+design in this doc), get it right visually and functionally, then port it into Astro
+components. Astro migration happens after the HTML is approved, not before.
+
 ## Stack (proposed)
 
-- Astro (SSG output)
-- Tailwind CSS (via Astro's official Tailwind integration, not CDN)
-- Content collections for blog posts (Markdown/MDX)
+- Plain HTML + Tailwind CSS first pass (homepage build/approval stage)
+- Astro (SSG output) — ported to once the HTML is approved
+- Tailwind CSS (via Astro's official Tailwind integration, not CDN, after the port)
+- Content collections for blog posts (Markdown/MDX) — added during the Astro port
 - Self-hosted fonts (Figtree — see `DESIGN.md`)
 
 ## Open Decisions
@@ -239,9 +246,12 @@ than a blunt negative framing.
 
 ## Next Steps
 
-1. Scaffold Astro project (`npm create astro@latest`).
-2. Wire up Tailwind + design tokens from `DESIGN.md`.
-3. Rebuild marketing page sections in Astro components.
+1. Build the homepage as plain HTML + Tailwind, using the finalized copy/design in
+   this doc (Nav → Hero → Problem → Solution/Services → Differentiators →
+   How It Works → Book a Demo → FAQ → CTA Banner → Footer).
+2. Review and approve the HTML build.
+3. Scaffold Astro project (`npm create astro@latest`) and port the approved HTML into
+   Astro components + Tailwind integration.
 4. Stand up blog content collection + listing/detail pages.
 5. Re-decide and implement contact form backend.
 6. Rebuild deploy workflow.
