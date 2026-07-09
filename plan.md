@@ -171,8 +171,9 @@ rows instead of card borders.
 - Background: full-bleed olive `#4B5A3F`, cream text.
 - **H2:** "Every Enquiry You Miss Costs You $1,000+ Over 6 Months." (echoes the
   Problem section's revenue framing at the closing point of the page)
-- **Subhead:** "Ready to stop losing it? Book a free 15-minute demo and see exactly
-  where enquiries are falling through."
+- **Subhead:** "Ready to stop losing it? Book a free 15-minute demo and see how easy
+  it is for clients to book through WhatsApp or Telegram. No friction, just a couple
+  of taps."
 - **CTA button:** "Book a Demo" (gold bg, charcoal text — highest-contrast pairing on
   the page, reserved for this final push). Links back to the Book a Demo section
   (Google Calendar widget).
