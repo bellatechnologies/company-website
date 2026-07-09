@@ -122,6 +122,27 @@ Headline framed as a question (same device as the hero).
 - Background: cream, olive-outline container around the iframe to visually separate
   it from surrounding content.
 
+### FAQ (finalized copy)
+
+- **H2:** "Common Questions"
+- **Stacked accordion (7 items):**
+  1. **Do I need to switch my current booking software or CRM?** — "No. Bella
+     Technologies plugs into what you already use — no migration, no disruption."
+  2. **How long does setup take?** — "A few days, not months. Our developers handle
+     connecting WhatsApp, Telegram, and your booking system — there's nothing for you
+     to install."
+  3. **Does this replace my staff?** — "No — it handles the enquiries and follow-ups
+     you don't have time for, especially outside business hours, so your staff can
+     focus on clients in front of them."
+  4. **Is there a long-term contract?** — "No. You can cancel anytime — we don't lock
+     you in."
+  5. **What if my clients don't use WhatsApp?** — "The system also works over
+     Telegram and your website, so clients can reach you however they prefer."
+  6. **Is my clients' data secure?** — "Yes. It's built by a team with 15+ years of
+     experience building secure, reliable software."
+  7. **Does Bella Technologies store data?** — "No, we don't. Your data never leaves
+     your existing systems — it's only stored there, not with us."
+
 ### Hero (finalized copy)
 
 Modeled on [anviksika.in](https://anviksika.in/)'s hero pattern: pain-first headline,
