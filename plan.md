@@ -34,6 +34,27 @@ and pricing were dropped from the original draft — reconsider later if needed.
 10. Footer
 11. Sticky mobile "Book a Demo" bar (persistent bottom bar, mobile only)
 
+### Problem (finalized copy)
+
+Headline framed as a question (same device as the hero).
+
+- **H2:** "Is Every Missed Booking Costing You More Than You Think?"
+- **Intro:** "A single lost lead can cost your spa $1,000+ in revenue over the next
+  six months. Multiply that across every enquiry that slips through, and it adds up
+  fast."
+- **3 pain points:**
+  1. **Booking Friction** — "Most booking systems make clients log in, create an
+     account, or fill out long forms before they can book — and many just give up."
+  2. **The 5-Minute Window** — "Leads contacted within 5 minutes are 21x more likely
+     to convert than those contacted after 30 minutes — but most spas can't staff a
+     human to respond that fast, every time." Cite: Harvard Business Review / MIT
+     study, Dr. James Oldroyd, analysis of 15,000+ sales leads ("The Short Life of
+     Online Sales Leads," HBR). Link this citation on the live page.
+  3. **No Re-booking System** — "A haircut client needs a trim every three weeks.
+     Without a simple reminder at the right time, that appointment — and the revenue
+     — never gets rebooked."
+- **Closing line:** "Here's how Bella Technologies closes each gap."
+
 ### Hero (finalized copy)
 
 Modeled on [anviksika.in](https://anviksika.in/)'s hero pattern: pain-first headline,
