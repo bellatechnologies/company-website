@@ -65,7 +65,10 @@
 
 <!-- ============ NAV ============ -->
 <header class="fixed top-3 left-0 right-0 z-50 px-3 sm:px-4">
-  <nav class="max-w-content mx-auto bg-cream/90 backdrop-blur-sm rounded-2xl shadow-floating border border-charcoal/5">
+  <nav class="max-w-content mx-auto bg-cream/90 backdrop-blur-sm rounded-2xl shadow-floating border border-charcoal/5 overflow-hidden">
+    <div class="bg-gold text-[#412402] text-center text-xs sm:text-sm font-semibold py-1.5 px-4">
+      Limited time: your $197 Booking Audit is FREE
+    </div>
     <div class="flex items-center justify-between px-5 sm:px-7 py-3">
       <a href="#" class="font-jakarta text-lg sm:text-xl font-bold" style="letter-spacing: -0.1px;">Bella Technologies</a>
 
@@ -73,12 +76,18 @@
         <a href="#how-it-works" class="nav-link hover:text-olive transition-colors">How It Works</a>
         <a href="#faq" class="nav-link hover:text-olive transition-colors">FAQ</a>
         <a href="/contact" class="nav-link hover:text-olive transition-colors">Contact</a>
-        <a href="#book-a-demo" class="flex items-center gap-2.5 bg-olive text-cream pl-5 pr-1.5 py-1.5 rounded-full font-semibold hover:bg-charcoal transition-colors">
-          Book a Demo
-          <span class="w-7 h-7 rounded-full bg-cream flex items-center justify-center shrink-0">
-            <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-olive"></i>
+        <div class="group relative">
+          <a href="#book-a-demo" class="flex items-center gap-2.5 bg-olive text-cream pl-5 pr-1.5 py-1.5 rounded-full font-semibold hover:bg-charcoal transition-colors">
+            Get My <span class="line-through opacity-60">$197</span> FREE Booking Audit
+            <span class="w-7 h-7 rounded-full bg-cream flex items-center justify-center shrink-0">
+              <i data-lucide="move-up-right" class="w-3.5 h-3.5 text-olive"></i>
+            </span>
+          </a>
+          <span class="absolute -top-1 -right-1 z-10 flex h-3.5 w-3.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-gold border-2 border-cream"></span>
           </span>
-        </a>
+        </div>
       </div>
 
       <button id="menu-toggle" class="md:hidden p-2 -mr-2" aria-label="Toggle menu" aria-expanded="false">
@@ -90,12 +99,18 @@
       <a href="#how-it-works" class="nav-link block py-2.5 text-lg font-medium hover:text-olive transition-colors">How It Works</a>
       <a href="#faq" class="nav-link block py-2.5 text-lg font-medium hover:text-olive transition-colors">FAQ</a>
       <a href="/contact" class="nav-link block py-2.5 text-lg font-medium hover:text-olive transition-colors">Contact</a>
-      <a href="#book-a-demo" class="mt-2 w-full flex items-center justify-between gap-2.5 bg-olive text-cream pl-5 pr-1.5 py-1.5 rounded-full font-semibold hover:bg-charcoal transition-colors">
-        Book a Demo
-        <span class="w-7 h-7 rounded-full bg-cream flex items-center justify-center shrink-0">
-          <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-olive"></i>
+      <div class="group relative mt-2">
+        <a href="#book-a-demo" class="w-full flex items-center justify-between gap-2.5 bg-olive text-cream pl-5 pr-1.5 py-1.5 rounded-full font-semibold hover:bg-charcoal transition-colors">
+          Get My <span class="line-through opacity-60">$197</span> FREE Booking Audit
+          <span class="w-7 h-7 rounded-full bg-cream flex items-center justify-center shrink-0">
+            <i data-lucide="move-up-right" class="w-3.5 h-3.5 text-olive"></i>
+          </span>
+        </a>
+        <span class="absolute -top-1 -right-1 z-10 flex h-3.5 w-3.5">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-gold border-2 border-cream"></span>
         </span>
-      </a>
+      </div>
     </div>
   </nav>
 </header>
@@ -103,7 +118,7 @@
 <main>
 
 <!-- ============ HERO ============ -->
-<section class="bg-sage/10 pt-32 pb-16 sm:pt-40 sm:pb-24">
+<section class="bg-sage/10 pt-36 pb-16 sm:pt-44 sm:pb-24">
   <div class="max-w-content mx-auto px-4 sm:px-6 text-center">
     <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight !leading-tight max-w-3xl mx-auto">
       Turn More Enquiries Into Bookings and Keep Clients Coming Back.
