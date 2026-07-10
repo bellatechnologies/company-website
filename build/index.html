@@ -489,6 +489,15 @@
     menuToggle.setAttribute('aria-expanded', String(!isOpen));
   });
 
+  document.addEventListener('click', (e) => {
+    const isOpen = !mobileMenu.classList.contains('hidden');
+    if (!isOpen) return;
+    if (mobileMenu.contains(e.target) || menuToggle.contains(e.target)) return;
+    mobileMenu.classList.add('hidden');
+    mobileMenu.classList.remove('flex');
+    menuToggle.setAttribute('aria-expanded', 'false');
+  });
+
   // Active nav state: URL-based for real pages (e.g. /contact), scroll-spy
   // for in-page anchor sections (How It Works / FAQ) on the homepage.
   const navLinks = document.querySelectorAll('.nav-link');
