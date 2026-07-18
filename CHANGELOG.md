@@ -19,6 +19,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Security
 
+## [0.3.1] - 2026-07-18
+
+### Fixed
+- Pin `packageManager` to `pnpm@9.15.9` in `package.json` so `pnpm/action-setup@v4` in the deploy workflow can resolve a pnpm version (deploy was failing with "No pnpm version is specified")
+
 ## [0.3.0] - 2026-07-18
 
 ### Added
