@@ -1,0 +1,9 @@
+bellatechnologies.in {
+	root * /opt/bellatechnologies-in/dist
+	encode zstd gzip
+	file_server
+}
+
+www.bellatechnologies.in {
+	redir https://bellatechnologies.in{uri} permanent
+}
