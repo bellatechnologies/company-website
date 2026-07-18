@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --color-olive: #4B5A3F;
+  --color-olive-deep: #2D3626;
+  --color-sage: #7C9470;
+  --color-cream: #FAF9F5;
+  --color-charcoal: #2B2B26;
+  --color-gold: #C9A24B;
+
+  --font-sans: "Figtree", sans-serif;
+  --font-jakarta: "Plus Jakarta Sans", sans-serif;
+
+  --max-width-content: 1340px;
+
+  --shadow-card: 0 2px 12px rgba(43,43,38,0.08);
+  --shadow-card-hover: 0 8px 24px rgba(43,43,38,0.12);
+  --shadow-floating: 0 4px 20px rgba(43,43,38,0.10);
+
+  --line-height-tight: 1.15;
+
+  --breakpoint-nav: 960px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Figtree', sans-serif;
+}
+
+.nav-link.active {
+  color: #4B5A3F;
+  background: rgba(75, 90, 63, 0.12);
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  margin: -0.35rem -0.75rem;
+}
+
+.quiz-option {
+  text-align: left;
+  border: 1.5px solid rgba(43,43,38,0.12);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #2B2B26;
+  background: #FAF9F5;
+  transition: border-color 0.15s, background-color 0.15s, color 0.15s;
+}
+.quiz-option:hover { border-color: #4B5A3F; background: rgba(75,90,63,0.05); }
+.quiz-option.selected { background: #4B5A3F; border-color: #4B5A3F; color: #FAF9F5; }
+
+.modal-input {
+  border: 1px solid rgba(43,43,38,0.15);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.9375rem;
+  color: #2B2B26;
+  background: #FFFFFF;
+}
+.modal-input::placeholder { color: rgba(43,43,38,0.4); }
+.modal-input:focus { outline: none; border-color: #4B5A3F; }
+
+#audit-modal.open { display: flex; align-items: center; justify-content: center; }
+
+.faq-item > .faq-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease-in-out;
+  transition-delay: 0s;
+}
+.faq-item[open] > .faq-panel {
+  grid-template-rows: 1fr;
+  transition-delay: 0.3s;
+}
+.faq-panel > p { overflow: hidden; min-height: 0; }
