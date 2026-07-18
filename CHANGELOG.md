@@ -8,6 +8,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.3.0] - 2026-07-18
+
+### Added
 - Astro + Tailwind scaffold, ported from the static `build/index.html` homepage
 - Clickable footer contact details with an official WhatsApp glyph
 - Nav "Contact" link scrolls to the footer contact section
