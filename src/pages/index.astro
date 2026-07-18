@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Problem from '../components/Problem.astro';
+import AuditPricing from '../components/AuditPricing.astro';
+import SampleAuditPreview from '../components/SampleAuditPreview.astro';
+import Solution from '../components/Solution.astro';
+import Guarantee from '../components/Guarantee.astro';
+import Differentiators from '../components/Differentiators.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import FAQ from '../components/FAQ.astro';
+import CTABanner from '../components/CTABanner.astro';
+import AuditModal from '../components/AuditModal.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+  <Nav />
+
+  <main>
+    <Hero />
+    <Problem />
+    <AuditPricing />
+    <SampleAuditPreview />
+    <Solution />
+    <Guarantee />
+    <Differentiators />
+    <HowItWorks />
+    <FAQ />
+    <CTABanner />
+  </main>
+
+  <AuditModal />
+  <Footer />
+</Layout>

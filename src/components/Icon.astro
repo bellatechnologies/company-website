@@ -1,0 +1,40 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+
+interface Props {
+  name: string;
+  class?: string;
+}
+
+const { name, class: className = '' } = Astro.props;
+
+const iconPath = path.join(
+  process.cwd(),
+  'node_modules/lucide-static/icons',
+  `${name}.svg`
+);
+
+if (!fs.existsSync(iconPath)) {
+  throw new Error(`Icon "${name}" not found in lucide-static/icons`);
+}
+
+const raw = fs.readFileSync(iconPath, 'utf-8');
+const inner = raw
+  .replace(/<!--[\s\S]*?-->/, '')
+  .replace(/<svg[^>]*>/, '')
+  .replace(/<\/svg>\s*$/, '')
+  .trim();
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class={className}
+  set:html={inner}
+/>

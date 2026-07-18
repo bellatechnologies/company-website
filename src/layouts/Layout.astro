@@ -1,0 +1,44 @@
+---
+import '@fontsource/figtree/400.css';
+import '@fontsource/figtree/500.css';
+import '@fontsource/figtree/600.css';
+import '@fontsource/figtree/700.css';
+import '@fontsource/plus-jakarta-sans/600.css';
+import '@fontsource/plus-jakarta-sans/700.css';
+import '@fontsource/plus-jakarta-sans/800.css';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Bella Technologies — Turn Enquiries Into Bookings',
+  description = "Bella Technologies helps spa and wellness owners convert more enquiries into bookings and keep clients coming back, through WhatsApp/Telegram booking and automatic re-booking.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{title}</title>
+<meta name="description" content={description} />
+{import.meta.env.PROD && (
+  <>
+    <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-5ZN587DK"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    </script>
+  </>
+)}
+</head>
+
+<body class="bg-cream text-charcoal antialiased">
+<slot />
+</body>
+</html>

@@ -1,0 +1,68 @@
+---
+import Icon from './Icon.astro';
+
+const faqs = [
+  {
+    q: 'What exactly is in the $197 audit?',
+    a: "We mystery-shop your own booking funnel the way a real client would: fill out your contact form, call the number on your site, check your reply speed, and test your mobile flow. In 48 hours you get a plain-English report on your top 3-5 leaks.",
+  },
+  {
+    q: 'Does the audit fee count toward anything if I sign up for the full system?',
+    a: "No, they're separate charges. The audit is priced to stand alone — you're paying for an honest diagnostic, not a down payment on a pitch.",
+  },
+  {
+    q: "What if the audit doesn't find anything wrong?",
+    a: "We'll tell you straight. Not every funnel has a fixable leak, and we're not going to invent one to justify the fee.",
+  },
+  {
+    q: 'How long does setup take?',
+    a: "A few days, not months. Our developers handle connecting WhatsApp, Telegram, and your booking system. There's nothing for you to install.",
+  },
+  {
+    q: 'Do I need to switch my current booking software or CRM?',
+    a: 'No. Bella Technologies plugs into what you already use. No migration, no disruption.',
+  },
+  {
+    q: 'Does this replace my staff?',
+    a: "No. It handles the enquiries and follow-ups you don't have time for, especially outside business hours, so your staff can focus on clients in front of them.",
+  },
+  {
+    q: "What if my clients don't use WhatsApp?",
+    a: 'The system also works over Telegram and your website, so clients can reach you however they prefer.',
+  },
+  {
+    q: "Is my clients' data secure?",
+    a: "Yes. It's built by a team with 15+ years of experience building secure, reliable software.",
+  },
+  {
+    q: 'Does Bella Technologies store data?',
+    a: "No, we don't. Your data never leaves your existing systems. It's only stored there, not with us.",
+  },
+  {
+    q: 'Is there a long-term contract?',
+    a: "No. You can cancel anytime. We don't lock you in.",
+  },
+];
+---
+<section id="faq" class="py-16 sm:py-24 scroll-mt-24">
+  <div class="max-w-content mx-auto px-4 sm:px-6">
+    <div class="max-w-2xl mx-auto text-center">
+      <span class="inline-block bg-olive/10 text-olive text-xs font-semibold tracking-wide uppercase px-4 py-1.5 rounded-full">FAQs</span>
+      <h2 class="mt-4 text-2xl sm:text-4xl font-bold tracking-tight leading-tight">Common Questions</h2>
+    </div>
+
+    <div class="mt-10 max-w-2xl mx-auto divide-y divide-charcoal/10">
+      {faqs.map((item) => (
+        <details class="group faq-item py-5">
+          <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-base sm:text-lg">
+            {item.q}
+            <Icon name="plus" class="w-5 h-5 shrink-0 ml-4 transition-transform duration-300 group-open:rotate-45" />
+          </summary>
+          <div class="faq-panel">
+            <p class="mt-3 text-charcoal/70 leading-relaxed text-sm sm:text-base">{item.a}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
